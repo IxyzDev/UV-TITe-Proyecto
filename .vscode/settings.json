@@ -1,0 +1,7 @@
+{
+    "thunder-client.saveToWorkspace": true,
+    "files.exclude": {
+        "backend/build": true,
+        "backend/node_modules": true
+    }
+}

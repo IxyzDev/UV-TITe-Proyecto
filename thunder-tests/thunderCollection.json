@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "01c51165-8c6d-4259-a2e6-fd9e209b29f8",
+    "colName": "Comprador",
+    "created": "2022-11-08T19:15:17.820Z",
+    "sortNum": 10000,
+    "folders": []
+  },
+  {
+    "_id": "7d6a50df-ee64-49fa-99fc-c886f06ad5d0",
+    "colName": "Tipoproducto",
+    "created": "2022-11-12T05:25:12.138Z",
+    "sortNum": 20000,
+    "folders": []
+  },
+  {
+    "_id": "14b5be49-ff6c-4d82-b17c-7e29907db52a",
+    "colName": "Vendedor",
+    "created": "2022-11-12T05:26:42.112Z",
+    "sortNum": 30000,
+    "folders": []
+  },
+  {
+    "_id": "de25e79d-2519-4dc2-a72f-ce813ec854d4",
+    "colName": "Productos",
+    "created": "2022-11-12T08:23:11.279Z",
+    "sortNum": 50000,
+    "folders": []
+  },
+  {
+    "_id": "af228078-7589-4c92-95fe-b8b0c00a4782",
+    "colName": "Consultas",
+    "created": "2023-06-21T19:27:00.527Z",
+    "sortNum": 60000,
+    "folders": []
+  }
+]
