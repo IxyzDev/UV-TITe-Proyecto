@@ -1,7 +1,6 @@
 import React from 'react';
 import EntryForm from '../components/EntryForm';
 import DataView from '../components/DataView';
-import MapBox from '../components/MapBox';
 import Link from 'next/link';
 
 const mockData = [ // Datos ficticios para visualizar en la tabla.
@@ -28,7 +27,7 @@ const Home: React.FC = () => {
                         </Link>
                     </div>
                     <div> {/* Espacio para el botón derecho */}
-                        <Link href="/EntryForm">
+                        <Link href="/DataView">
                             <button className="bg-orange-500 hover:bg-orange-700 text-white text-2xl font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline ml-9">
                                 Ver Listado de Registros
                             </button>
