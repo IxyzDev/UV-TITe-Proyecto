@@ -1,0 +1,75 @@
+{
+    "_id": "de25e79d-2519-4dc2-a72f-ce813ec854d4",
+    "colName": "Productos",
+    "created": "2022-11-12T08:23:11.279Z",
+    "sortNum": 50000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "f7c82161-b301-4c24-9183-6e85bf3014ee",
+            "colId": "de25e79d-2519-4dc2-a72f-ce813ec854d4",
+            "containerId": "",
+            "name": "producto/mostrar",
+            "url": "localhost:3000/producto/mostrar",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2022-11-12T08:23:11.379Z",
+            "modified": "2022-11-12T08:29:33.688Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "396439da-8931-4827-8b7c-ca65948e3a7a",
+            "colId": "de25e79d-2519-4dc2-a72f-ce813ec854d4",
+            "containerId": "",
+            "name": "producto/crear",
+            "url": "localhost:3000/producto/crear",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2022-11-12T08:27:21.095Z",
+            "modified": "2023-06-21T19:49:01.950Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"numeroVendedor\": 2,\n    \"idComprador\": 2,\n    \"idTipoProducto\": 3,\n    \"precioCompra\": 2000\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2d075af5-449e-43c5-8796-8f3dc4e353ff",
+            "colId": "de25e79d-2519-4dc2-a72f-ce813ec854d4",
+            "containerId": "",
+            "name": "producto/actualizar/1/1/1",
+            "url": "localhost:3000/producto/actualizar/1/1/1",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-06-19T17:12:50.902Z",
+            "modified": "2023-06-20T00:45:40.625Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"precioCompra\": 300\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "dd5a1566-eb44-456e-82bf-d83c24cf162e",
+            "colId": "de25e79d-2519-4dc2-a72f-ce813ec854d4",
+            "containerId": "",
+            "name": "producto/eliminar/:nV/:idC/:id",
+            "url": "localhost:3000/producto/eliminar/2/2/2",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-06-19T17:13:11.734Z",
+            "modified": "2023-06-21T19:48:30.440Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

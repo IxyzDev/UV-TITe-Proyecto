@@ -1,0 +1,23 @@
+{
+    "_id": "af228078-7589-4c92-95fe-b8b0c00a4782",
+    "colName": "Consultas",
+    "created": "2023-06-21T19:27:00.527Z",
+    "sortNum": 60000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "64def5d9-cdb7-4a8e-acae-6b560b3b153a",
+            "colId": "af228078-7589-4c92-95fe-b8b0c00a4782",
+            "containerId": "",
+            "name": "Consullta 1",
+            "url": "localhost:3000/producto/consulta/1/1",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-06-21T19:27:24.092Z",
+            "modified": "2023-06-21T19:46:47.613Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

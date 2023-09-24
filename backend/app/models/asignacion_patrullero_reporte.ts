@@ -1,0 +1,32 @@
+import { Model } from 'sequelize'
+
+import { AsignacionPatrulleroMovilInterface } from '../interfaces/types'
+
+module.exports = (sequelize: any, DataTypes: any) => {
+  class AsignacionPatrulleroMovil extends Model <AsignacionPatrulleroMovilInterface>
+    implements AsignacionPatrulleroMovilInterface {
+        asignacion_movil_ID!: string;
+        patrullero_ID!: string;
+        matricula_ID!: string;
+
+  }
+  AsignacionPatrulleroMovil.init({
+    asignacion_movil_ID: {
+      primaryKey: true,
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    patrullero_ID: {
+        allowNull: false,
+        type: DataTypes.STRING,},
+    matricula_ID: {
+        allowNull: false,
+        type: DataTypes.STRING,}
+  }, {
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    modelName: 'AsignacionPatrulleroMovil'
+  })
+  return AsignacionPatrulleroMovil
+}

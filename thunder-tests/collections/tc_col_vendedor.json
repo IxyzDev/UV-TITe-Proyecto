@@ -1,0 +1,75 @@
+{
+    "_id": "14b5be49-ff6c-4d82-b17c-7e29907db52a",
+    "colName": "Vendedor",
+    "created": "2022-11-12T05:26:42.112Z",
+    "sortNum": 30000,
+    "folders": [],
+    "requests": [
+        {
+            "_id": "1e0a3681-66af-4214-b483-8d0ed00a0e9b",
+            "colId": "14b5be49-ff6c-4d82-b17c-7e29907db52a",
+            "containerId": "",
+            "name": "vendedor/mostrar",
+            "url": "localhost:3000/vendedor/mostrar",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2022-11-12T05:26:42.202Z",
+            "modified": "2023-06-19T15:23:40.959Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b919231c-4e1d-4598-a9f9-1f20ae4836c8",
+            "colId": "14b5be49-ff6c-4d82-b17c-7e29907db52a",
+            "containerId": "",
+            "name": "vendedor/crear",
+            "url": "localhost:3000/vendedor/crear",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2022-11-12T08:22:26.181Z",
+            "modified": "2023-06-19T15:24:29.200Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"nombreVendedor\": \"Zarate cuanto es 7*8\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "449e4a88-fd1a-477e-b08a-ae45d8caa092",
+            "colId": "14b5be49-ff6c-4d82-b17c-7e29907db52a",
+            "containerId": "",
+            "name": "vendedor/actualizar/1",
+            "url": "localhost:3000/vendedor/actualizar/1",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-06-19T17:11:57.589Z",
+            "modified": "2023-06-20T00:19:59.596Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"nombreVendedor\": \"ACTUALIZADO\"\n  }",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "45f69f9d-6fe4-4f0a-b0e9-a80cb5f53b6c",
+            "colId": "14b5be49-ff6c-4d82-b17c-7e29907db52a",
+            "containerId": "",
+            "name": "vendedor/eliminar/1",
+            "url": "localhost:3000/vendedor/eliminar/1",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-06-19T17:12:20.822Z",
+            "modified": "2023-06-19T23:52:25.401Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
