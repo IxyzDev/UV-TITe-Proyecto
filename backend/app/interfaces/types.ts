@@ -15,6 +15,9 @@ export interface PatrullerosInterface {
   funcionario_ID: string;
 }
 
+export type OperadoresOnetoOnePatrullerosInterface = Omit<OperadoresInterface, 'funcionario_ID'>
+
+
 export interface AsignacionPatrulleroMovilInterface {
   asignacion_movil_ID: string;
   patrullero_ID: string;

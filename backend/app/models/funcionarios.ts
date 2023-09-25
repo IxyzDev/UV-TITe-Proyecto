@@ -10,6 +10,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
     apellido_funcionario!: string;
     tipo_funcionario!: string;
 
+    static associate(models: any) {
+      Funcionarios.hasOne(models.Operadores, {
+        foreignKey: 'funcionario_ID',
+        foreignKeyConstraint: true
+      })
+    }
+  
   }
   Funcionarios.init({
     funcionario_ID: {
@@ -19,13 +26,16 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     nombre_funcionario: {
         allowNull: false,
-        type: DataTypes.STRING,},
+        type: DataTypes.STRING
+    },
     apellido_funcionario: {
         allowNull: false,
-        type: DataTypes.STRING,},
+        type: DataTypes.STRING  
+    },
     tipo_funcionario: {
         allowNull: false,
-        type: DataTypes.STRING,}
+        type: DataTypes.STRING
+    }
   }, {
     sequelize,
     timestamps: false,

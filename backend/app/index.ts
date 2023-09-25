@@ -3,10 +3,6 @@ import cors from 'cors';
 import db from './models';
 
 // Importación de las rutas
-import tipoproductoRouter from './routes/tipoproducto.routes';
-import compradorRouter from './routes/comprador.routes';
-import productoRouter from './routes/producto.routes';
-import vendedorRouter from './routes/vendedor.routes';
 
 const app = express();
 const PORT = 3000;
@@ -25,11 +21,5 @@ db.sequelize.sync({ force: true }).then(() => {
 app.get('/', (_req, res) => {
   res.json({ message: 'FELICIDADES LOGRASTE SER FELIZ' });
 });
-
-// Rutas
-app.use('/producto', productoRouter);
-app.use('/vendedor', vendedorRouter);
-app.use('/comprador', compradorRouter);
-app.use('/tipoproducto', tipoproductoRouter);
 
 export default app;

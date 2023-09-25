@@ -8,6 +8,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
         operador_ID!: string;
         funcionario_ID!: string;
 
+    static associate(models: any) {
+      Operadores.belongsTo(models.Funcionarios, {
+        foreignKey: 'funcionario_ID',
+        foreignKeyConstraint: true
+      })
+    }
+
   }
   Operadores.init({
     operador_ID: {
@@ -17,7 +24,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     funcionario_ID: {
         allowNull: false,
-        type: DataTypes.STRING}
+        type: DataTypes.STRING,
+      }
   }, {
     sequelize,
     timestamps: false,

@@ -11,8 +11,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
         coordenadas!: string;
         n_domicilio!: string;
         lugar!: string;
-
   }
+  
   Ubicacion.init({
     ubicacion_ID: {
       primaryKey: true,
