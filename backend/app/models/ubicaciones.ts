@@ -6,11 +6,22 @@ module.exports = (sequelize: any, DataTypes: any) => {
   class Ubicacion extends Model <UbicacionInterface>
     implements UbicacionInterface {
         ubicacion_ID!: string;
-        sector_ID!: string;
+        subsector_ID!: string;
         direccion!: string;
         coordenadas!: string;
         n_domicilio!: string;
         lugar!: string;
+
+    static associate(models: any) {
+      Ubicacion.hasMany(models.Reportes, {
+        foreignKey: 'ubicacion_ID',
+        foreignKeyConstraint: true
+      })
+      Ubicacion.belongsTo(models.SubSector, {
+        foreignKey: 'subsector_ID', 
+        foreignKeyConstraint: true
+      })
+    }
   }
   
   Ubicacion.init({
@@ -19,9 +30,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
-    sector_ID: {
+    subsector_ID: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
     },
     direccion: {
         allowNull: false,

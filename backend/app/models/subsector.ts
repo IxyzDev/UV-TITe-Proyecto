@@ -9,6 +9,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
         nombre_subsector!: string;
         sector_ID!: string;
 
+    static associate(models: any) {
+      SubSector.hasMany(models.Sector, {
+        foreignKey: 'sector_ID',
+        foreignKeyConstraint: true
+      })
+    }
+
   }
   SubSector.init({
     subsector_ID: {

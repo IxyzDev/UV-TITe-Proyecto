@@ -9,6 +9,13 @@ module.exports = (sequelize: any, DataTypes: any) => {
         nombre_sector!: string;
         unidad_vecinal!: string;
 
+    static associate(models: any) {
+      Sector.belongsTo(models.SubSector, {
+        foreignKey: 'sector_ID',
+        foreignKeyConstraint: true 
+    })
+    }
+
   }
   Sector.init({
     sector_ID: {

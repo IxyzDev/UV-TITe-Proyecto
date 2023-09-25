@@ -25,6 +25,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     funcionario_ID: {
         allowNull: false,
         type: DataTypes.STRING,
+        unique: true,
       }
   }, {
     sequelize,

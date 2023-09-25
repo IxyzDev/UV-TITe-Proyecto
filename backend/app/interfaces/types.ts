@@ -56,7 +56,7 @@ export interface ComunicacionInterface {
 
 export interface UbicacionInterface {
   ubicacion_ID: string;
-  sector_ID: string;
+  subsector_ID: string;
   direccion: string;
   coordenadas: string;
   n_domicilio: string;

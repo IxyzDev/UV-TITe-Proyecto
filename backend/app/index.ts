@@ -10,7 +10,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json()); // middleware que transforma el req.body a JSON
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`Se escucha en el puerto ${PORT}`);
   });

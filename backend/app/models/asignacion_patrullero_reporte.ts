@@ -9,6 +9,18 @@ module.exports = (sequelize: any, DataTypes: any) => {
         patrullero_ID!: string;
         matricula_ID!: string;
 
+    static associate(models: any) {
+      AsignacionPatrulleroMovil.belongsTo(models.Patrulleros, {
+        foreignKey: 'patrullero_ID',
+        foreignKeyConstraint: true
+      }),
+      AsignacionPatrulleroMovil.belongsTo(models.Movil, {
+        foreignKey: 'matricula_ID',
+        foreignKeyConstraint: true
+      })
+      
+    }
+
   }
   AsignacionPatrulleroMovil.init({
     asignacion_movil_ID: {

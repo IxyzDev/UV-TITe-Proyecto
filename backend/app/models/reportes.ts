@@ -16,6 +16,25 @@ module.exports = (sequelize: any, DataTypes: any) => {
         motivo!: string;
         grupo_delictual!: string;
         derivado!: string;
+
+    static associate(models: any) {
+      Reportes.hasOne(models.AsignacionPatrulleroReporte, {
+        foreignKey: 'reporte_ID',
+        foreignKeyConstraint: true
+      }),
+      Reportes.belongsTo(models.Operadores, {
+        foreignKey: 'operador_ID',
+        foreignKeyConstraint: true 
+    }),
+      Reportes.belongsTo(models.Ubicacion, {
+        foreignKey: 'ubicacion_ID',
+        foreignKeyConstraint: true 
+    }),
+    Reportes.belongsTo(models.Comunicacion, {
+        foreignKey: 'comunicacion_ID',
+        foreignKeyConstraint: true 
+    })
+    }
   }
   Reportes.init({
     reporte_ID: {
@@ -25,7 +44,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     ubicacion_ID: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
     },
     comunicacion_ID: {
         allowNull: false,

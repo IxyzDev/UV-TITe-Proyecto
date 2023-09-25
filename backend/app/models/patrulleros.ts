@@ -8,6 +8,12 @@ module.exports = (sequelize: any, DataTypes: any) => {
         patrullero_ID!: string;
         funcionario_ID!: string;
 
+    static associate(models: any) {
+      Patrulleros.belongsTo(models.Funcionarios, {
+        foreignKey: 'funcionario_ID',
+        foreignKeyConstraint: true
+      })
+    }
   }
   Patrulleros.init({
     patrullero_ID: {
@@ -17,7 +23,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     funcionario_ID: {
         allowNull: false,
-        type: DataTypes.STRING,}
+        type: DataTypes.STRING,
+        unique: true,
+      }
   }, {
     sequelize,
     timestamps: false,

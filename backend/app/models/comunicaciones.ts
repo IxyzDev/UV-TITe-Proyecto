@@ -10,6 +10,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
       nombre_contribuyente!: string
       telefono!: string
 
+
+    static associate(models: any) {
+      Comunicacion.hasOne(models.Reportes, {
+        foreignKey: 'comunicacion_ID',
+        foreignKeyConstraint: true
+      })
+    }
+
   }
   Comunicacion.init({
     comunicacion_ID: {
