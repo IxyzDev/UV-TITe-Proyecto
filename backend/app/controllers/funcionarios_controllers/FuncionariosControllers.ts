@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Funcionarios
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Funcionarios
 
 const Funcionarios = db.Funcionarios; // Reemplaza "Funcionarios" con el nombre correcto de tu modelo
 

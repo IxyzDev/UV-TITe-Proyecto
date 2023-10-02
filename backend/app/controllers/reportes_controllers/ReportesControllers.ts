@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Reportes
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Reportes
 
 const Reportes = db.Reportes; // Reemplaza "Reportes" con el nombre correcto de tu modelo
 

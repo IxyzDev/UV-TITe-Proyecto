@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Movil
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Movil
 
 const Movil = db.Movil; // Reemplaza "Movil" con el nombre correcto de tu modelo
 

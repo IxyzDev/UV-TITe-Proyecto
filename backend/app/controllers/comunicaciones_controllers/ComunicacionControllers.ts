@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Comunicacion
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Comunicacion
 
 const Comunicacion = db.Comunicacion; // Reemplaza "Comunicacion" con el nombre correcto de tu modelo
 

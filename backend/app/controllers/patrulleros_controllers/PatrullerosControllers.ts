@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Patrulleros
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Patrulleros
 
 const Patrulleros = db.Patrulleros; // Reemplaza "Patrulleros" con el nombre correcto de tu modelo
 

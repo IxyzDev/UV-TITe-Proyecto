@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Sector
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Sector
 
 const Sector = db.Sector; // Reemplaza "Sector" con el nombre correcto de tu modelo
 

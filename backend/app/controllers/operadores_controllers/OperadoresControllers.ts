@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Operadores
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Operadores
 
 const Operadores = db.Operadores; // Reemplaza "Operadores" con el nombre correcto de tu modelo
 

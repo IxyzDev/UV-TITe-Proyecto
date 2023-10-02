@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo SubSector
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo SubSector
 
 const SubSector = db.SubSector; // Reemplaza "SubSector" con el nombre correcto de tu modelo
 

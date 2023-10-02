@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import db from '../models'; // Asegúrate de importar correctamente tu modelo Ubicacion
+import db from '../../models'; // Asegúrate de importar correctamente tu modelo Ubicacion
 
 const Ubicacion = db.Ubicacion; // Reemplaza "Ubicacion" con el nombre correcto de tu modelo
 
