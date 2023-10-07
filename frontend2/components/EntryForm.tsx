@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Input from './Input';
 import Link from 'next/link';
 
+// MAP API
+import { Autocomplete } from '@react-google-maps/api';
+
 interface FormData {
     pantalla: string;
     sector: string;
@@ -158,7 +161,11 @@ const EntryForm: React.FC = () => {
                     <label htmlFor="calle" className="block text-sm font-medium text-gray-700">
                         Calle:
                     </label>
-                    <Input type="text" name="calle" value={formData.calle} onChange={handleChange} placeholder="Escribe la Calle" />
+
+                    <Autocomplete>
+                        <Input type="text" name="calle" value={formData.calle} onChange={handleChange} placeholder="Escribe la Calle"/>
+                    </Autocomplete>
+
                 </div>
                 <div className="col-span-1">
                     <label htmlFor="lugar" className="block text-sm font-medium text-gray-700">
