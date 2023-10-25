@@ -1,17 +1,23 @@
 import { Model } from 'sequelize'
 
-import { MovilesInterface } from '../interfaces/types'
+import { MovilInterface } from '../interfaces/types'
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Movil extends Model <MovilesInterface>
-    implements MovilesInterface {
-        matricula_ID!: string;
+  class Movil extends Model <MovilInterface>
+    implements MovilInterface {
+        movil_ID!: string;
+        matricula!: string;
   }
   Movil.init({
-    matricula_ID: {
+    movil_ID: {
       primaryKey: true,
       allowNull: false,
       type: DataTypes.STRING,
+    },
+    matricula: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      unique: true
     }
   }, {
     sequelize,

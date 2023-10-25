@@ -24,10 +24,10 @@ export interface AsignacionPatrulleroMovilInterface {
   matricula_ID: string;
 }
 
-export interface MovilesInterface {
-  matricula_ID: string;
+export interface MovilInterface {
+  movil_ID: string;
+  matricula: string;
 }
-
 export interface ReportesInterface {
   reporte_ID: string;
   ubicacion_ID: string;
@@ -74,6 +74,3 @@ export interface SubSectorInterface {
   sector_ID: string;
 }
 
-export interface movilInterface {
-  matricula_ID: string;
-}

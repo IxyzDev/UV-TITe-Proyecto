@@ -3,6 +3,9 @@ import cors from 'cors';
 import db from './models';
 
 // Importación de las rutas
+import funcionarioRouter from './routes/funcionario.routes';
+import movilRouter from './routes/movil.routes';
+import comunicacionRouter from './routes/comunicacion.routes';
 
 const app = express();
 const PORT = 3000;
@@ -21,5 +24,9 @@ db.sequelize.sync({ force: false }).then(() => {
 app.get('/', (_req, res) => {
   res.json({ message: 'FELICIDADES LOGRASTE SER FELIZ' });
 });
+
+app.use("/funcionario", funcionarioRouter);
+app.use("/movil", movilRouter);
+app.use("/comunicacion", comunicacionRouter);
 
 export default app;
