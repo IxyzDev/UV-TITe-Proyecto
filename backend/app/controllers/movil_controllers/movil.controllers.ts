@@ -12,7 +12,7 @@ const movil = db.Movil; // Reemplaza "Movil" con el nombre correcto de tu modelo
 export const createMovil = async (object: any): Promise<MovilInterface> => {
   const newMovilEntry: MovilInterface = {
     movil_ID: uuidv4(),
-    matricula: verif.parseMatricula(object.matricula)
+    matricula: verif.parseMatricula(object.matricula_ID)
   };
   return newMovilEntry;
 };
@@ -35,7 +35,7 @@ export const updateMovil = async (movil_ID: string, object: any) => {
   console.log(object);
 
   // Verifica que la matrícula es válida
-  const matriculaVerificado = verif.parseMatricula(object.matricula);
+  const matriculaVerificado = verif.parseMatricula(object.matricula_ID);
 
   // Verificar la existencia del movil
   const existingMovil = await movil.findOne({ where: { movil_ID } });

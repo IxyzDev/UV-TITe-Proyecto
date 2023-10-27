@@ -10,6 +10,8 @@ import ubicacionRouter from './routes/ubicacion.routes';
 import patrullero from './routes/patrullero.routes';
 import operador from './routes/operador.routes';
 import asignacionPM from './routes/asig.pat.mov.routes';
+import reporteRouter from './routes/reporte.routes';
+import asignacionPR from './routes/asig.pat.rep.routes';
 
 const app = express();
 const PORT = 3000;
@@ -36,5 +38,7 @@ app.use("/ubicacion", ubicacionRouter);
 app.use("/patrullero", patrullero);
 app.use("/operador", operador);
 app.use("/asignacionpm", asignacionPM);
+app.use("/reporte", reporteRouter);
+app.use("/asignacionpr", asignacionPR);
 
 export default app;

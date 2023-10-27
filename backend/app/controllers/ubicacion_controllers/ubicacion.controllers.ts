@@ -6,7 +6,7 @@ import { UbicacionInterfaceWSub } from '../../interfaces/types';
 
 import * as verif from './ubicacion.verif';
 
-const Ubicacion = db.Ubicacion; // Reemplaza "Ubicacion" con el nombre correcto de tu modelo
+const Ubicacion = db.Ubicacion; 
 
 // Controlador para crear una nueva ubicación
 export const postUbicacion = async (object: any): Promise<UbicacionInterfaceWSub> => {
@@ -50,7 +50,7 @@ export const putUbicacion = async (ubicacion_ID: string, object:any): Promise<Ub
     lugar: verif.parseLugar(object.lugar),
   }
 
-  await ubicacion.update(newUbicacionEntry);
+  await Ubicacion.update(newUbicacionEntry);
   return newUbicacionEntry
 };
 
