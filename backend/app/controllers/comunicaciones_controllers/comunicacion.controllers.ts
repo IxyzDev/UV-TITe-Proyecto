@@ -26,7 +26,7 @@ export const getComunicacion = async (): Promise<ComunicacionInterface[]> => {
 
 // Controlador para obtener una comunicación por ID
 // Controlador para obtener un móvil por ID
-export const getComunicacionById = async (object: any): Promise<ComunicacionInterface[]> => {
+export const getComunicacionById = async (object: any): Promise<ComunicacionInterface> => {
   const comunicaciones = await comunicacion.findOne({where: {comunicacion_ID: object.comunicacion_ID}});
 
   if (!comunicacion) {
@@ -64,7 +64,7 @@ export const updateComunicacion = async (comunicacion_ID: string, object: any): 
 export const deleteComunicacion = async (object: any): Promise<void> => {
   try {
     const result = await comunicacion.destroy({ where: { comunicacion_ID: object.comunicacion_ID } });
-    if (result === 0) throw new Error('Matricula no encontrada');
+    if (result === 0) throw new Error('Comunicacion no encontrada');
   } catch (error: any) {
     throw new Error('Error al eliminar la comunicacion: ' + error.message);
   }

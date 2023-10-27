@@ -1,24 +1,29 @@
 import { Model } from 'sequelize'
 
-import { AsignacionPatrulleroReporteInterface } from '../interfaces/types'
+import { AsignacionPatrulleroMovilInterface } from '../interfaces/types'
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class AsignacionPatrulleroReporte extends Model <AsignacionPatrulleroReporteInterface>
-    implements AsignacionPatrulleroReporteInterface {
-        asignacion_reporte_ID!: string;
+  class AsignacionPatrulleroMovil extends Model <AsignacionPatrulleroMovilInterface>
+    implements AsignacionPatrulleroMovilInterface {
+        asignacion_movil_ID!: string;
         patrullero_ID!: string;
-        reporte_ID!: string;
+        movil_ID!: string;
 
     static associate(models: any) {
-      AsignacionPatrulleroReporte.belongsTo(models.Patrulleros, {
+      AsignacionPatrulleroMovil.belongsTo(models.Patrulleros, {
         foreignKey: 'patrullero_ID',
         foreignKeyConstraint: true
+      }),
+      AsignacionPatrulleroMovil.belongsTo(models.Movil, {
+        foreignKey: 'movil_ID',
+        foreignKeyConstraint: true
       })
+      
     }
 
   }
-  AsignacionPatrulleroReporte.init({
-    asignacion_reporte_ID: {
+  AsignacionPatrulleroMovil.init({
+    asignacion_movil_ID: {
       primaryKey: true,
       allowNull: false,
       type: DataTypes.STRING,
@@ -26,14 +31,14 @@ module.exports = (sequelize: any, DataTypes: any) => {
     patrullero_ID: {
         allowNull: false,
         type: DataTypes.STRING,},
-    reporte_ID: {
+    movil_ID: {
         allowNull: false,
         type: DataTypes.STRING,}
   }, {
     sequelize,
     timestamps: false,
     freezeTableName: true,
-    modelName: 'AsignacionPatrulleroReporte'
+    modelName: 'AsignacionPatrulleroMovil'
   })
-  return AsignacionPatrulleroReporte
+  return AsignacionPatrulleroMovil
 }

@@ -21,7 +21,7 @@ export type OperadoresOnetoOnePatrullerosInterface = Omit<OperadoresInterface, '
 export interface AsignacionPatrulleroMovilInterface {
   asignacion_movil_ID: string;
   patrullero_ID: string;
-  matricula_ID: string;
+  movil_ID: string;
 }
 
 export interface MovilInterface {
@@ -62,6 +62,9 @@ export interface UbicacionInterface {
   n_domicilio: string;
   lugar: string;
 }
+
+export type UbicacionInterfaceWSub = Omit<UbicacionInterface, 'subsector_ID'>
+
 export interface SectorInterface {
   sector_ID: string;
   nombre_sector: string;

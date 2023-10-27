@@ -6,6 +6,10 @@ import db from './models';
 import funcionarioRouter from './routes/funcionario.routes';
 import movilRouter from './routes/movil.routes';
 import comunicacionRouter from './routes/comunicacion.routes';
+import ubicacionRouter from './routes/ubicacion.routes';
+import patrullero from './routes/patrullero.routes';
+import operador from './routes/operador.routes';
+import asignacionPM from './routes/asig.pat.mov.routes';
 
 const app = express();
 const PORT = 3000;
@@ -28,5 +32,9 @@ app.get('/', (_req, res) => {
 app.use("/funcionario", funcionarioRouter);
 app.use("/movil", movilRouter);
 app.use("/comunicacion", comunicacionRouter);
+app.use("/ubicacion", ubicacionRouter);
+app.use("/patrullero", patrullero);
+app.use("/operador", operador);
+app.use("/asignacionpm", asignacionPM);
 
 export default app;

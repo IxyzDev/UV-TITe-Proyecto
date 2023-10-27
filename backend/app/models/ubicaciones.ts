@@ -17,7 +17,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         foreignKey: 'ubicacion_ID',
         foreignKeyConstraint: true
       })
-      Ubicacion.belongsTo(models.SubSector, {
+      Ubicacion.hasOne(models.SubSector, {
         foreignKey: 'subsector_ID', 
         foreignKeyConstraint: true
       })
@@ -31,9 +31,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
       type: DataTypes.STRING,
     },
     subsector_ID: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
-        unique: true
+        unique: true,
+        defaultValue: ""
     },
     direccion: {
         allowNull: false,
