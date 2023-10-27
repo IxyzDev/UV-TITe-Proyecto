@@ -39,6 +39,7 @@ router.post('/post', async (req: Request, res: Response) => {
 //     return res.status(500).json({ msg: 'Error al actualizar el Asignacion: ' + error.message });
 //   }
 // });
+//
 
 // Eliminar un Asignacion
 router.delete('/delete/:id', async (req: Request, res: Response) => {
