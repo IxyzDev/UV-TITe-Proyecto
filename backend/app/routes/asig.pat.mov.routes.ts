@@ -40,7 +40,6 @@ router.post('/post', async (req: Request, res: Response) => {
 //   }
 // });
 //
-
 // Eliminar un Asignacion
 router.delete('/delete/:id', async (req: Request, res: Response) => {
   try {
