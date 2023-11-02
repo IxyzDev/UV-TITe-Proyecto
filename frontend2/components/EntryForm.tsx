@@ -1,15 +1,32 @@
 import React, { useState } from 'react';
-import Input from './Input';
 import Link from 'next/link';
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+import AutocompleteMUI from '@mui/material/Autocomplete';
+import { TextField, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+
+const Alert = withReactContent(Swal);
+
+const AlertClick = () => {
+    Alert.fire({
+        title: '<p className="text-green-700 font-semibold text-2xl mb-4">Registro Guardado Exitosamente</p>',
+        icon: 'success'
+    });
+};
 
 // MAP API
 import { Autocomplete } from '@react-google-maps/api';
 
 interface FormData {
-    pantalla: string;
+    contribuyente: string;
     sector: string;
     subsector: string;
     uv: string;
+    telefono: string;
+    nombre: string;
+    medio: string;
     calle: string;
     lugar: string;
     numero: string;
@@ -22,30 +39,66 @@ interface FormData {
     observaciones: string;
 }
 
-const SuccessModal = ({ onClose }: { onClose: () => void }) => {
-    return (
-        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-            <div className="bg-white p-8 rounded shadow-lg max-w-5xl mx-auto">
-                <p className="text-green-700 font-semibold text-2xl mb-4">
-                    Registro Guardado Exitosamente
-                </p>
-                <button
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-                    onClick={onClose}
-                >
-                    Volver
-                </button>
-            </div>
-        </div>
-    );
-};
+// CODIGO PARA OBTENER TIEMPO Y FECHA ACTUAL
+const date = new Date();
+//const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+const mesesNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+
+const showTime = 
+    date.getFullYear() + "-" + mesesNum[date.getMonth()] + "-" + date.getDate() //AÑO
+    + " | " + date.getHours() + ':' + date.getMinutes() + ":" + date.getSeconds() //TIEMPO;
+
+console.log(showTime);
+
+const motivo = [
+    { label: 'Riña', id: "motivo" },
+    { label: 'Vehiculo mal estacionado', id: "motivo" },
+    { label: 'Agresión', id: "motivo" },
+];
+
+const movil = [
+    { label: 'Derivado', id: "movil" },
+    { label: '53', id: "movil" },
+    { label: '83', id: "movil" },
+];
+
+const patruyero = [
+    { label: 'Arenas', id: "patruyero" },
+    { label: 'Yañez', id: "patruyero" },
+    { label: 'Hevia', id: "patruyero" },
+];
+
+const medio = [
+    { label: 'Llamada', id: "medio" },
+    { label: 'Mensaje', id: "medio"},
+    { label: 'WhatsUp', id: "medio" },
+];
+
+const sector = [
+    { label: 'Sector 1', id: "sector" },
+    { label: 'Sector 2', id: "sector"},
+    { label: 'Sector 3', id: "sector" },
+];
+const subsector = [
+    { label: 'Subsector 1', id: "subsector" },
+    { label: 'Subsector 2', id: "subsector"},
+    { label: 'Subsector 3', id: "subsector" },
+];
+const uv = [
+    { label: 'Unidad vecinal 1', id: "uv" },
+    { label: 'Unidad vecinal 2', id: "uv"},
+    { label: 'Unidad vecinal 3', id: "uv" },
+];
 
 const EntryForm: React.FC = () => {
     const [formData, setFormData] = useState<FormData>({
-        pantalla: '',
+        contribuyente: '',
         sector: '',
         subsector: '',
         uv: '',
+        telefono: '',
+        nombre: '',
+        medio: '',
         calle: '',
         lugar: '',
         numero: '',
@@ -57,244 +110,212 @@ const EntryForm: React.FC = () => {
         patrullero: '',
         observaciones: '',
     });
-
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Agregamos el estado para mostrar el mensaje de éxito
-    const [showSaveButton, setShowSaveButton] = useState(true);
     
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // Aquí se enviarían los datos a la base de datos
         console.log(formData);
-        setShowSuccessMessage(true); // Mostrar el mensaje de éxito después de enviar el formulario
     }
 
+    // NECESSARY FOR INPUTS
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { id, value } = e.target;
+        setFormData(prev => ({ ...prev, [id]: value }));
     }
 
-    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    // NECESSARY FOR RADIOGROUP
+    const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+    const handleChangeContribuyente = (e: { target: { name: any; value: any; }; }) => {
         const { name, value } = e.target;
+
+        if (name === 'contribuyente') {
+            if (value === 'tercero') {
+                setShowAdditionalFields(true);
+            } else {
+                setShowAdditionalFields(false);
+            }
+        }
         setFormData(prev => ({ ...prev, [name]: value }));
-    }
-    const handleCloseModal = (): void => {
-        setShowSuccessModal(false);
     };
 
+    // DROPDOWN EVENT / SELECTOR DE OPCIONES
+    const handleChangeDropDown = (e: { preventDefault: () => void; }, id: any, value: any) => {
+        e.preventDefault();
+        setFormData(prev => ({ ...prev, [value.id]: value.label }));
+    }
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg max-w-5x1 mx-auto mt-20 grid grid-cols-3 gap-4">
+            <form noValidate autoComplete='off' onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg max-w-5x1 mx-auto mt-20 grid grid-cols-3 gap-4">
                 <div className="col-span-2">
                     <h2 className="text-2xl mb-4 text-gray-700">Ingresar Datos de Llamada</h2>
                 </div>
+
+                {/* CAMPO QUE INDICA DE DONDE PROVIENE LA INFORMACION (CONTRIBUYENTE)*/}
                 <div className="col-span-1">
-                    <label htmlFor="pantalla" className="block text-sm font-medium text-gray-700">
-                        Pantalla:
-                    </label>
-                    <select
-                        id="pantalla"
-                        name="pantalla"
-                        value={formData.pantalla}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona Pantalla</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                    <label htmlFor="contribuyente" className="block text-sm pb-3 font-medium text-gray-700"> Contribuyente: </label>
+                    <RadioGroup
+                        row aria-labelledby="contribuyente" name='contribuyente' id="contribuyente" onChange={handleChangeContribuyente} value={formData.contribuyente}>
+                        <FormControlLabel value="tercero" control={<Radio />} label="Tercero" />
+                        <FormControlLabel value="patrullero" control={<Radio />} label="Patrullero" />
+                    </RadioGroup>
                 </div>
+
+                {showAdditionalFields && formData.contribuyente === 'tercero' && (<>
+                    {/* DEBEN APARECER CUANDO CONTRIBUYENTE=TERCERO */}
+
+                    {/* TELEFONO */}
+                    <div className="col-span-1">
+                        <label htmlFor="telefono" className="block text-sm pb-3 font-medium text-gray-700"> Telefono: </label>
+                        <TextField id="telefono" label="Telefono" variant="outlined" fullWidth required onChange={handleChange} value={formData.telefono}/>
+                    </div>
+
+                    {/* NOMBRE */}
+                    <div className="col-span-1">
+                        <label htmlFor="nombre" className="block text-sm pb-3 font-medium text-gray-700"> Nombre: </label>
+                        <TextField id="nombre" label="Nombre" variant="outlined" fullWidth onChange={handleChange} value={formData.nombre}/>
+                    </div>
+                    {/* MEDIO */}
+                    <div className="col-span-1">
+                        <label htmlFor="medio" className="block text-sm pb-3 font-medium text-gray-700"> Medio: </label>
+                        <AutocompleteMUI 
+                            disablePortal fullWidth
+                            id="medio"
+                            options={medio}
+                            onChange={handleChangeDropDown}
+                            renderInput={(params) => <TextField {...params} label="Medio" />}/>
+                    </div>
+                </>)}
+
+                {/* COMENTADO PORQUE NO SABEMOS SI LA CONTRAPARTE DARA LOS DATOS PARA ESTO */}
+                    {/* SECTOR - SUBSECTOR - UNIDADVECINAL */}
                 <div className="col-span-1">
-                    <label htmlFor="sector" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="sector" className="block text-sm pb-3 font-medium text-gray-700">
                         Sector:
                     </label>
-                    <select
+                    <AutocompleteMUI 
+                        disablePortal fullWidth
                         id="sector"
-                        name="sector"
-                        value={formData.sector}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona Sector</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                        options={sector}
+                        onChange={handleChangeDropDown}
+                        //filterSelectedOptions
+                        renderInput={(params) => <TextField {...params} label="Sector" />}
+                    />
                 </div>
                 <div className="col-span-1">
-                    <label htmlFor="subsector" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="subsector" className="block text-sm pb-3 font-medium text-gray-700">
                         Subsector:
                     </label>
-                    <select
+                    <AutocompleteMUI 
+                        disablePortal fullWidth
                         id="subsector"
-                        name="subsector"
-                        value={formData.subsector}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona Subsector</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                        options={subsector}
+                        onChange={handleChangeDropDown}
+                        //filterSelectedOptions
+                        renderInput={(params) => <TextField {...params} label="Subsector" />}
+                    />
                 </div>
                 <div className="col-span-1">
-                    <label htmlFor="uv" className="block text-sm font-medium text-gray-700">
-                        UV:
+                    <label htmlFor="uv" className="block text-sm pb-3 font-medium text-gray-700">
+                        Unidad vecinal:
                     </label>
-                    <select
+                    <AutocompleteMUI 
+                        disablePortal fullWidth
                         id="uv"
-                        name="uv"
-                        value={formData.uv}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona UV</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                        options={uv}
+                        onChange={handleChangeDropDown}
+                        //filterSelectedOptions
+                        renderInput={(params) => <TextField {...params} label="Unidad vecinal" />}
+                    />
                 </div>
-                <div className="col-span-1">
-                    <label htmlFor="calle" className="block text-sm font-medium text-gray-700">
-                        Calle:
-                    </label>
 
+
+                {/* DIRECCION DEL INCIDENTE */}
+                <div className="col-span-3">
+                    <label htmlFor="calle" className="block text-sm pb-3 font-medium text-gray-700"> Dirección: </label>
                     <Autocomplete>
-                        <Input type="text" name="calle" value={formData.calle} onChange={handleChange} placeholder="Escribe la Calle"/>
+                        <TextField id="calle" label="Escribe la Calle" variant="outlined" fullWidth required onChange={handleChange} value={formData.calle} />
                     </Autocomplete>
-
                 </div>
+                
+                {/* MOTIVO DE LA LLAMADA */}
+                {/* PEDIR LISTADO DE LOS QUE DEBEN IR */}
                 <div className="col-span-1">
-                    <label htmlFor="lugar" className="block text-sm font-medium text-gray-700">
-                        Lugar:
-                    </label>
-                    <Input type="text" name="lugar" value={formData.lugar} onChange={handleChange} placeholder="Escribe el Lugar" />
-                </div>
-                <div className="col-span-1">
-                    <label htmlFor="numero" className="block text-sm font-medium text-gray-700">
-                        Numero:
-                    </label>
-                    <Input type="text" name="numero" value={formData.numero} onChange={handleChange} placeholder="Escribe el Número" />
-                </div>
-                <div className="col-span-1">
-                    <label htmlFor="motivo" className="block text-sm font-medium text-gray-700">
-                        Motivo:
-                    </label>
-                    <select
+                    <label htmlFor="motivo" className="block text-sm pb-3 font-medium text-gray-700"> Motivo: </label>
+                    <AutocompleteMUI
+                        disablePortal fullWidth
                         id="motivo"
-                        name="motivo"
-                        value={formData.motivo}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona Motivo</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                        options={motivo}
+                        onChange={handleChangeDropDown}
+                        renderInput={(params) => <TextField required onChange={handleChange} {...params} label="Motivo" />}
+                    />
                 </div>
+
+                {/* DETALLE ESPECIFICO DE LO SUCESIDO EN EL EVENTO */}
                 <div className="col-span-1">
-                    <label htmlFor="detalle" className="block text-sm font-medium text-gray-700">
-                        Detalle:
-                    </label>
-                    <Input type="text" name="detalle" value={formData.detalle} onChange={handleChange} placeholder="Escribe el Detalle" />
+                    <label htmlFor="detalle" className="block text-sm pb-3 font-medium text-gray-700"> Detalle: </label>
+                    <TextField id="detalle" label="Detalle" variant="outlined" fullWidth required onChange={handleChange} value={formData.detalle}/>
                 </div>
+
+                {/* GRUPO DELICTUAL */}
                 <div className="col-span-1">
-                    <label htmlFor="gDelictual" className="block text-sm font-medium text-gray-700">
-                        G. Delictual:
-                    </label>
-                    <select
-                        id="gDelictual"
-                        name="gDelictual"
-                        value={formData.gDelictual}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona G. Delictual</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                    <label htmlFor="gDelictual" className="block text-sm pb-3 font-medium text-gray-700"> Grupo Delictual: </label>
+                    <TextField id="gDelictual" label="Grupo delictual" variant="outlined" fullWidth required onChange={handleChange} value={formData.gDelictual}/>
                 </div>
+
+                {/* CASO */}
                 <div className="col-span-1">
-                    <label htmlFor="caso" className="block text-sm font-medium text-gray-700">
-                        Caso:
-                    </label>
-                    <Input type="text" name="caso" value={formData.caso} onChange={handleChange} placeholder="Escribe el Caso" />
+                    <label htmlFor="caso" className="block text-sm pb-3 font-medium text-gray-700"> Caso: </label>
+                    <TextField id="caso" label="Caso" variant="outlined" fullWidth required value={formData.caso} onChange={handleChange}/>
                 </div>
+
+                {/* VEHICULO ENVIADO - DELITO DERIVADO */}
                 <div className="col-span-1">
-                    <label htmlFor="movil" className="block text-sm font-medium text-gray-700">
-                        Móvil:
-                    </label>
-                    <select
+                    <label htmlFor="movil" className="block text-sm pb-3 font-medium text-gray-700"> Movil: </label>
+                    <AutocompleteMUI
+                        disablePortal fullWidth
                         id="movil"
-                        name="movil"
-                        value={formData.movil}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona Móvil</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                        onChange={handleChangeDropDown}
+                        options={movil}
+                        renderInput={(params) => <TextField required {...params} label="Movil" />}
+                    />
                 </div>
+
+                {/* NOMBRE PATRULLETO ENVIADO */}
                 <div className="col-span-1">
-                    <label htmlFor="patrullero" className="block text-sm font-medium text-gray-700">
-                        Patrullero:
-                    </label>
-                    <select
+                    <label htmlFor="patrullero" className="block text-sm pb-3 font-medium text-gray-700"> Patrullero: </label>
+                    <AutocompleteMUI
+                        disablePortal fullWidth
                         id="patrullero"
-                        name="patrullero"
-                        value={formData.patrullero}
-                        onChange={handleSelectChange}
-                        className="block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    >
-                        <option value="">Selecciona Patrullero</option>
-                        <option value="Opción 1">Opción 1</option>
-                        <option value="Opción 2">Opción 2</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                        onChange={handleChangeDropDown}
+                        options={patruyero}
+                        renderInput={(params) => <TextField required value={formData.patrullero} {...params} label="patrullero" />}
+                    />
                 </div>
-                <div className="col-span-2">
-                    <label htmlFor="observaciones" className="block text-sm font-medium text-gray-700">
-                        Observaciones:
-                    </label>
-                    <Input type="text" name="observaciones" value={formData.observaciones} onChange={handleChange} placeholder="Escribe Observaciones" />
+
+                {/* OBSERVACIONES SOBRE EL INCIDENTE */}
+                <div className="col-span-3">
+                    <label htmlFor="observaciones" className="block text-sm pb-3 font-medium text-gray-700"> Observaciones: </label>
+                    <TextField id="observaciones" label="Observaciones" variant="outlined" fullWidth multiline rows={4} value={formData.observaciones} onChange={handleChange}/>
                 </div>
+
+                
                 <div className="col-span-2 flex justify-between mt-6">
                     <Link href="/">
                         <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
                             Atrás
                         </button>
                     </Link>
-                    <div>
-                        {showSuccessMessage && (
-                            <div className="bg-green-100 p-4 mb-4 rounded-md border border-green-400">
-                                <p className="text-green-700 font-semibold">Registro Guardado Exitosamente</p>
-                                <button
-                                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-                                    onClick={handleCloseModal}
-                                >
-                                    Volver
-                                </button>
-                            </div>
-                        )}
-                        {showSaveButton && ( // Renderiza el botón "Guardar Registro" solo si showSaveButton es true
-                            <button
-                                className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-                                type="submit"
-                            >
-                                Guardar Registro
-                            </button>
-                        )}
+                    <div className="">
+                        <button
+                            className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                            type="submit"
+                            onClick={AlertClick}>
+                            Guardar Registro
+                        </button>
                     </div>
                 </div>
             </form>
-            {showSuccessModal && <SuccessModal onClose={handleCloseModal} />} {/* Mostrar el modal */}
         </div>
     );
 }

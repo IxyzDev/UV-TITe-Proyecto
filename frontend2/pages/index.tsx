@@ -1,7 +1,12 @@
 import React from 'react';
-import EntryForm from '../components/EntryForm';
-import DataView from '../components/DataView';
 import Link from 'next/link';
+
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import { Button, ButtonProps, Stack, styled } from '@mui/material';
+import { orange, purple } from '@mui/material/colors';
 
 const mockData = [ // Datos ficticios para visualizar en la tabla.
     { lugar: 'Plaza Belén', hora: '12:00', operador: 'Juan Pérez', direccion: 'Calle Principal 123' },
@@ -18,22 +23,18 @@ const Home: React.FC = () => {
             
             {/* Contenido */}
             <div className="flex flex-col items-center justify-center flex-grow">
-                <div className="flex"> {/* Contenedor de botones */}
-                    <div className="flex-grow flex justify-center"> {/* Espacio para centrar */}
-                        <Link href="/EntryForm">
-                            <button className="bg-orange-500 hover:bg-orange-700 text-white text-2xl font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline mr-9">
-                                Crear Nuevo Registro
-                            </button>
-                        </Link>
-                    </div>
-                    <div> {/* Espacio para el botón derecho */}
-                        <Link href="/DataView">
-                            <button className="bg-orange-500 hover:bg-orange-700 text-white text-2xl font-bold py-4 px-8 rounded-full focus:outline-none focus:shadow-outline ml-9">
-                                Ver Listado de Registros
-                            </button>
-                        </Link>
-                    </div>
-                </div>
+                <Stack spacing={20} direction="row">
+                    <Link href="/EntryForm">
+                        <button className="bg-orange-500 w-96 h-96 hover:bg-orange-600 text-white text-2xl font-bold py-4 px-8 rounded-3xl focus:outline-none focus:shadow-outline mr-9">
+                            Crear Nuevo Registro
+                        </button>
+                    </Link>
+                    <Link href="/DataView">
+                        <button className="bg-orange-500 w-96 h-96 hover:bg-orange-600 text-white text-2xl font-bold py-4 px-8 rounded-3xl focus:outline-none focus:shadow-outline mr-9">
+                            Ver Listado de Registros
+                        </button>
+                    </Link>
+                </Stack>
             </div>
         </div>
     );
