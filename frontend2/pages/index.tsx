@@ -5,8 +5,8 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Button, ButtonProps, Stack, styled } from '@mui/material';
-import { orange, purple } from '@mui/material/colors';
+import { Stack } from '@mui/material';
+
 
 const mockData = [ // Datos ficticios para visualizar en la tabla.
     { lugar: 'Plaza Belén', hora: '12:00', operador: 'Juan Pérez', direccion: 'Calle Principal 123' },
