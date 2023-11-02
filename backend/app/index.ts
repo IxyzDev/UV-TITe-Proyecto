@@ -3,10 +3,15 @@ import cors from 'cors';
 import db from './models';
 
 // Importación de las rutas
-import tipoproductoRouter from './routes/tipoproducto.routes';
-import compradorRouter from './routes/comprador.routes';
-import productoRouter from './routes/producto.routes';
-import vendedorRouter from './routes/vendedor.routes';
+import funcionarioRouter from './routes/funcionario.routes';
+import movilRouter from './routes/movil.routes';
+import comunicacionRouter from './routes/comunicacion.routes';
+import ubicacionRouter from './routes/ubicacion.routes';
+import patrullero from './routes/patrullero.routes';
+import operador from './routes/operador.routes';
+import asignacionPM from './routes/asig.pat.mov.routes';
+import reporteRouter from './routes/reporte.routes';
+import asignacionPR from './routes/asig.pat.rep.routes';
 
 const app = express();
 const PORT = 3000;
@@ -14,7 +19,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json()); // middleware que transforma el req.body a JSON
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => {
     console.log(`Se escucha en el puerto ${PORT}`);
   });
@@ -26,10 +31,14 @@ app.get('/', (_req, res) => {
   res.json({ message: 'FELICIDADES LOGRASTE SER FELIZ' });
 });
 
-// Rutas
-app.use('/producto', productoRouter);
-app.use('/vendedor', vendedorRouter);
-app.use('/comprador', compradorRouter);
-app.use('/tipoproducto', tipoproductoRouter);
+app.use("/funcionario", funcionarioRouter);
+app.use("/movil", movilRouter);
+app.use("/comunicacion", comunicacionRouter);
+app.use("/ubicacion", ubicacionRouter);
+app.use("/patrullero", patrullero);
+app.use("/operador", operador);
+app.use("/asignacionpm", asignacionPM);
+app.use("/reporte", reporteRouter);
+app.use("/asignacionpr", asignacionPR);
 
 export default app;
