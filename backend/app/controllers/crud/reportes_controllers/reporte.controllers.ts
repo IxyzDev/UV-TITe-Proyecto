@@ -1,10 +1,10 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
-import db from '../../models'; 
+import db from "../../../models";
 
-import { ReportesInterface } from '../../interfaces/types';
+import { ReportesInterface } from "../../../interfaces/types";
 
-import * as verif from './reporte.verif';
+import * as verif from "./reporte.verif";
 
 const Reportes = db.Reportes;
 
@@ -21,7 +21,7 @@ export const postReporte = async (object: any): Promise<ReportesInterface> => {
     motivo: await verif.parseMotivo(object.motivo),
     grupo_delictual: await verif.parseGrupoDelictual(object.grupo_delictual),
     derivado: await verif.parseDerivado(object.derivado),
-  }
+  };
   return newReporteEntry;
 };
 
@@ -32,20 +32,25 @@ export const getReportes = async (): Promise<ReportesInterface[]> => {
 };
 
 // Controlador para obtener un reporte por ID
-export const getReporteById = async (reporte_ID: string): Promise<ReportesInterface> => {
+export const getReporteById = async (
+  reporte_ID: string
+): Promise<ReportesInterface> => {
   const reportes = await Reportes.findByPk(reporte_ID);
   return reportes;
 };
 
 // Controlador para actualizar un reporte por ID
-export const putReporte = async (reporte_ID: string, object: any): Promise<void> => {
+export const putReporte = async (
+  reporte_ID: string,
+  object: any
+): Promise<void> => {
   try {
     await Reportes.findByPk(reporte_ID);
   } catch (error: any) {
     throw new Error("reporte no encontrado");
   }
 
-  console.log(object)
+  console.log(object);
 
   const newReportesEntry: ReportesInterface = {
     reporte_ID: reporte_ID,
@@ -58,15 +63,17 @@ export const putReporte = async (reporte_ID: string, object: any): Promise<void>
     motivo: await verif.parseMotivo(object.motivo),
     grupo_delictual: await verif.parseGrupoDelictual(object.grupo_delictual),
     derivado: await verif.parseDerivado(object.derivado),
-  }
+  };
 
-  await Reportes.update(newReportesEntry, { where: { reporte_ID: reporte_ID } });
+  await Reportes.update(newReportesEntry, {
+    where: { reporte_ID: reporte_ID },
+  });
 };
 
 // Controlador para eliminar un reporte por ID
 export const deleteReporte = async (object: any): Promise<void> => {
   try {
-    await Reportes.destroy({where: {ubicacion_ID: object.ubicacion_ID}});
+    await Reportes.destroy({ where: { ubicacion_ID: object.ubicacion_ID } });
   } catch (error: any) {
     throw new Error("reporte no encontrado");
   }

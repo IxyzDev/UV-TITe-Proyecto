@@ -1,34 +1,40 @@
-import express, { Request, Response } from 'express'
-import * as patrulleroControllers from '../controllers/patrulleros_controllers/patrullero.controllers'
-import db from "../models"
+import express, { Request, Response } from "express";
+import * as patrulleroControllers from "../controllers/crud/patrulleros_controllers/patrullero.controllers";
+import db from "../models";
 
-const router = express.Router()
+const router = express.Router();
 
 // Mostrar todos los Patrullero
-router.get('/get', async (_req: Request, res: Response) => {
+router.get("/get", async (_req: Request, res: Response) => {
   try {
     const Patrullero = await patrulleroControllers.getPatrulleros();
-    return res.json(Patrullero)
+    return res.json(Patrullero);
   } catch (error: any) {
-    return res.status(500).json({ msg: 'Error al mostrar los Patrullero: ' + error.message});
+    return res
+      .status(500)
+      .json({ msg: "Error al mostrar los Patrullero: " + error.message });
   }
-})
+});
 
 // Crear un Patrullero
-router.post('/post', async (req: Request, res: Response) => {
+router.post("/post", async (req: Request, res: Response) => {
   try {
-    const newPatrulleroEntry = await patrulleroControllers.postPatrullero({...req.body});
+    const newPatrulleroEntry = await patrulleroControllers.postPatrullero({
+      ...req.body,
+    });
 
-    console.log(newPatrulleroEntry)
+    console.log(newPatrulleroEntry);
 
     const record = await db.Patrulleros.create(newPatrulleroEntry);
 
-    return res.json({record, msg: 'Creacion exitosa de un patrullero'});
+    return res.json({ record, msg: "Creacion exitosa de un patrullero" });
   } catch (error: any) {
-    console.log(error)
-    return res.status(500).json({ msg: 'Error al crear un patrullero: ' + error.message });
+    console.log(error);
+    return res
+      .status(500)
+      .json({ msg: "Error al crear un patrullero: " + error.message });
   }
-})
+});
 
 // // Actualizar un Patrullero
 // router.put('/put/:id', async (req: Request, res: Response) => {
@@ -42,14 +48,18 @@ router.post('/post', async (req: Request, res: Response) => {
 // });
 
 // Eliminar un Patrullero
-router.delete('/delete/:id', async (req: Request, res: Response) => {
+router.delete("/delete/:id", async (req: Request, res: Response) => {
   try {
-    await patrulleroControllers.deletePatrullero({ patrullero_ID: req.params.id });
-    
-    return res.json({ msg: 'Patrullero eliminado correctamente' });
+    await patrulleroControllers.deletePatrullero({
+      patrullero_ID: req.params.id,
+    });
+
+    return res.json({ msg: "Patrullero eliminado correctamente" });
   } catch (error: any) {
-    return res.status(500).json({ msg: 'Error al eliminar el Patrullero: ' + error.message });
+    return res
+      .status(500)
+      .json({ msg: "Error al eliminar el Patrullero: " + error.message });
   }
 });
 
-export default router
+export default router;
