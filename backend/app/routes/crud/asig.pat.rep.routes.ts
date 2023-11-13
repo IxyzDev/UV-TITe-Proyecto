@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import * as asignacionControllers from "../controllers/crud/asignacion_patrullero_movil_controllers/asig.pat.mov.controllers";
-import db from "../models";
+import * as asignacionControllers from "../../controllers/crud/asignacion_patrullero_reporte_controllers/asig.pat.rep.controllers";
+import db from "../../models";
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.post("/post", async (req: Request, res: Response) => {
     });
 
     const record =
-      await db.AsignacionPatrulleroMovil.create(newAsignacionEntry);
+      await db.AsignacionPatrulleroReporte.create(newAsignacionEntry);
 
     return res.json({ record, msg: "Creacion exitosa de un asignacion" });
   } catch (error: any) {
@@ -45,12 +45,12 @@ router.post("/post", async (req: Request, res: Response) => {
 //     return res.status(500).json({ msg: 'Error al actualizar el Asignacion: ' + error.message });
 //   }
 // });
-//
+
 // Eliminar un Asignacion
 router.delete("/delete/:id", async (req: Request, res: Response) => {
   try {
     await asignacionControllers.deleteAsignacion({
-      asignacion_movil_ID: req.params.id,
+      asignacion_reporte_ID: req.params.id,
     });
 
     return res.json({ msg: "Asignacion eliminado correctamente" });

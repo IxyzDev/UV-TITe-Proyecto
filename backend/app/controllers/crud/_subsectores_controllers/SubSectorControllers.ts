@@ -110,13 +110,11 @@ export const updateSubSector = async (
 
     await subsector.save(); // Guarda los cambios en la base de datos
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Subsector actualizado con éxito",
-        data: subsector,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Subsector actualizado con éxito",
+      data: subsector,
+    });
   } catch (error) {
     console.error(error);
     res

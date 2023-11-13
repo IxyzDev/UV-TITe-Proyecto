@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import * as reporteControllers from "../controllers/crud/reportes_controllers/reporte.controllers";
-import db from "../models";
+import * as reporteControllers from "../../controllers/crud/reportes_controllers/reporte.controllers";
+import db from "../../models";
 
 const router = express.Router();
 

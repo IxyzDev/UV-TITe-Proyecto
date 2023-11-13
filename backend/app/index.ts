@@ -2,16 +2,19 @@ import express from "express";
 import cors from "cors";
 import db from "./models";
 
-// Importación de las rutas
-import funcionarioRouter from "./routes/funcionario.routes";
-import movilRouter from "./routes/movil.routes";
-import comunicacionRouter from "./routes/comunicacion.routes";
-import ubicacionRouter from "./routes/ubicacion.routes";
-import patrullero from "./routes/patrullero.routes";
-import operador from "./routes/operador.routes";
-import asignacionPM from "./routes/asig.pat.mov.routes";
-import reporteRouter from "./routes/reporte.routes";
-import asignacionPR from "./routes/asig.pat.rep.routes";
+// Importación de las rutas CRUD
+import funcionarioRouter from "./routes/crud/funcionario.routes";
+import movilRouter from "./routes/crud/movil.routes";
+import comunicacionRouter from "./routes/crud/comunicacion.routes";
+import ubicacionRouter from "./routes/crud/ubicacion.routes";
+import patrullero from "./routes/crud/patrullero.routes";
+import operador from "./routes/crud/operador.routes";
+import asignacionPM from "./routes/crud/asig.pat.mov.routes";
+import reporteRouter from "./routes/crud/reporte.routes";
+import asignacionPR from "./routes/crud/asig.pat.rep.routes";
+
+// Importacion rutas integracion
+import ingresarReporte from "./routes/ingresar.reporte.routes";
 
 const app = express();
 const PORT = 3000;
@@ -43,5 +46,8 @@ app.use("/operador", operador);
 app.use("/asignacionpm", asignacionPM);
 app.use("/reporte", reporteRouter);
 app.use("/asignacionpr", asignacionPR);
+
+// Rutas integracion
+app.use("/ingresarReporte", ingresarReporte);
 
 export default app;

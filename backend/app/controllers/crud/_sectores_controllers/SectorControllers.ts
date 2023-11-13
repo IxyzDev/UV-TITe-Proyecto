@@ -106,13 +106,11 @@ export const updateSector = async (
 
     await sector.save(); // Guarda los cambios en la base de datos
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Sector actualizado con éxito",
-        data: sector,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Sector actualizado con éxito",
+      data: sector,
+    });
   } catch (error) {
     console.error(error);
     res

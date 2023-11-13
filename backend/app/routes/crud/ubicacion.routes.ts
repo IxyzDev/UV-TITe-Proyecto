@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import * as ubicacionControllers from "../controllers/crud/ubicacion_controllers/ubicacion.controllers";
-import db from "../models";
+import * as ubicacionControllers from "../../controllers/crud/ubicacion_controllers/ubicacion.controllers";
+import db from "../../models";
 
 const router = express.Router();
 

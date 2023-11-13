@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import * as movilControllers from "../controllers/crud/movil_controllers/movil.controllers";
-import db from "../models";
+import * as movilControllers from "../../controllers/crud/movil_controllers/movil.controllers";
+import db from "../../models";
 
 const router = express.Router();
 
