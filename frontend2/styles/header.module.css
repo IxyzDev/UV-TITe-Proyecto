@@ -1,0 +1,23 @@
+/* Reset some default browser styles */
+.header {
+  height: 8rem;
+  width: 100%;
+  background-color: rgb(249 115 22);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.5rem;
+}
+
+.title {
+  font-family: "Roboto";
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  /*Comentario para probar VSC desde la tablet*/
+}
