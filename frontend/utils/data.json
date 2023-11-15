@@ -27,32 +27,32 @@
             "id": "movil"
         }
     ],
-    "patruyero": [
+    "patrullero": [
         {
             "label": "Arenas",
-            "id": "patruyero"
+            "id": "patrullero"
         },
         {
             "label": "Ya\u00f1ez",
-            "id": "patruyero"
+            "id": "patrullero"
         },
         {
             "label": "Hevia",
-            "id": "patruyero"
+            "id": "patrullero"
         }
     ],
-    "medio": [
+    "medio_comunicacion": [
         {
             "label": "Llamada",
-            "id": "medio"
+            "id": "medio_comunicacion"
         },
         {
             "label": "Mensaje",
-            "id": "medio"
+            "id": "medio_comunicacion"
         },
         {
             "label": "WhatsUp",
-            "id": "medio"
+            "id": "medio_comunicacion"
         }
     ],
     "sector": [

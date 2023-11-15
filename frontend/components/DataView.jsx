@@ -1,20 +1,17 @@
-import React from 'react';
+"use client";
+import { usePathname, useRouter } from "next/navigation";
 import Link from 'next/link';
 
-interface DataProps {
-    data: any[]; // Esta sería una lista de los registros. En una aplicación real, se definirían tipos más específicos.
-}
-
-const DataView: React.FC<DataProps> = ({ data }) => {
+const DataView = ({ data }) => {
+    const pathName = usePathname();
+    const router = useRouter();
     return (
         <div className="bg-white p-8 shadow-lg w-5/6 mx-auto mt-20 overflow-auto">
             {/* BOTON PARA VOLVER A PANTALLA PRINCIPAL */}
             <div className="col-span-2 flex justify-between mt-6">
-                <Link href="/">
-                    <button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
-                        Atrás
-                    </button>
-                </Link>
+                <button onClick={() => router.push("/")} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
+                    Atrás
+                </button>
             </div>
             {/*<h2 className="text-2xl mb-4 text-gray-700">Llamadas Registradas</h2>*/}
             <table className="min-w-full divide-y p-8 divide-gray-200 text-center">
