@@ -1,0 +1,100 @@
+{
+    "motivo": [
+        {
+            "label": "Ri\u00f1a",
+            "id": "motivo"
+        },
+        {
+            "label": "Vehiculo mal estacionado",
+            "id": "motivo"
+        },
+        {
+            "label": "Agresi\u00f3n",
+            "id": "motivo"
+        }
+    ],
+    "movil": [
+        {
+            "label": "Derivado",
+            "id": "movil"
+        },
+        {
+            "label": "53",
+            "id": "movil"
+        },
+        {
+            "label": "83",
+            "id": "movil"
+        }
+    ],
+    "patruyero": [
+        {
+            "label": "Arenas",
+            "id": "patruyero"
+        },
+        {
+            "label": "Ya\u00f1ez",
+            "id": "patruyero"
+        },
+        {
+            "label": "Hevia",
+            "id": "patruyero"
+        }
+    ],
+    "medio": [
+        {
+            "label": "Llamada",
+            "id": "medio"
+        },
+        {
+            "label": "Mensaje",
+            "id": "medio"
+        },
+        {
+            "label": "WhatsUp",
+            "id": "medio"
+        }
+    ],
+    "sector": [
+        {
+            "label": "Sector 1",
+            "id": "sector"
+        },
+        {
+            "label": "Sector 2",
+            "id": "sector"
+        },
+        {
+            "label": "Sector 3",
+            "id": "sector"
+        }
+    ],
+    "subsector": [
+        {
+            "label": "Subsector 1",
+            "id": "subsector"
+        },
+        {
+            "label": "Subsector 2",
+            "id": "subsector"
+        },
+        {
+            "label": "Subsector 3",
+            "id": "subsector"
+        }
+    ],
+    "uv": [
+        {
+            "label": "Unidad vecinal 1",
+            "id": "uv"
+        },
+        {
+            "label": "Unidad vecinal 2",
+            "id": "uv"
+        },
+        {
+            "label": "Unidad vecinal 3",
+            "id": "uv"
+        }
+    ]
+}

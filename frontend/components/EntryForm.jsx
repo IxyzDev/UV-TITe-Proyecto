@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
+
+import data from "@utils/data.json";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import AutocompleteMUI from "@mui/material/Autocomplete";
-import { TextField, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { TextField, Radio, RadioGroup } from "@mui/material";
+
+import AutocompleteComponent from "@components/AutocompleteComponent";
+
+const motivo = data.motivo;
+const movil = data.movil;
+const patruyero = data.patruyero;
+const medio = data.medio;
+const sector = data.sector;
+const subsector = data.subsector;
+const uv = data.uv;
 
 const Alert = withReactContent(Swal);
 
@@ -18,27 +32,6 @@ const AlertClick = () => {
 };
 
 // MAP API
-import { Autocomplete } from "@react-google-maps/api";
-
-interface FormData {
-  contribuyente: string;
-  sector: string;
-  subsector: string;
-  uv: string;
-  telefono: string;
-  nombre: string;
-  medio: string;
-  calle: string;
-  lugar: string;
-  numero: string;
-  motivo: string;
-  detalle: string;
-  gDelictual: string;
-  caso: string;
-  movil: string;
-  patrullero: string;
-  observaciones: string;
-}
 
 // CODIGO PARA OBTENER TIEMPO Y FECHA ACTUAL
 const date = new Date();
@@ -73,48 +66,8 @@ const showTime =
 
 console.log(showTime);
 
-const motivo = [
-  { label: "Riña", id: "motivo" },
-  { label: "Vehiculo mal estacionado", id: "motivo" },
-  { label: "Agresión", id: "motivo" },
-];
-
-const movil = [
-  { label: "Derivado", id: "movil" },
-  { label: "53", id: "movil" },
-  { label: "83", id: "movil" },
-];
-
-const patruyero = [
-  { label: "Arenas", id: "patruyero" },
-  { label: "Yañez", id: "patruyero" },
-  { label: "Hevia", id: "patruyero" },
-];
-
-const medio = [
-  { label: "Llamada", id: "medio" },
-  { label: "Mensaje", id: "medio" },
-  { label: "WhatsUp", id: "medio" },
-];
-
-const sector = [
-  { label: "Sector 1", id: "sector" },
-  { label: "Sector 2", id: "sector" },
-  { label: "Sector 3", id: "sector" },
-];
-const subsector = [
-  { label: "Subsector 1", id: "subsector" },
-  { label: "Subsector 2", id: "subsector" },
-  { label: "Subsector 3", id: "subsector" },
-];
-const uv = [
-  { label: "Unidad vecinal 1", id: "uv" },
-  { label: "Unidad vecinal 2", id: "uv" },
-  { label: "Unidad vecinal 3", id: "uv" },
-];
-
-const EntryForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+const EntryForm = () => {
+  const [formData, setFormData] = useState({
     contribuyente: "",
     sector: "",
     subsector: "",
@@ -134,43 +87,21 @@ const EntryForm: React.FC = () => {
     observaciones: "",
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    // Aquí se enviarían los datos a la base de datos
     console.log(formData);
-
-    // Validación de los datos del formulario aquí (si es necesario)
-
-    try {
-      // Envío de los datos del formulario a la API del servidor
-      const response = await fetch("/api/registro/new", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-      }
-    } catch (error) {
-      console.error(
-        "Un error ocurrió al enviar los datos del formulario",
-        error
-      );
-    }
   };
 
   // NECESSARY FOR INPUTS
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   // NECESSARY FOR RADIOGROUP
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
-  const handleChangeContribuyente = (e: {
-    target: { name: any; value: any };
-  }) => {
+  const handleChangeContribuyente = (e) => {
     const { name, value } = e.target;
 
     if (name === "contribuyente") {
@@ -184,11 +115,7 @@ const EntryForm: React.FC = () => {
   };
 
   // DROPDOWN EVENT / SELECTOR DE OPCIONES
-  const handleChangeDropDown = (
-    e: { preventDefault: () => void },
-    id: any,
-    value: any
-  ) => {
+  const handleChangeDropDown = (e) => {
     e.preventDefault();
     setFormData((prev) => ({ ...prev, [value.id]: value.label }));
   };
@@ -216,6 +143,7 @@ const EntryForm: React.FC = () => {
             {" "}
             Contribuyente:{" "}
           </label>
+          {/* agregar al RadioGroup defaultValue="tercero" */}
           <RadioGroup
             row
             aria-labelledby="contribuyente"
@@ -224,16 +152,10 @@ const EntryForm: React.FC = () => {
             onChange={handleChangeContribuyente}
             value={formData.contribuyente}
           >
-            <FormControlLabel
-              value="tercero"
-              control={<Radio />}
-              label="Tercero"
-            />
-            <FormControlLabel
-              value="patrullero"
-              control={<Radio />}
-              label="Patrullero"
-            />
+            {/*<FormControlLabel value="tercero" control={<Radio />} label="Tercero" />
+                        <FormControlLabel value="patrullero" control={<Radio />} label="Patrullero" />*/}
+            <Radio value="tercero" /> Tercero
+            <Radio value="patrullero" /> Patrullero
           </RadioGroup>
         </div>
 
@@ -270,6 +192,7 @@ const EntryForm: React.FC = () => {
                 {" "}
                 Nombre:{" "}
               </label>
+              {/* id="nombre_contribuyente" */}
               <TextField
                 id="nombre"
                 label="Nombre"
@@ -292,6 +215,7 @@ const EntryForm: React.FC = () => {
                 disablePortal
                 fullWidth
                 id="medio"
+                //id="medio_comunicacion"
                 options={medio}
                 onChange={handleChangeDropDown}
                 renderInput={(params) => (
@@ -302,63 +226,48 @@ const EntryForm: React.FC = () => {
           </>
         )}
 
-        {/* COMENTADO PORQUE NO SABEMOS SI LA CONTRAPARTE DARA LOS DATOS PARA ESTO */}
-        {/* SECTOR - SUBSECTOR - UNIDADVECINAL */}
-        <div className="col-span-1">
-          <label
-            htmlFor="sector"
-            className="block text-sm pb-3 font-medium text-gray-700"
-          >
-            Sector:
-          </label>
-          <AutocompleteMUI
-            disablePortal
-            fullWidth
-            id="sector"
-            options={sector}
-            onChange={handleChangeDropDown}
-            //filterSelectedOptions
-            renderInput={(params) => <TextField {...params} label="Sector" />}
-          />
-        </div>
-        <div className="col-span-1">
-          <label
-            htmlFor="subsector"
-            className="block text-sm pb-3 font-medium text-gray-700"
-          >
-            Subsector:
-          </label>
-          <AutocompleteMUI
-            disablePortal
-            fullWidth
-            id="subsector"
-            options={subsector}
-            onChange={handleChangeDropDown}
-            //filterSelectedOptions
-            renderInput={(params) => (
-              <TextField {...params} label="Subsector" />
-            )}
-          />
-        </div>
-        <div className="col-span-1">
-          <label
-            htmlFor="uv"
-            className="block text-sm pb-3 font-medium text-gray-700"
-          >
-            Unidad vecinal:
-          </label>
-          <AutocompleteMUI
-            disablePortal
-            fullWidth
-            id="uv"
-            options={uv}
-            onChange={handleChangeDropDown}
-            //filterSelectedOptions
-            renderInput={(params) => (
-              <TextField {...params} label="Unidad vecinal" />
-            )}
-          />
-        </div>
+        {/* COMENTADO PORQUE NO SABEMOS SI LA CONTRAPARTE DARA LOS DATOS PARA ESTO
+                    {/* SECTOR - SUBSECTOR - UNIDADVECINAL 
+                <div className="col-span-1">
+                    <label htmlFor="sector" className="block text-sm pb-3 font-medium text-gray-700">
+                        Sector:
+                    </label>
+                    <AutocompleteMUI 
+                        disablePortal fullWidth
+                        id="sector"
+                        options={sector}
+                        onChange={handleChangeDropDown}
+                        //filterSelectedOptions
+                        renderInput={(params) => <TextField {...params} label="Sector" />}
+                    />
+                </div>
+                <div className="col-span-1">
+                    <label htmlFor="subsector" className="block text-sm pb-3 font-medium text-gray-700">
+                        Subsector:
+                    </label>
+                    <AutocompleteMUI 
+                        disablePortal fullWidth
+                        id="subsector"
+                        options={subsector}
+                        onChange={handleChangeDropDown}
+                        //filterSelectedOptions
+                        renderInput={(params) => <TextField {...params} label="Subsector" />}
+                    />
+                </div>
+                <div className="col-span-1">
+                    <label htmlFor="uv" className="block text-sm pb-3 font-medium text-gray-700">
+                        Unidad vecinal:
+                    </label>
+                    <AutocompleteMUI 
+                        disablePortal fullWidth
+                        id="uv"
+                        options={uv}
+                        onChange={handleChangeDropDown}
+                        //filterSelectedOptions
+                        renderInput={(params) => <TextField {...params} label="Unidad vecinal" />}
+                    />
+                </div>
+                */}
 
         {/* DIRECCION DEL INCIDENTE */}
         <div className="col-span-3">
@@ -369,17 +278,10 @@ const EntryForm: React.FC = () => {
             {" "}
             Dirección:{" "}
           </label>
-          <Autocomplete>
-            <TextField
-              id="calle"
-              label="Escribe la Calle"
-              variant="outlined"
-              fullWidth
-              required
-              onChange={handleChange}
-              value={formData.calle}
-            />
-          </Autocomplete>
+          <AutocompleteComponent
+            handleChange={handleChange}
+            data={formData.calle}
+          />
         </div>
 
         {/* MOTIVO DE LA LLAMADA */}
@@ -438,6 +340,7 @@ const EntryForm: React.FC = () => {
             {" "}
             Grupo Delictual:{" "}
           </label>
+          {/* id="grupo_delictual" */}
           <TextField
             id="gDelictual"
             label="Grupo delictual"

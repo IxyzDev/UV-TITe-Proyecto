@@ -1,7 +1,7 @@
 import React from "react";
-import EntryForm from "./components/EntryForm";
+import EntryForm from "../../components/EntryForm";
 
-const Home: React.FC = () => {
+const crearRegistro = () => {
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center">
       {/* Topbar */}
@@ -16,4 +16,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default crearRegistro;

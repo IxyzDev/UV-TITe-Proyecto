@@ -1,5 +1,5 @@
 import React from "react";
-import DataView from "./components/DataView";
+import DataView from "../../components/DataView";
 
 const mockData = [
   // Datos ficticios para visualizar en la tabla.
@@ -18,7 +18,7 @@ const mockData = [
   // ...otros registros
 ];
 
-const Home: React.FC = () => {
+const Home = () => {
   return (
     <div className="bg-gray-200 min-h-screen flex flex-col items-center">
       {/* Topbar */}
