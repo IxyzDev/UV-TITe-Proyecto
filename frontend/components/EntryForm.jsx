@@ -38,6 +38,7 @@ const hora = date.getHours() + ":" + date.getMinutes() + ":" + "00";
 const EntryForm = () => {
 	const router = useRouter();
 
+
 	// Fomato de datos enviados
 	const [formData, setFormData] = useState({
 		fecha: fecha,
@@ -69,6 +70,13 @@ const EntryForm = () => {
 
 	const validatePhone = (phone) => {
 		return /^\d+$/.test(phone);
+	};
+	const onSelectAddress = (lat, lng) => {
+		setCoordinates({ lat, lng });
+		setFormData(prev => ({
+			...prev,
+			coordenadas: `${lat}, ${lng}`,
+		}))
 	};
 
 	const handleSubmit = (e) => {
@@ -232,41 +240,48 @@ const EntryForm = () => {
 					)}
 				</div>
 
-				{/* MOTIVO DE LA LLAMADA */}
+				{/* Coordenadas */}
+				<div className="col-span-3">
+					<label htmlFor="coordenadas" className="block text-sm pb-3 font-medium text-gray-700">
+						{" "}Coordenadas:{" "}
+					</label>
+
+
+				</div>
 				{/* PEDIR LISTADO DE LOS QUE DEBEN IR */}
 				<div className="col-span-1">
 					<label htmlFor="motivo" className="block text-sm pb-3 font-medium text-gray-700" >
 						{" "} Motivo:{" "}
 					</label>
 					<AutocompleteMUI
-							disablePortal
-							fullWidth
-							id="motivo"
-							options={motivo}
-							onChange={(event, value) => {
-								setFormData(prev => ({
-									...prev,
-									motivo: value ? value.label : ''
-								}));
-							}}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									required
-									label="Motivo"
-									error={!!errors.motivo}
-									helperText={errors.motivo || ' '}
-								/>
-							)}
-						/>
-					</div>
+						disablePortal
+						fullWidth
+						id="motivo"
+						options={motivo}
+						onChange={(event, value) => {
+							setFormData(prev => ({
+								...prev,
+								motivo: value ? value.label : ''
+							}));
+						}}
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								required
+								label="Motivo"
+								error={!!errors.motivo}
+								helperText={errors.motivo || ' '}
+							/>
+						)}
+					/>
+				</div>
 
 				{/* DETALLE ESPECIFICO DE LO SUCESIDO EN EL EVENTO */}
 				<div className="col-span-1">
 					<label htmlFor="detalle" className="block text-sm pb-3 font-medium text-gray-700" >
 						{" "} Detalle:{" "}
 					</label>
-					<TextField id="detalle" label="Detalle" variant="outlined" fullWidth required onChange={handleChange} value={formData.detalle} error={!!errors.detalle} helperText={errors.detalle}/>
+					<TextField id="detalle" label="Detalle" variant="outlined" fullWidth required onChange={handleChange} value={formData.detalle} error={!!errors.detalle} helperText={errors.detalle} />
 				</div>
 
 				{/* GRUPO DELICTUAL */}
@@ -274,7 +289,7 @@ const EntryForm = () => {
 					<label htmlFor="grupo_delictual" className="block text-sm pb-3 font-medium text-gray-700" >
 						{" "} Grupo Delictual:{" "}
 					</label>
-					<TextField id="grupo_delictual" label="Grupo delictual" variant="outlined" fullWidth required onChange={handleChange} value={formData.grupo_delictual}  />
+					<TextField id="grupo_delictual" label="Grupo delictual" variant="outlined" fullWidth required onChange={handleChange} value={formData.grupo_delictual} />
 				</div>
 
 				{/* CASO */}
@@ -291,27 +306,27 @@ const EntryForm = () => {
 						{" "} Movil:{" "}
 					</label>
 					<AutocompleteMUI
-							disablePortal
-							fullWidth
-							id="movil"
-							options={movil}
-							onChange={(event, value) => {
-								setFormData(prev => ({
-									...prev,
-									movil: value ? value.label : ''
-								}));
-							}}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									required
-									label="Movil"
-									error={!!errors.movil}
-									helperText={errors.movil || ' '}
-								/>
-							)}
-						/>
-					</div>
+						disablePortal
+						fullWidth
+						id="movil"
+						options={movil}
+						onChange={(event, value) => {
+							setFormData(prev => ({
+								...prev,
+								movil: value ? value.label : ''
+							}));
+						}}
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								required
+								label="Movil"
+								error={!!errors.movil}
+								helperText={errors.movil || ' '}
+							/>
+						)}
+					/>
+				</div>
 
 				{/* NOMBRE PATRULLETO ENVIADO */}
 				<div className="col-span-1">
@@ -319,27 +334,27 @@ const EntryForm = () => {
 						{" "} Patrullero:{" "}
 					</label>
 					<AutocompleteMUI
-							disablePortal
-							fullWidth
-							id="patrullero"
-							options={patrullero}
-							onChange={(event, value) => {
-								setFormData(prev => ({
-									...prev,
-									patrullero: value ? value.label : ''
-								}));
-							}}
-							renderInput={(params) => (
-								<TextField
-									{...params}
-									required
-									label="Patrullero"
-									error={!!errors.patrullero}
-									helperText={errors.patrullero || ' '}
-								/>
-							)}
-						/>
-					</div>
+						disablePortal
+						fullWidth
+						id="patrullero"
+						options={patrullero}
+						onChange={(event, value) => {
+							setFormData(prev => ({
+								...prev,
+								patrullero: value ? value.label : ''
+							}));
+						}}
+						renderInput={(params) => (
+							<TextField
+								{...params}
+								required
+								label="Patrullero"
+								error={!!errors.patrullero}
+								helperText={errors.patrullero || ' '}
+							/>
+						)}
+					/>
+				</div>
 
 				{/* OBSERVACIONES SOBRE EL INCIDENTE */}
 				<div className="col-span-3">

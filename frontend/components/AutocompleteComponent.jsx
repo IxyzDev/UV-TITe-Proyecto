@@ -5,9 +5,10 @@ import {
 } from "@react-google-maps/api";
 import { TextField } from "@mui/material";
 
-const apiKey = ""; // Reemplaza con tu clave API real
 
-const AutocompleteComponent = () => {
+const apiKey = "AIzaSyBiEhWbQVjxhbz-zS2PqssIpf_rqIpcmBw"; // Reemplaza con tu clave API real
+
+const AutocompleteComponent = ( onCoordinatesChanged ) => {
   const [inputValue, setInputValue] = useState("");
   const autocompleteRef = useRef(null);
 
@@ -26,6 +27,7 @@ const AutocompleteComponent = () => {
   if (!isLoaded) {
     return <div>Cargando...</div>;
   }
+  
 
   return (
     <GoogleAutocomplete
