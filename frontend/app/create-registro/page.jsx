@@ -1,10 +1,11 @@
-import React from "react";
+import { React } from "react";
 import EntryForm from "../../components/EntryForm";
+import EntryFormCopy from "../../components/EntryFormCopy";
 
-const crearRegistro = () => {
+const CrearRegistro = () => {
 	return (
-		<EntryForm />
+		<EntryFormCopy />
 	);
 };
 
-export default crearRegistro;
+export default CrearRegistro;

@@ -10,6 +10,8 @@ import AutocompleteMUI from "@mui/material/Autocomplete";
 import { TextField, Radio, RadioGroup, FormControlLabel} from "@mui/material";
 // API Google
 import AutocompleteComponent from "../components/AutocompleteComponent";
+import Autocomplete from "@react-google-maps/api";
+
 import { useRouter } from "next/navigation";
 
 const motivo = data.motivo;
@@ -74,6 +76,7 @@ const EntryForm = () => {
 
 	// INPUTS
 	const handleChange = (e) => {
+		console.log("entro al input");
 		const { id, value } = e.target;
 		setFormData((prev) => ({ ...prev, [id]: value }));
 	};
@@ -168,6 +171,14 @@ const EntryForm = () => {
 					</label>
 					<AutocompleteComponent handleChange={handleChange} data={formData.direccion}/>
 				</div>
+				<div className="col-span-3">
+					<label htmlFor="direccion" className="block text-sm pb-3 font-medium text-gray-700" >
+						{" "} Dirección Prueba:{" "}
+					</label>
+					{/* <Autocomplete handleChange={handleChange} data={formData.direccion}/> */}
+					{/* <Autocomplete/> */}
+				</div>
+
 
 				{/* MOTIVO DE LA LLAMADA */}
 				{/* PEDIR LISTADO DE LOS QUE DEBEN IR */}

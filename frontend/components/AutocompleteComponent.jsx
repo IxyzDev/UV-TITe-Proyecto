@@ -1,11 +1,8 @@
 import React, { useRef, useState } from "react";
-import {
-  useJsApiLoader,
-  Autocomplete as GoogleAutocomplete,
-} from "@react-google-maps/api";
+import { useJsApiLoader, Autocomplete as GoogleAutocomplete,} from "@react-google-maps/api";
 import { TextField } from "@mui/material";
 
-const apiKey = ""; // Reemplaza con tu clave API real
+const apiKey = "AIzaSyBiEhWbQVjxhbz-zS2PqssIpf_rqIpcmBw"; // Reemplaza con tu clave API real
 
 const AutocompleteComponent = () => {
   const [inputValue, setInputValue] = useState("");
