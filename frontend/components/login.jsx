@@ -11,27 +11,36 @@ const LoginPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage('');    
-    // Aquí agregarías la lógica para autenticar al usuario con el backend
+    // Intenta enviar las credenciales al backend para la validación
+    try {
+      const response = await fetch('/api/login', { // Reemplaza esto con la ruta correcta de tu API
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    // Aquí agregarías la lógica para verificar el nombre de usuario y la contraseña
-    const isAuthSuccessful = true; // Resultado ficticio de la autenticación
-
-    if (!isAuthSuccessful) {
-        // Si la autenticación falla, muestra un mensaje de error
+    
+      if (response.ok) {
+        // Si la autenticación es correcta, redirige al usuario
+        router.push('/'); 
+      } else {
+        // Si las credenciales son incorrectas, muestra un mensaje de error
         setErrorMessage('Usuario o contraseña incorrecta.');
-        return; // Salir de la función si hay un error
       }
-
-          // Si la autenticación es exitosa, redirige al usuario
-    router.push('/'); // Asumiendo que '/dashboard' es la ruta a la que quieres redirigir tras un inicio de sesión exitoso
-};
+    } catch (error) {
+      // En caso de un error en la red o del servidor, muestra un mensaje de error genérico
+      setErrorMessage('Ha ocurrido un error al intentar conectar con el servidor.');
+    }
+  };
   
 
   return (
-    // Contenedor principal que centra el recuadro naranja
+    // Contenedor principal 
     <div className="flex items-center justify-center h-screen bg-white-100">
       <div className="bg-orange-500 p-10 rounded-lg shadow-lg">
-      {errorMessage && <div className="text-red-600 text-center mb-4">{errorMessage}</div>} {/* Mostrar mensaje de error aquí */}
+      {errorMessage && <div className="text-red-600 text-center mb-4">{errorMessage}</div>}
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <div>
             <label htmlFor="username" className="text-white block mb-2">Nombre de usuario:</label>

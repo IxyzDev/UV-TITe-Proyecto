@@ -1,9 +1,7 @@
-import dynamic from 'next/dynamic';
 import React from "react";
+import LoginPage from "../../components/login";
 
-const LoginPage = dynamic(() => import('../../components/login'), {
-  ssr: false,
-});
+
 
 const Login = () => {
   return <LoginPage />;
