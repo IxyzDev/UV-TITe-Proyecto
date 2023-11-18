@@ -20,7 +20,7 @@ const sequelize = new Sequelize({
   dialect: "mysql",
 });
 
-console.log(sequelize);
+//console.log(sequelize);
 
 //console.log("Todos los archivos en el directorio:", fs.readdirSync(__dirname));
 
@@ -32,14 +32,27 @@ const modelFiles = fs.readdirSync(__dirname).filter((file: string) => {
 //console.log("Archivos de modelo filtrados:", modelFiles);
 
 modelFiles.forEach((file: any) => {
-  //console.log(`Importando modelo desde el archivo: ${file}`);
-  const modelModule = require(path.join(__dirname, file));
-  const model = modelModule.default
-    ? modelModule.default(sequelize, DataTypes)
-    : modelModule(sequelize, DataTypes);
-  //console.log(`Modelo importado: ${model.name}`);
-  db[model.name] = model;
+  if (!file.startsWith("_")) {
+    // Verifica si el archivo no comienza con "_"
+    //console.log(`Importando modelo desde el archivo: ${file}`);
+    const modelModule = require(path.join(__dirname, file));
+    const model = modelModule.default
+      ? modelModule.default(sequelize, DataTypes)
+      : modelModule(sequelize, DataTypes);
+    //console.log(`Modelo importado: ${model.name}`);
+    db[model.name] = model;
+  }
 });
+
+// modelFiles.forEach((file: any) => {
+//   //console.log(`Importando modelo desde el archivo: ${file}`);
+//   const modelModule = require(path.join(__dirname, file));
+//   const model = modelModule.default
+//     ? modelModule.default(sequelize, DataTypes)
+//     : modelModule(sequelize, DataTypes);
+//   //console.log(`Modelo importado: ${model.name}`);
+//   db[model.name] = model;
+// });
 
 //console.log("Modelos importados:", Object.keys(db));
 

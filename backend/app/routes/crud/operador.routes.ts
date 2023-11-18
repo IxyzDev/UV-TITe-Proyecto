@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import * as operadorControllers from "../../controllers/crud/operadores_controllers/operador.controllers";
+import * as operadorControllers from "../../controllers/crud/_operadores_controllers/operador.controllers";
 import db from "../../models";
 
 const router = express.Router();

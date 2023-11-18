@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import * as patrulleroControllers from "../../controllers/crud/patrulleros_controllers/patrullero.controllers";
+import * as patrulleroControllers from "../../controllers/crud/_patrulleros_controllers/patrullero.controllers";
 import db from "../../models";
 
 const router = express.Router();

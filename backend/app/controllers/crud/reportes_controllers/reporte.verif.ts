@@ -22,13 +22,13 @@ export const isComunicacion = async (
   return comunicacionFromRequest;
 };
 
-export const isOperador = async (OperadorFromRequest: any): Promise<string> => {
+export const isUser = async (UsuarioFromRequest: any): Promise<string> => {
   try {
-    await db.Operadores.findByPk(OperadorFromRequest);
+    await db.Usuarios.findByPk(UsuarioFromRequest);
   } catch (error: any) {
-    throw new Error("Operador no encontrado");
+    throw new Error("Usuario no encontrado");
   }
-  return OperadorFromRequest;
+  return UsuarioFromRequest;
 };
 
 export const parseFecha = async (fechaFromRequest: any): Promise<string> => {
@@ -36,6 +36,13 @@ export const parseFecha = async (fechaFromRequest: any): Promise<string> => {
     throw new Error("La fecha debe ser un string");
   }
   return fechaFromRequest;
+};
+
+export const parseHora = async (horaFromRequest: any): Promise<string> => {
+  if (!isString(horaFromRequest)) {
+    throw new Error("La hora debe ser un string");
+  }
+  return horaFromRequest;
 };
 
 export const parseDetalle = async (
@@ -81,6 +88,19 @@ export const parseDerivado = async (
   return derivadoFromRequest;
 };
 
+export const parseNumMovil = async (
+  numMovilFromRequest: any
+): Promise<number> => {
+  if (!isNumber(numMovilFromRequest)) {
+    throw new Error("El numero de movil debe ser un number");
+  }
+  return numMovilFromRequest;
+};
+
 export const isString = (string: string): boolean => {
   return typeof string === "string";
+};
+
+export const isNumber = (number: number): boolean => {
+  return typeof number === "number";
 };

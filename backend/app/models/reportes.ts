@@ -85,7 +85,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       },
       num_movil: {
         allowNull: false,
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
       },
     },
     {

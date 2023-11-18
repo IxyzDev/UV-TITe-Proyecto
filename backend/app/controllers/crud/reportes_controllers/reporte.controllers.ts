@@ -10,18 +10,19 @@ const Reportes = db.Reportes;
 
 // Controlador para crear un nuevo reporte
 export const postReporte = async (object: any): Promise<ReportesInterface> => {
-  // const newReporteEntry: ReportesInterface = {
-  //   reporte_ID: uuidv4(),
-  //   ubicacion_ID: await verif.isUbicacion(object.ubicacion_ID),
-  //   comunicacion_ID: await verif.isComunicacion(object.comunicacion_ID),
-  //   //user_ID: await verif.isUser(object.user_ID),
-  //   fecha_y_hora_envio: await verif.parseFecha(object.fecha_y_hora),
-  //   motivo_detalle: await verif.parseMotivo(object.motivo),
-  //   observaciones: await verif.parseObservaciones(object.observaciones),
-  //   grupo_delictual: await verif.parseGrupoDelictual(object.grupo_delictual),
-  //   derivado: await verif.parseDerivado(object.derivado),
-  //   //num_movil: await verif.parseDerivado(object.derivado),
-  // };
+  const newReporteEntry: ReportesInterface = {
+    reporte_ID: uuidv4(),
+    ubicacion_ID: await verif.isUbicacion(object.ubicacion_ID),
+    comunicacion_ID: await verif.isComunicacion(object.comunicacion_ID),
+    user_ID: await verif.isUser(object.user_ID),
+    fecha_y_hora_envio: await verif.parseFecha(object.fecha_y_hora),
+    hora_evento: await verif.parseHora(object.hora_evento),
+    motivo_detalle: await verif.parseMotivo(object.motivo),
+    observaciones: await verif.parseObservaciones(object.observaciones),
+    grupo_delictual: await verif.parseGrupoDelictual(object.grupo_delictual),
+    derivado: await verif.parseDerivado(object.derivado),
+    num_movil: await verif.parseNumMovil(object.num_movil),
+  };
   return newReporteEntry;
 };
 
@@ -53,16 +54,17 @@ export const putReporte = async (
   console.log(object);
 
   const newReportesEntry: ReportesInterface = {
-    reporte_ID: reporte_ID,
+    reporte_ID: uuidv4(),
     ubicacion_ID: await verif.isUbicacion(object.ubicacion_ID),
     comunicacion_ID: await verif.isComunicacion(object.comunicacion_ID),
-    user_ID: await verif.isuser(object.user_ID),
-    fecha_y_hora: await verif.parseFecha(object.fecha_y_hora),
-    detalle: await verif.parseDetalle(object.detalle),
+    user_ID: await verif.isUser(object.user_ID),
+    fecha_y_hora_envio: await verif.parseFecha(object.fecha_y_hora),
+    hora_evento: await verif.parseHora(object.hora_evento),
+    motivo_detalle: await verif.parseMotivo(object.motivo),
     observaciones: await verif.parseObservaciones(object.observaciones),
-    motivo: await verif.parseMotivo(object.motivo),
     grupo_delictual: await verif.parseGrupoDelictual(object.grupo_delictual),
     derivado: await verif.parseDerivado(object.derivado),
+    num_movil: await verif.parseNumMovil(object.num_movil),
   };
 
   await Reportes.update(newReportesEntry, {
