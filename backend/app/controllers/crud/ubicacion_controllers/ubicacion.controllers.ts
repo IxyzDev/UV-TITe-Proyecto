@@ -16,8 +16,6 @@ export const postUbicacion = async (
     ubicacion_ID: uuidv4(),
     direccion: verif.parseDireccion(object.direccion),
     coordenadas: verif.parseCoordenadas(object.coordenadas),
-    n_domicilio: verif.parseNDomicilio(object.n_domicilio),
-    lugar: verif.parseLugar(object.lugar),
   };
   return newUbicacionEntry;
 };
@@ -53,8 +51,6 @@ export const putUbicacion = async (
     ubicacion_ID: ubicacion_ID,
     direccion: verif.parseDireccion(object.direccion),
     coordenadas: verif.parseCoordenadas(object.coordenadas),
-    n_domicilio: verif.parseNDomicilio(object.n_domicilio),
-    lugar: verif.parseLugar(object.lugar),
   };
 
   await Ubicacion.update(newUbicacionEntry);

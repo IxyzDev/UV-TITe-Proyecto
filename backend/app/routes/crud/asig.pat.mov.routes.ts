@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import * as asignacionControllers from "../../controllers/crud/asignacion_patrullero_movil_controllers/asig.pat.mov.controllers";
+import * as asignacionControllers from "../../controllers/crud/_asignacion_patrullero_movil_controllers/asig.pat.mov.controllers";
 import db from "../../models";
 
 const router = express.Router();

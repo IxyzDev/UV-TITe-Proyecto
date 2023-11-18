@@ -1,42 +1,47 @@
 import { Model } from "sequelize";
 
-import { SectorInterface } from "../interfaces/types";
+import { UsuarioInterface } from "../interfaces/types";
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Sector extends Model<SectorInterface> implements SectorInterface {
-    sector_ID!: string;
-    nombre_sector!: string;
-    unidad_vecinal!: string;
+  class Usuario extends Model<UsuarioInterface> implements UsuarioInterface {
+    user_ID!: string;
+    nombre!: string;
+    contrasena!: string;
+    admin!: boolean;
 
     static associate(models: any) {
-      Sector.belongsTo(models.SubSector, {
-        foreignKey: "sector_ID",
+      Usuario.hasOne(models.Reportes, {
+        foreignKey: "reporte_ID",
         foreignKeyConstraint: true,
       });
     }
   }
-  Sector.init(
+  Usuario.init(
     {
-      sector_ID: {
+      user_ID: {
         primaryKey: true,
         allowNull: false,
         type: DataTypes.STRING,
       },
-      nombre_sector: {
+      nombre: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      unidad_vecinal: {
+      contrasena: {
         allowNull: false,
         type: DataTypes.STRING,
+      },
+      admin: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
       },
     },
     {
       sequelize,
       timestamps: false,
       freezeTableName: true,
-      modelName: "Sector",
+      modelName: "Usuarios",
     }
   );
-  return Sector;
+  return Usuario;
 };
