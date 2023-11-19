@@ -1,17 +1,17 @@
-import { v4 as uuidv4 } from "uuid";
+//import { v4 as uuidv4 } from "uuid";
 
 import db from "../../models";
 import { UsuarioInterface } from "../../interfaces/types";
 
 import * as verif from "./usuario.verif";
-import * as encript from "../../utils/encriptar";
+import bcrypt from "bcrypt";
 
 const Usuario = db.Usuarios;
+const saltRounds = 10;
 
 const verifUsuario = async (object: any): Promise<UsuarioInterface> => {
   const newUsuarioEntry: UsuarioInterface = {
-    usuario_ID: object.usuario_ID || uuidv4(),
-    nombre: verif.parseNombre(object.nombre),
+    nombre_usuario: verif.parseNombre(object.nombre),
     contrasena: verif.parseContrasena(object.contrasena),
     admin: verif.parseAdmin(object.admin),
   };
@@ -21,7 +21,7 @@ const verifUsuario = async (object: any): Promise<UsuarioInterface> => {
 // Controlador para crear un nuevo usuario
 export const postUsuario = async (object: any): Promise<UsuarioInterface> => {
   const newUsuarioEntry: UsuarioInterface = await verifUsuario(object);
-  newUsuarioEntry.contrasena = await encript.hashValue(newUsuarioEntry.contrasena);
+  newUsuarioEntry.contrasena = await bcrypt.hash(newUsuarioEntry.contrasena, saltRounds);
   return await Usuario.create(newUsuarioEntry);
 };
 
@@ -39,7 +39,6 @@ export const getOneUsuario = async (object: any): Promise<UsuarioInterface> => {
 export const putUsuario = async (usuario_ID: string, object: any): Promise<void> => {
   try {
     // Validación de los datos de entrada
-    object.usuario_ID = usuario_ID;
     const updateUsuario = await verifUsuario(object);
 
     // Intenta actualizar el usuario directamente
@@ -81,6 +80,24 @@ export const deleteusuario = async (object: any): Promise<void> => {
 
 // Controlador para obtener todos los usuarios
 export const loginUsuario = async (object: any): Promise<boolean> => {
-  console.log(object);
-  return true;
+  try {
+    const { nombre_usuario, contrasena } = object;
+
+    // Buscar al usuario por su nombre de usuario
+    const usuario = await Usuario.findOne({ where: { nombre_usuario } });
+
+    // Si el usuario no existe, devuelve falso
+    if (!usuario) {
+      return false;
+    }
+
+    // Comparar la contraseña proporcionada con la almacenada
+    const isMatch = await bcrypt.compare(contrasena, usuario.contrasena);
+
+    // Devolver verdadero si las contraseñas coinciden, de lo contrario falso
+    return isMatch;
+  } catch (error) {
+    console.error("Error en el login: ", error);
+    throw new Error("Error al intentar iniciar sesión");
+  }
 };

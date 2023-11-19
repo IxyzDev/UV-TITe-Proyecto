@@ -2,7 +2,7 @@ export interface ReportesInterface {
   reporte_ID: string; // Identificador de un reporte
   ubicacion_ID: string; // Varios reportes pueden estar en una ubicacion
   comunicacion_ID: string; // Una comunicacion puede tener un reporte
-  usuario_ID: string; // Un usuario puede tener muchos reportes
+  nombre_usuario: string; // Un usuario puede tener muchos reportes
   fecha_y_hora_envio: string;
   hora_evento: string;
   motivo_detalle: string;
@@ -29,8 +29,7 @@ export interface ComunicacionInterface {
 }
 
 export interface UsuarioInterface {
-  usuario_ID: string;
-  nombre: string;
+  nombre_usuario: string;
   contrasena: string;
   admin: boolean; // ¿Es administrador?
 }

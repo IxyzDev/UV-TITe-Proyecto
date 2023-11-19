@@ -4,8 +4,7 @@ import { UsuarioInterface } from "../interfaces/types";
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Usuario extends Model<UsuarioInterface> implements UsuarioInterface {
-    usuario_ID!: string;
-    nombre!: string;
+    nombre_usuario!: string;
     contrasena!: string;
     admin!: boolean;
 
@@ -18,12 +17,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
   }
   Usuario.init(
     {
-      usuario_ID: {
+      nombre_usuario: {
         primaryKey: true,
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      nombre: {
         allowNull: false,
         type: DataTypes.STRING,
       },

@@ -7,7 +7,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
     reporte_ID!: string;
     ubicacion_ID!: string;
     comunicacion_ID!: string;
-    usuario_ID!: string;
+    nombre_usuario!: string;
     fecha_y_hora_envio!: string;
     hora_evento!: string;
     motivo_detalle!: string;
@@ -26,7 +26,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       //   foreignKeyConstraint: true,
       // }),
       Reportes.belongsTo(models.Usuarios, {
-        foreignKey: "usuario_ID",
+        foreignKey: "nombre_usuario",
         foreignKeyConstraint: true,
       }),
         Reportes.belongsTo(models.Ubicacion, {
@@ -55,7 +55,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
         unique: true,
       },
-      usuario_ID: {
+      nombre_usuario: {
         allowNull: false,
         type: DataTypes.STRING,
       },
