@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import * as ubicacionControllers from "../../controllers/crud/ubicacion_controllers/ubicacion.controllers";
-import db from "../../models";
+import * as ubicacionControllers from "../controllers/ubicacion_controllers/ubicacion.controllers";
+import db from "../models";
 
 const router = express.Router();
 
@@ -10,9 +10,7 @@ router.get("/get", async (_req: Request, res: Response) => {
     const Ubicacions = await ubicacionControllers.getUbicaciones();
     return res.json(Ubicacions);
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al mostrar los Ubicacions: " + error.message });
+    return res.status(500).json({ msg: "Error al mostrar los Ubicacions: " + error.message });
   }
 });
 
@@ -28,9 +26,7 @@ router.post("/post", async (req: Request, res: Response) => {
     return res.json({ record, msg: "Creacion exitosa de un ubicacion" });
   } catch (error: any) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ msg: "Error al crear un ubicacion: " + error.message });
+    return res.status(500).json({ msg: "Error al crear un ubicacion: " + error.message });
   }
 });
 
@@ -41,9 +37,7 @@ router.put("/put/:id", async (req: Request, res: Response) => {
 
     return res.json({ msg: "Ubicacion actualizado correctamente" });
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al actualizar el Ubicacion: " + error.message });
+    return res.status(500).json({ msg: "Error al actualizar el Ubicacion: " + error.message });
   }
 });
 
@@ -54,9 +48,7 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
 
     return res.json({ msg: "Ubicacion eliminado correctamente" });
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al eliminar el Ubicacion: " + error.message });
+    return res.status(500).json({ msg: "Error al eliminar el Ubicacion: " + error.message });
   }
 });
 

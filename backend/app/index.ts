@@ -4,10 +4,10 @@ import db from "./models";
 
 // Importación de las rutas CRUD
 
-import comunicacionRouter from "./routes/crud/comunicacion.routes";
-import ubicacionRouter from "./routes/crud/ubicacion.routes";
-import reporteRouter from "./routes/crud/reporte.routes";
-import usuarioRouter from "./routes/crud/usuario.routes";
+import comunicacionRouter from "./routes/comunicacion.routes";
+import ubicacionRouter from "./routes/ubicacion.routes";
+import reporteRouter from "./routes/reporte.routes";
+import usuarioRouter from "./routes/usuario.routes";
 
 //import funcionarioRouter from "./routes/crud/funcionario.routes";
 //import movilRouter from "./routes/crud/movil.routes";
@@ -17,9 +17,6 @@ import usuarioRouter from "./routes/crud/usuario.routes";
 //import asignacionPM from "./routes/crud/asig.pat.mov.routes";
 
 //import asignacionPR from "./routes/crud/asig.pat.rep.routes";
-
-// Importacion rutas integracion
-import ingresarReporte from "./routes/ingresar.reporte.routes";
 
 const app = express();
 const PORT = 3000;
@@ -51,8 +48,4 @@ app.use("/usuario", usuarioRouter);
 // app.use("/operador", operador);
 // app.use("/funcionario", funcionarioRouter);
 // app.use("/movil", movilRouter);
-
-// Rutas integracion
-app.use("/ingresarReporte", ingresarReporte);
-
 export default app;

@@ -1,6 +1,6 @@
 import { Model } from "sequelize";
 
-import { MovilInterface } from "../interfaces/types";
+import { MovilInterface } from "../../interfaces/types";
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class Movil extends Model<MovilInterface> implements MovilInterface {

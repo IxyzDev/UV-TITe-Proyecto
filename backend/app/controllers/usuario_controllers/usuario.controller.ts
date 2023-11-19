@@ -1,15 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
 
-import db from "../../../models";
-import { UsuarioInterface } from "../../../interfaces/types";
+import db from "../../models";
+import { UsuarioInterface } from "../../interfaces/types";
 
 import * as verif from "./usuario.verif";
+import * as encript from "../../utils/encriptar";
 
 const Usuario = db.Usuarios;
 
 const verifUsuario = async (object: any): Promise<UsuarioInterface> => {
-  console.log(object.usuario_ID);
-
   const newUsuarioEntry: UsuarioInterface = {
     usuario_ID: object.usuario_ID || uuidv4(),
     nombre: verif.parseNombre(object.nombre),
@@ -22,6 +21,7 @@ const verifUsuario = async (object: any): Promise<UsuarioInterface> => {
 // Controlador para crear un nuevo usuario
 export const postUsuario = async (object: any): Promise<UsuarioInterface> => {
   const newUsuarioEntry: UsuarioInterface = await verifUsuario(object);
+  newUsuarioEntry.contrasena = await encript.hashValue(newUsuarioEntry.contrasena);
   return await Usuario.create(newUsuarioEntry);
 };
 
@@ -40,7 +40,6 @@ export const putUsuario = async (usuario_ID: string, object: any): Promise<void>
   try {
     // Validación de los datos de entrada
     object.usuario_ID = usuario_ID;
-    console.log(object);
     const updateUsuario = await verifUsuario(object);
 
     // Intenta actualizar el usuario directamente
@@ -72,4 +71,16 @@ export const deleteusuario = async (object: any): Promise<void> => {
   } catch (error: any) {
     throw new Error("Error al eliminar el usuario: " + error.message);
   }
+};
+
+/*
+################################################################################################
+################################################################################################
+################################################################################################
+*/
+
+// Controlador para obtener todos los usuarios
+export const loginUsuario = async (object: any): Promise<boolean> => {
+  console.log(object);
+  return true;
 };

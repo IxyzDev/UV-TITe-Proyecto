@@ -1,12 +1,9 @@
 import { Model } from "sequelize";
 
-import { PatrullerosInterface } from "../interfaces/types";
+import { PatrullerosInterface } from "../../interfaces/types";
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Patrulleros
-    extends Model<PatrullerosInterface>
-    implements PatrullerosInterface
-  {
+  class Patrulleros extends Model<PatrullerosInterface> implements PatrullerosInterface {
     patrullero_ID!: string;
     funcionario_ID!: string;
 

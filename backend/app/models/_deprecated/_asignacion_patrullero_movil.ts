@@ -1,6 +1,6 @@
 import { Model } from "sequelize";
 
-import { AsignacionPatrulleroMovilInterface } from "../interfaces/types";
+import { AsignacionPatrulleroMovilInterface } from "../../interfaces/types";
 
 module.exports = (sequelize: any, DataTypes: any) => {
   class AsignacionPatrulleroMovil

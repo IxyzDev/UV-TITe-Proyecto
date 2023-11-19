@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import * as usuarioControllers from "../../controllers/crud/usuario_controllers/usuario.controller";
+import * as usuarioControllers from "../controllers/usuario_controllers/usuario.controller";
 
 const router = express.Router();
 
@@ -39,6 +39,21 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
     return res.json({ msg: "usuario eliminado correctamente" });
   } catch (error: any) {
     return res.status(500).json({ msg: "Error al eliminar el usuario: " + error.message });
+  }
+});
+
+/*
+################################################################################################
+################################################################################################
+################################################################################################
+*/
+
+// Verificar Usuario
+router.post("/login", async (req: Request, res: Response) => {
+  try {
+    return res.json(await usuarioControllers.loginUsuario({ ...req.body }));
+  } catch (error: any) {
+    return res.status(500).json({ msg: "Error al mostrar los usuario: " + error.message });
   }
 });
 

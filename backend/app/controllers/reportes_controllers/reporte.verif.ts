@@ -1,8 +1,6 @@
-import db from "../../../models";
+import db from "../../models";
 
-export const isUbicacion = async (
-  ubicacionFromRequest: any,
-): Promise<string> => {
+export const isUbicacion = async (ubicacionFromRequest: any): Promise<string> => {
   try {
     await db.Ubicacion.findByPk(ubicacionFromRequest);
   } catch (error: any) {
@@ -11,9 +9,7 @@ export const isUbicacion = async (
   return ubicacionFromRequest;
 };
 
-export const isComunicacion = async (
-  comunicacionFromRequest: any,
-): Promise<string> => {
+export const isComunicacion = async (comunicacionFromRequest: any): Promise<string> => {
   try {
     await db.Comunicacion.findByPk(comunicacionFromRequest);
   } catch (error: any) {
@@ -45,18 +41,14 @@ export const parseHora = async (horaFromRequest: any): Promise<string> => {
   return horaFromRequest;
 };
 
-export const parseDetalle = async (
-  detalleFromRequest: any,
-): Promise<string> => {
+export const parseDetalle = async (detalleFromRequest: any): Promise<string> => {
   if (!isString(detalleFromRequest)) {
     throw new Error("El detalle debe ser un string");
   }
   return detalleFromRequest;
 };
 
-export const parseObservaciones = async (
-  observacionesFromRequest: any,
-): Promise<string> => {
+export const parseObservaciones = async (observacionesFromRequest: any): Promise<string> => {
   if (!isString(observacionesFromRequest)) {
     throw new Error("las observaciones deben ser un string");
   }
@@ -70,27 +62,21 @@ export const parseMotivo = async (motivoFromRequest: any): Promise<string> => {
   return motivoFromRequest;
 };
 
-export const parseGrupoDelictual = async (
-  grupoDelictualFromRequest: any,
-): Promise<string> => {
+export const parseGrupoDelictual = async (grupoDelictualFromRequest: any): Promise<string> => {
   if (!isString(grupoDelictualFromRequest)) {
     throw new Error("El grupo delictual debe ser un string");
   }
   return grupoDelictualFromRequest;
 };
 
-export const parseDerivado = async (
-  derivadoFromRequest: any,
-): Promise<string> => {
+export const parseDerivado = async (derivadoFromRequest: any): Promise<string> => {
   if (!isString(derivadoFromRequest)) {
     throw new Error("El derivado debe ser un string");
   }
   return derivadoFromRequest;
 };
 
-export const parseNumMovil = async (
-  numMovilFromRequest: any,
-): Promise<number> => {
+export const parseNumMovil = async (numMovilFromRequest: any): Promise<number> => {
   if (!isNumber(numMovilFromRequest)) {
     throw new Error("El numero de movil debe ser un number");
   }

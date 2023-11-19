@@ -1,12 +1,9 @@
 import { Model } from "sequelize";
 
-import { OperadoresInterface } from "../interfaces/types";
+import { OperadoresInterface } from "../../interfaces/types";
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class Operadores
-    extends Model<OperadoresInterface>
-    implements OperadoresInterface
-  {
+  class Operadores extends Model<OperadoresInterface> implements OperadoresInterface {
     operador_ID!: string;
     funcionario_ID!: string;
 

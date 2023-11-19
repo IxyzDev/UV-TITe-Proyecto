@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import * as funcionarioController from "../../controllers/crud/usuario_controllers/usuario.controller";
+import * as funcionarioController from "../../controllers/usuario_controllers/usuario.controller";
 import db from "../../models";
 
 const router = express.Router();
@@ -10,9 +10,7 @@ router.get("/get", async (_req: Request, res: Response) => {
     const funcionarios = await funcionarioController.readFuncionarios();
     return res.json(funcionarios);
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al mostrar los funcionarios: " + error.message });
+    return res.status(500).json({ msg: "Error al mostrar los funcionarios: " + error.message });
   }
 });
 
@@ -28,9 +26,7 @@ router.post("/post", async (req: Request, res: Response) => {
     return res.json({ record, msg: "Creación de funcionario exitosa" });
   } catch (error: any) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ msg: "Error al crear un funcionario: " + error.message });
+    return res.status(500).json({ msg: "Error al crear un funcionario: " + error.message });
   }
 });
 
@@ -44,9 +40,7 @@ router.put("/put/:id", async (req: Request, res: Response) => {
 
     return res.json({ msg: "Funcionario actualizado correctamente" });
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al actualizar el funcionario: " + error.message });
+    return res.status(500).json({ msg: "Error al actualizar el funcionario: " + error.message });
   }
 });
 
@@ -59,9 +53,7 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
 
     return res.json({ msg: "Funciionario Eliminado correctamente" });
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al eliminar el funcionario: " + error.message });
+    return res.status(500).json({ msg: "Error al eliminar el funcionario: " + error.message });
   }
 });
 

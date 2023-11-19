@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import * as reporteControllers from "../../controllers/crud/reportes_controllers/reporte.controllers";
-import db from "../../models";
+import * as reporteControllers from "../controllers/reportes_controllers/reporte.controllers";
+import db from "../models";
 
 const router = express.Router();
 
@@ -10,9 +10,7 @@ router.get("/get", async (_req: Request, res: Response) => {
     const Reportes = await reporteControllers.getReportes();
     return res.json(Reportes);
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al mostrar los Reportes: " + error.message });
+    return res.status(500).json({ msg: "Error al mostrar los Reportes: " + error.message });
   }
 });
 
@@ -30,9 +28,7 @@ router.post("/post", async (req: Request, res: Response) => {
     return res.json({ record, msg: "Creacion exitosa de un reporte" });
   } catch (error: any) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ msg: "Error al crear un reporte: " + error.message });
+    return res.status(500).json({ msg: "Error al crear un reporte: " + error.message });
   }
 });
 
@@ -43,9 +39,7 @@ router.put("/put/:id", async (req: Request, res: Response) => {
 
     return res.json({ msg: "Reporte actualizado correctamente" });
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al actualizar el Reporte: " + error.message });
+    return res.status(500).json({ msg: "Error al actualizar el Reporte: " + error.message });
   }
 });
 
@@ -56,9 +50,7 @@ router.delete("/delete/:id", async (req: Request, res: Response) => {
 
     return res.json({ msg: "Reporte eliminado correctamente" });
   } catch (error: any) {
-    return res
-      .status(500)
-      .json({ msg: "Error al eliminar el Reporte: " + error.message });
+    return res.status(500).json({ msg: "Error al eliminar el Reporte: " + error.message });
   }
 });
 

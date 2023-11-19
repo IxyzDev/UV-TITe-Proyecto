@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 
-import db from "../../../models";
+import db from "../../models";
 
-import { ReportesInterface } from "../../../interfaces/types";
+import { ReportesInterface } from "../../interfaces/types";
 
 import * as verif from "./reporte.verif";
 

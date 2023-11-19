@@ -1,22 +1,18 @@
 import { v4 as uuidv4 } from "uuid";
 
-import db from "../../../models";
+import db from "../../models";
 
-import { ComunicacionInterface } from "../../../interfaces/types";
+import { ComunicacionInterface } from "../../interfaces/types";
 
 import * as verif from "./comunicacion.verif";
 
 const comunicacion = db.Comunicacion;
 // Controlador para crear una nueva comunicación
-export const postComunicacion = async (
-  object: any,
-): Promise<ComunicacionInterface> => {
+export const postComunicacion = async (object: any): Promise<ComunicacionInterface> => {
   const newComunicacionEntry: ComunicacionInterface = {
     comunicacion_ID: uuidv4(),
     medio_comunicacion: verif.parseMedioComunicacion(object.medio_comunicacion),
-    nombre_contribuyente: verif.parseNombreContribuyente(
-      object.nombre_contribuyente,
-    ),
+    nombre_contribuyente: verif.parseNombreContribuyente(object.nombre_contribuyente),
     telefono: verif.parseTelefono(object.telefono),
   };
   return newComunicacionEntry;
@@ -30,9 +26,7 @@ export const getComunicacion = async (): Promise<ComunicacionInterface[]> => {
 
 // Controlador para obtener una comunicación por ID
 // Controlador para obtener un móvil por ID
-export const getComunicacionById = async (
-  object: any,
-): Promise<ComunicacionInterface> => {
+export const getComunicacionById = async (object: any): Promise<ComunicacionInterface> => {
   const comunicaciones = await comunicacion.findOne({
     where: { comunicacion_ID: object.comunicacion_ID },
   });
@@ -56,12 +50,8 @@ export const updateComunicacion = async (
   }
 
   // Validar los campos a actualizar
-  const medioComunicacion = verif.parseMedioComunicacion(
-    object.medio_comunicacion,
-  );
-  const nombreContribuyente = verif.parseNombreContribuyente(
-    object.nombre_contribuyente,
-  );
+  const medioComunicacion = verif.parseMedioComunicacion(object.medio_comunicacion);
+  const nombreContribuyente = verif.parseNombreContribuyente(object.nombre_contribuyente);
   const telefono = verif.parseTelefono(object.telefono);
 
   // Actualizar la comunicación
