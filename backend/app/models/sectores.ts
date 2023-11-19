@@ -36,7 +36,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       timestamps: false,
       freezeTableName: true,
       modelName: "Sector",
-    }
+    },
   );
   return Sector;
 };

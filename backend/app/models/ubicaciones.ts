@@ -50,7 +50,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       timestamps: false,
       freezeTableName: true,
       modelName: "Ubicacion",
-    }
+    },
   );
   return Ubicacion;
 };

@@ -2,7 +2,7 @@ export interface ReportesInterface {
   reporte_ID: string; // Identificador de un reporte
   ubicacion_ID: string; // Varios reportes pueden estar en una ubicacion
   comunicacion_ID: string; // Una comunicacion puede tener un reporte
-  user_ID: string; // Un usuario puede tener muchos reportes
+  usuario_ID: string; // Un usuario puede tener muchos reportes
   fecha_y_hora_envio: string;
   hora_evento: string;
   motivo_detalle: string;
@@ -29,7 +29,7 @@ export interface ComunicacionInterface {
 }
 
 export interface UsuarioInterface {
-  user_ID: string;
+  usuario_ID: string;
   nombre: string;
   contrasena: string;
   admin: boolean; // ¿Es administrador?
@@ -57,10 +57,7 @@ export interface PatrullerosInterface {
   funcionario_ID: string;
 }
 
-export type OperadoresOnetoOnePatrullerosInterface = Omit<
-  OperadoresInterface,
-  "funcionario_ID"
->;
+export type OperadoresOnetoOnePatrullerosInterface = Omit<OperadoresInterface, "funcionario_ID">;
 
 export interface AsignacionPatrulleroMovilInterface {
   asignacion_movil_ID: string;

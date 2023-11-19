@@ -44,7 +44,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       timestamps: false,
       freezeTableName: true,
       modelName: "Comunicacion",
-    }
+    },
   );
   return Comunicacion;
 };

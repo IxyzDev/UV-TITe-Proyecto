@@ -8,13 +8,12 @@ import * as verif from "./reporte.verif";
 
 const Reportes = db.Reportes;
 
-// Controlador para crear un nuevo reporte
-export const postReporte = async (object: any): Promise<ReportesInterface> => {
+const verifReporte = async (object: any): Promise<ReportesInterface> => {
   const newReporteEntry: ReportesInterface = {
     reporte_ID: uuidv4(),
     ubicacion_ID: await verif.isUbicacion(object.ubicacion_ID),
     comunicacion_ID: await verif.isComunicacion(object.comunicacion_ID),
-    user_ID: await verif.isUser(object.user_ID),
+    usuario_ID: await verif.isUser(object.usuario_ID),
     fecha_y_hora_envio: await verif.parseFecha(object.fecha_y_hora),
     hora_evento: await verif.parseHora(object.hora_evento),
     motivo_detalle: await verif.parseMotivo(object.motivo),
@@ -26,6 +25,13 @@ export const postReporte = async (object: any): Promise<ReportesInterface> => {
   return newReporteEntry;
 };
 
+// Controlador para crear un nuevo reporte
+export const postReporte = async (object: any): Promise<ReportesInterface> => {
+  const newReporteEntry: ReportesInterface = await verifReporte(object);
+  const reporte = await Reportes.create(newReporteEntry);
+  return reporte;
+};
+
 // Controlador para obtener todos los reportes
 export const getReportes = async (): Promise<ReportesInterface[]> => {
   const reportes = await Reportes.findAll();
@@ -33,18 +39,13 @@ export const getReportes = async (): Promise<ReportesInterface[]> => {
 };
 
 // Controlador para obtener un reporte por ID
-export const getReporteById = async (
-  reporte_ID: string
-): Promise<ReportesInterface> => {
+export const getReporteById = async (reporte_ID: string): Promise<ReportesInterface> => {
   const reportes = await Reportes.findByPk(reporte_ID);
   return reportes;
 };
 
 // Controlador para actualizar un reporte por ID
-export const putReporte = async (
-  reporte_ID: string,
-  object: any
-): Promise<void> => {
+export const putReporte = async (reporte_ID: string, object: any): Promise<void> => {
   try {
     await Reportes.findByPk(reporte_ID);
   } catch (error: any) {
@@ -57,7 +58,7 @@ export const putReporte = async (
     reporte_ID: uuidv4(),
     ubicacion_ID: await verif.isUbicacion(object.ubicacion_ID),
     comunicacion_ID: await verif.isComunicacion(object.comunicacion_ID),
-    user_ID: await verif.isUser(object.user_ID),
+    usuario_ID: await verif.isUser(object.usuario_ID),
     fecha_y_hora_envio: await verif.parseFecha(object.fecha_y_hora),
     hora_evento: await verif.parseHora(object.hora_evento),
     motivo_detalle: await verif.parseMotivo(object.motivo),

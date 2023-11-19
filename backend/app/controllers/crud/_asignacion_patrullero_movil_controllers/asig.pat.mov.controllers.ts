@@ -10,7 +10,7 @@ const Asignacion = db.AsignacionPatrulleroMovil;
 
 // Controlador para crear una nueva asignacion
 export const postAsignacion = async (
-  object: any
+  object: any,
 ): Promise<AsignacionPatrulleroMovilInterface> => {
   const newAsignacionEntry: AsignacionPatrulleroMovilInterface = {
     asignacion_movil_ID: uuidv4(),
@@ -42,7 +42,7 @@ export const getAsignacionById = async (object: any): Promise<void> => {
 // Controlador para actualizar una asignacion por ID
 export const putAsignacion = async (
   asignacion_ID: string,
-  object: any
+  object: any,
 ): Promise<AsignacionPatrulleroMovilInterface> => {
   const asignacion = await Asignacion.findByPk(asignacion_ID);
   if (!asignacion) {

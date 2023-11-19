@@ -9,13 +9,13 @@ import * as verif from "./comunicacion.verif";
 const comunicacion = db.Comunicacion;
 // Controlador para crear una nueva comunicación
 export const postComunicacion = async (
-  object: any
+  object: any,
 ): Promise<ComunicacionInterface> => {
   const newComunicacionEntry: ComunicacionInterface = {
     comunicacion_ID: uuidv4(),
     medio_comunicacion: verif.parseMedioComunicacion(object.medio_comunicacion),
     nombre_contribuyente: verif.parseNombreContribuyente(
-      object.nombre_contribuyente
+      object.nombre_contribuyente,
     ),
     telefono: verif.parseTelefono(object.telefono),
   };
@@ -31,7 +31,7 @@ export const getComunicacion = async (): Promise<ComunicacionInterface[]> => {
 // Controlador para obtener una comunicación por ID
 // Controlador para obtener un móvil por ID
 export const getComunicacionById = async (
-  object: any
+  object: any,
 ): Promise<ComunicacionInterface> => {
   const comunicaciones = await comunicacion.findOne({
     where: { comunicacion_ID: object.comunicacion_ID },
@@ -47,7 +47,7 @@ export const getComunicacionById = async (
 // Controlador para obtener una comunicación por ID
 export const updateComunicacion = async (
   comunicacion_ID: string,
-  object: any
+  object: any,
 ): Promise<ComunicacionInterface> => {
   // Buscar la comunicación en la base de datos
   const comunicacionInstance = await comunicacion.findByPk(comunicacion_ID);
@@ -57,10 +57,10 @@ export const updateComunicacion = async (
 
   // Validar los campos a actualizar
   const medioComunicacion = verif.parseMedioComunicacion(
-    object.medio_comunicacion
+    object.medio_comunicacion,
   );
   const nombreContribuyente = verif.parseNombreContribuyente(
-    object.nombre_contribuyente
+    object.nombre_contribuyente,
   );
   const telefono = verif.parseTelefono(object.telefono);
 

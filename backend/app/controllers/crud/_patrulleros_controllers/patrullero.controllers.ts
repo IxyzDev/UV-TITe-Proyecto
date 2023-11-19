@@ -10,7 +10,7 @@ const Patrullero = db.Patrulleros;
 
 // Controlador para crear un nuevo patrullero
 export const postPatrullero = async (
-  object: any
+  object: any,
 ): Promise<PatrullerosInterface> => {
   const newPatrulleroEntry: PatrullerosInterface = {
     patrullero_ID: uuidv4(),
@@ -30,7 +30,7 @@ export const getPatrulleros = async (): Promise<PatrullerosInterface> => {
 
 // Controlador para obtener un patrullero por ID
 export const getPatrulleroById = async (
-  object: any
+  object: any,
 ): Promise<PatrullerosInterface> => {
   const patrullero = await Patrullero.findByPk(object.patrullero_ID);
   if (!patrullero) {

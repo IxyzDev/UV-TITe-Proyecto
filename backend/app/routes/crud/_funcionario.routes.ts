@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import * as funcionarioController from "../../controllers/crud/funcionarios_controllers/funcionarios.controller";
+import * as funcionarioController from "../../controllers/crud/usuario_controllers/usuario.controller";
 import db from "../../models";
 
 const router = express.Router();

@@ -1,7 +1,7 @@
 import db from "../../../models";
 
 export const isPatrullero = async (
-  patrulleroFromRequest: any
+  patrulleroFromRequest: any,
 ): Promise<string> => {
   const patrullero = await db.Patrulleros.findByPk(patrulleroFromRequest);
   if (patrullero.patrullero_ID !== patrulleroFromRequest) {

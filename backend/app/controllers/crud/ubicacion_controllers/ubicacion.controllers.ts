@@ -10,7 +10,7 @@ const Ubicacion = db.Ubicacion;
 
 // Controlador para crear una nueva ubicación
 export const postUbicacion = async (
-  object: any
+  object: any,
 ): Promise<UbicacionInterfaceWSub> => {
   const newUbicacionEntry: UbicacionInterfaceWSub = {
     ubicacion_ID: uuidv4(),
@@ -40,7 +40,7 @@ export const getUbicacionById = async (object: any): Promise<void> => {
 // Controlador para actualizar una ubicación por ID
 export const putUbicacion = async (
   ubicacion_ID: string,
-  object: any
+  object: any,
 ): Promise<UbicacionInterfaceWSub> => {
   const ubicacion = await Ubicacion.findByPk(ubicacion_ID);
   if (!ubicacion) {

@@ -1,7 +1,7 @@
 import db from "../../../models";
 
 export const isFuncionario = async (
-  funcionarioFromRequest: any
+  funcionarioFromRequest: any,
 ): Promise<string> => {
   try {
     console.log(funcionarioFromRequest);

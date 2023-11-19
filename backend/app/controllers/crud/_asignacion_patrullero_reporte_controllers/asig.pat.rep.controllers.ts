@@ -10,7 +10,7 @@ const Asignacion = db.AsignacionPatrulleroReporte;
 
 // Controlador para crear una nueva asignacion
 export const postAsignacion = async (
-  object: any
+  object: any,
 ): Promise<AsignacionPatrulleroReporteInterface> => {
   const newAsignacionEntry: AsignacionPatrulleroReporteInterface = {
     asignacion_reporte_ID: uuidv4(),
@@ -21,9 +21,7 @@ export const postAsignacion = async (
 };
 
 // Controlador para obtener todas las asignaciones
-export const getAsignaciones = async (): Promise<
-  AsignacionPatrulleroReporteInterface[]
-> => {
+export const getAsignaciones = async (): Promise<AsignacionPatrulleroReporteInterface[]> => {
   const asignaciones = await Asignacion.findAll();
   return asignaciones;
 };
@@ -42,7 +40,7 @@ export const getAsignacionById = async (object: any): Promise<void> => {
 // Controlador para actualizar una asignacion por ID
 export const putAsignacion = async (
   asignacion_ID: string,
-  object: any
+  object: any,
 ): Promise<AsignacionPatrulleroReporteInterface> => {
   const asignacion = await Asignacion.findByPk(asignacion_ID);
   if (!asignacion) {

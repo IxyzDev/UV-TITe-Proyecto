@@ -11,7 +11,7 @@ const Funcionario = db.Funcionarios;
 
 // Controlador para crear un nuevo operador
 export const postOperador = async (
-  object: any
+  object: any,
 ): Promise<OperadoresInterface> => {
   console.log(object);
   const comprobarFuncionario = await Funcionario.findOne({
@@ -40,7 +40,7 @@ export const getOperadores = async (): Promise<OperadoresInterface> => {
 
 // Controlador para obtener un operador por ID
 export const getOperadorById = async (
-  object: any
+  object: any,
 ): Promise<OperadoresInterface> => {
   const operador = await Operador.findByPk(object.operador_ID);
   if (!operador) {

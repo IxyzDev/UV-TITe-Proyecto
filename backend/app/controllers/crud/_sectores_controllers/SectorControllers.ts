@@ -6,7 +6,7 @@ const Sector = db.Sector; // Reemplaza "Sector" con el nombre correcto de tu mod
 // Controlador para crear un nuevo sector
 export const createSector = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { sector_ID, nombre_sector, unidad_vecinal } = req.body;
@@ -43,7 +43,7 @@ export const createSector = async (
 // Controlador para obtener todos los sectores
 export const getAllSectores = async (
   _req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     // Consulta todos los sectores en la base de datos
@@ -61,7 +61,7 @@ export const getAllSectores = async (
 // Controlador para obtener un sector por ID
 export const getSectorById = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { sector_ID } = req.params;
@@ -86,7 +86,7 @@ export const getSectorById = async (
 // Controlador para actualizar un sector por ID
 export const updateSector = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { sector_ID } = req.params;
@@ -122,7 +122,7 @@ export const updateSector = async (
 // Controlador para eliminar un sector por ID
 export const deleteSector = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { sector_ID } = req.params;

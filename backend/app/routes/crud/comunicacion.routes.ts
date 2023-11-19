@@ -20,7 +20,7 @@ router.get("/get", async (_req: Request, res: Response) => {
 router.post("/post", async (req: Request, res: Response) => {
   try {
     const newComunicacionEntry = await comunicacionControllers.postComunicacion(
-      { ...req.body }
+      { ...req.body },
     );
 
     const record = await db.Comunicacion.create(newComunicacionEntry);

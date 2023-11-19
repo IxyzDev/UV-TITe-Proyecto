@@ -6,7 +6,7 @@ const SubSector = db.SubSector; // Reemplaza "SubSector" con el nombre correcto 
 // Controlador para crear un nuevo subsector
 export const createSubSector = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { subsector_ID, nombre_subsector, sector_ID } = req.body;
@@ -43,7 +43,7 @@ export const createSubSector = async (
 // Controlador para obtener todos los subsectores
 export const getAllSubSectores = async (
   _req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     // Consulta todos los subsectores en la base de datos
@@ -61,7 +61,7 @@ export const getAllSubSectores = async (
 // Controlador para obtener un subsector por ID
 export const getSubSectorById = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { subsector_ID } = req.params;
@@ -88,7 +88,7 @@ export const getSubSectorById = async (
 // Controlador para actualizar un subsector por ID
 export const updateSubSector = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { subsector_ID } = req.params;
@@ -126,7 +126,7 @@ export const updateSubSector = async (
 // Controlador para eliminar un subsector por ID
 export const deleteSubSector = async (
   req: Request,
-  res: Response
+  res: Response,
 ): Promise<void> => {
   try {
     const { subsector_ID } = req.params;
