@@ -1,45 +1,42 @@
 import { Model } from "sequelize";
 
-import { SubSectorInterface } from "../interfaces/types";
+import { UsuarioInterface } from "../interfaces/types";
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class SubSector
-    extends Model<SubSectorInterface>
-    implements SubSectorInterface
-  {
-    subsector_ID!: string;
-    nombre_subsector!: string;
-    sector_ID!: string;
+  class Usuario extends Model<UsuarioInterface> implements UsuarioInterface {
+    nombre_usuario!: string;
+    contrasena!: string;
+    admin!: boolean;
 
     static associate(models: any) {
-      SubSector.hasMany(models.Sector, {
-        foreignKey: "sector_ID",
+      Usuario.hasOne(models.Reportes, {
+        foreignKey: "reporte_ID",
         foreignKeyConstraint: true,
       });
     }
   }
-  SubSector.init(
+  Usuario.init(
     {
-      subsector_ID: {
+      nombre_usuario: {
         primaryKey: true,
         allowNull: false,
         type: DataTypes.STRING,
       },
-      nombre_subsector: {
+      contrasena: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      sector_ID: {
+      admin: {
         allowNull: false,
-        type: DataTypes.STRING,
+        type: DataTypes.BOOLEAN,
       },
     },
     {
       sequelize,
       timestamps: false,
       freezeTableName: true,
-      modelName: "SubSector",
+      modelName: "Usuarios",
     },
   );
-  return SubSector;
+  return Usuario;
 };
