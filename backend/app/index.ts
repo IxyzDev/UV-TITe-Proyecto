@@ -19,7 +19,7 @@ import usuarioRouter from "./routes/usuario.routes";
 //import asignacionPR from "./routes/crud/asig.pat.rep.routes";
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 app.use(cors());
 app.use(express.json()); // middleware que transforma el req.body a JSON

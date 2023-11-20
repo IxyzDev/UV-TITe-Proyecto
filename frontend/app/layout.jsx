@@ -8,18 +8,18 @@ export const metadata = {
 const RootLayout = ({ children }) => {
   return (
     <html lang="es">
-		<body>
-			<div className="bg-gray-200 min-h-screen flex flex-col items-center">
-				{/* Topbar */}
-				<div className="bg-orange-500 py-4 w-full">
-					<h1 className="text-4xl text-white text-center">
-						Sistema de Registro - Seguridad Ciudadana Viña del Mar
-					</h1>
-				</div>
+      <body>
+        <div className="bg-gray-200 min-h-screen flex flex-col items-center">
+          {/* Topbar */}
+          <div className="bg-orange-500 py-4 w-full">
+            <h1 className="text-4xl text-white text-center">
+              Sistema de Registro - Seguridad Ciudadana Viña del Mar
+            </h1>
+          </div>
 
-				{children}
-			</div>
-		</body>
+          {children}
+        </div>
+      </body>
     </html>
   );
 };
