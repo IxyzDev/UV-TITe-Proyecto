@@ -17,20 +17,29 @@ const DataView = ({ data }) => {
             <table className="min-w-full divide-y p-8 divide-gray-200 text-center">
                 <thead>
                     <tr>
-                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Lugar</th>
-                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Operador</th>
                         <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Dirección</th>
+                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Nombre contribuyente</th>
+                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Contacto Contribuyente</th>
+                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Operador</th>
+                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Patrullero</th>
+                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Movil enviado</th>
+                        <th className="px-6 py-3 bg-gray-50 text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Motivo</th>
+                        
                         {/* Otros encabezados de columna */}
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((entry, index) => (
                         <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                            <td className="px-6 py-4 whitespace-no-wrap">{entry.lugar}</td>
-                            <td className="px-6 py-4 whitespace-no-wrap">{entry.fecha}</td>
-                            <td className="px-6 py-4 whitespace-no-wrap">{entry.operador}</td>
                             <td className="px-6 py-4 whitespace-no-wrap">{entry.direccion}</td>
+                            <td className="px-6 py-4 whitespace-no-wrap">{entry.fecha}</td>
+                            <td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_contribuyente}</td>
+                            <td className="px-6 py-4 whitespace-no-wrap">{entry.telefono}</td>
+                            <td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_operador}</td>
+                            <td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_patrullero}</td>
+                            <td className="px-6 py-4 whitespace-no-wrap">{entry.num_movil}</td>
+                            <td className="px-6 py-4 whitespace-no-wrap">{entry.motivo_detalle}</td>
                             {/* Otros campos de datos */}
                         </tr>
                     ))}
