@@ -26,8 +26,6 @@ export const postComunicacion = async (object: any): Promise<ComunicacionInterfa
     ...acceptedUbicacion,
   };
 
-  Comunicacion.create(newComunicacionEntry);
-
   return newComunicacionEntry;
 };
 

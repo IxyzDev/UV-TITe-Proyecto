@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import db from "../../models";
 
-import { ReportesInterface, VerifReportesInterface } from "../../interfaces/types";
+import { ReportesInterface } from "../../interfaces/types";
 
 import * as verif from "./reporte.verif";
 
@@ -10,9 +10,15 @@ import * as ubicacionControllers from "../ubicacion_controllers/ubicacion.contro
 import * as comunicacionControllers from "../comunicaciones_controllers/comunicacion.controllers";
 
 const Reportes = db.Reportes;
+const Ubicacion = db.Ubicacion;
+const Comunicacion = db.Comunicacion;
 
-export const verifReporte = async (object: any): Promise<VerifReportesInterface> => {
-  const newVerifReporte: VerifReportesInterface = {
+export const verifReporte = async (object: any): Promise<ReportesInterface> => {
+  const newVerifReporte: ReportesInterface = {
+    reporte_ID: uuidv4(),
+    ubicacion_ID: object.ubicacion_ID,
+    comunicacion_ID: object.comunicacion_ID,
+    nombre_usuario: await verif.isUser(object.nombre_usuario),
     fecha_envio: await verif.parseFecha(object.fecha_envio),
     hora_envio: await verif.parseHora(object.hora_envio),
     hora_evento: await verif.parseHora(object.hora_evento),
@@ -27,27 +33,38 @@ export const verifReporte = async (object: any): Promise<VerifReportesInterface>
 
 // Controlador para crear un nuevo reporte
 export const postReporte = async (object: any): Promise<ReportesInterface> => {
-  const acceptedNewReporteEntry = await verifReporte(object); // Verifica los datos de entrada
+  // let newUbicacionEntry: any, newComunicacionEntry: any;
+  try {
+    // Crear ubicación y comunicación primero
+    const newUbicacionEntry = await ubicacionControllers.postUbicacion(object);
+    const newComunicacionEntry = await comunicacionControllers.postComunicacion(object);
 
-  const resultado_ubicacion = await ubicacionControllers.postUbicacion(object); // Crea la ubicacion
+    if (!newUbicacionEntry || !newComunicacionEntry) {
+      throw new Error("Error en la verificacion de la ubicacion o la comunicacion");
+    }
 
-  const resultado_comunicacion = await comunicacionControllers.postComunicacion(object);
+    await Ubicacion.create(newUbicacionEntry);
+    await Comunicacion.create(newComunicacionEntry);
 
-  // const newReporteEntry: ReportesInterface = await verifReporte(object);
+    // Preparar el objeto para la verificación del reporte
+    const reporteData = {
+      ...object,
+      ubicacion_ID: newUbicacionEntry.ubicacion_ID,
+      comunicacion_ID: newComunicacionEntry.comunicacion_ID,
+    };
 
-  const newReporteEntry: ReportesInterface = {
-    reporte_ID: uuidv4(),
-    ubicacion_ID: resultado_ubicacion.ubicacion_ID,
-    comunicacion_ID: resultado_comunicacion.comunicacion_ID,
-    nombre_usuario: await verif.isUser(object.nombre_usuario),
-    ...acceptedNewReporteEntry, // Aquí se expanden las propiedades verificadas
-  };
+    // Verificar reporte
+    const newReporteEntry = await verifReporte(reporteData);
 
-  const reporte = await Reportes.create(newReporteEntry);
-
-  console.log(reporte);
-
-  return reporte;
+    // Crear reporte
+    const reporte = await Reportes.create(newReporteEntry);
+    return reporte;
+  } catch (error: any) {
+    // Manejar el error, opcionalmente eliminando ubicación y comunicación
+    // await ubicacionControllers.deleteUbicacion(newUbicacionEntry.ubicacion_ID);
+    // await comunicacionControllers.deleteComunicacion(newComunicacionEntry.comunicacion_ID);
+    throw new Error("Error en la verificación del reporte: " + error.message);
+  }
 };
 
 // Controlador para obtener todos los reportes
