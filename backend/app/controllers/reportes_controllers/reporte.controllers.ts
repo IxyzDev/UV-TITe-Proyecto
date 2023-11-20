@@ -45,8 +45,6 @@ export const postReporte = async (object: any): Promise<ReportesInterface> => {
 
   const reporte = await Reportes.create(newReporteEntry);
 
-  console.log(reporte);
-
   return reporte;
 };
 
