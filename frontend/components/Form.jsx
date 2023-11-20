@@ -1,16 +1,17 @@
 /* @jsxRuntime classic */
-import React, { useState } from 'react';
+"use client";
+import { useState } from 'react';
 import Input from './Input';
 
-const Form: React.FC = () => {
+const Login = () => {
     const [formData, setFormData] = useState({ name: '', email: '' });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         console.log(formData);
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -26,4 +27,4 @@ const Form: React.FC = () => {
     );
 }
 
-export default Form;
+export default Login;

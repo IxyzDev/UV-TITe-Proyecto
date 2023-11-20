@@ -60,9 +60,6 @@ export const postReporte = async (object: any): Promise<ReportesInterface> => {
     const reporte = await Reportes.create(newReporteEntry);
     return reporte;
   } catch (error: any) {
-    // Manejar el error, opcionalmente eliminando ubicación y comunicación
-    // await ubicacionControllers.deleteUbicacion(newUbicacionEntry.ubicacion_ID);
-    // await comunicacionControllers.deleteComunicacion(newComunicacionEntry.comunicacion_ID);
     throw new Error("Error en la verificación del reporte: " + error.message);
   }
 };
