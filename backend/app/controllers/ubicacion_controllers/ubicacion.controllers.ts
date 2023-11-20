@@ -25,8 +25,6 @@ export const postUbicacion = async (object: any): Promise<UbicacionInterfaceWSub
     ...acceptedUbicacion,
   };
 
-  await Ubicacion.create(newUbicacionEntry);
-
   return newUbicacionEntry;
 };
 
