@@ -1,7 +1,7 @@
 {
     "motivo": [
         {
-            "label": "Ri\u00f1a",
+            "label": "Riña",
             "id": "motivo"
         },
         {
@@ -9,7 +9,7 @@
             "id": "motivo"
         },
         {
-            "label": "Agresi\u00f3n",
+            "label": "Agresión",
             "id": "motivo"
         }
     ],
@@ -29,15 +29,15 @@
     ],
     "patrullero": [
         {
-            "label": "Arenas",
+            "label": "Pepito Arenas",
             "id": "patrullero"
         },
         {
-            "label": "Ya\u00f1ez",
+            "label": "Juancito Yañez",
             "id": "patrullero"
         },
         {
-            "label": "Hevia",
+            "label": "Andrés Hevia",
             "id": "patrullero"
         }
     ],
@@ -53,6 +53,20 @@
         {
             "label": "WhatsUp",
             "id": "medio_comunicacion"
+        }
+    ],
+    "grupo_delictual": [
+        {
+            "label": "Grupo delictual 1",
+            "id": "grupo_delictual"
+        },
+        {
+            "label": "Grupo delictual 2",
+            "id": "grupo_delictual"
+        },
+        {
+            "label": "Grupo delictual 3",
+            "id": "grupo_delictual"
         }
     ],
     "sector": [
