@@ -12,9 +12,9 @@ import { useRouter } from "next/navigation";
 
 
 import data from "../utils/data.json"; // Datos para desplegables.
-const motivo = data.motivo;
-const movil = data.movil;
-const patrullero = data.patrullero;
+const motivo_detalle = data.motivo;
+const num_movil = data.movil;
+const nombre_patrullero = data.patrullero;
 const medio_comunicacion = data.medio_comunicacion;
 const grupo_delictual = data.grupo_delictual;
 
@@ -86,7 +86,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 						<label htmlFor="telefono" className="block text-sm pl-1 pb-3 font-medium text-gray-700" > 
 							{" "} Telefono:{" "} 
 						</label>
-						<TextField id="telefono" label="9 12345678" variant="outlined" fullWidth required
+						<TextField id="telefono" label="912345678" variant="outlined" fullWidth required
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "telefono": e.target.value }))}/>
 					</div>
 
@@ -123,7 +123,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 					<label htmlFor="motivo_detalle" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Motivo:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="motivo_detalle" options={motivo}
+					<AutocompleteMUI disablePortal fullWidth id="motivo_detalle" options={motivo_detalle}
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "motivo_detalle": e.target.innerText }))}
 						renderInput={(params) => (
 							<TextField required {...params}
@@ -151,7 +151,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 					<label htmlFor="num_movil" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Movil enviado:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="num_movil" options={movil}
+					<AutocompleteMUI disablePortal fullWidth id="num_movil" options={num_movil}
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "num_movil": e.target.innerText }))}
 						renderInput={(params) => (
 							<TextField required {...params} 
@@ -162,10 +162,10 @@ const EntryForm = ({ formulario, setFormulario }) => {
 
 				{/* NOMBRE PATRULLETO ENVIADO */}
 				<div className="col-span-1">
-					<label htmlFor="patrullero" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
+					<label htmlFor="nombre_patrullero" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Patrullero:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="patrullero" options={patrullero}
+					<AutocompleteMUI disablePortal fullWidth id="nombre_patrullero" options={nombre_patrullero}
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "nombre_patrullero": e.target.innerText }))}
 						renderInput={(params) => (
 							<TextField required {...params} 
@@ -176,10 +176,10 @@ const EntryForm = ({ formulario, setFormulario }) => {
 
 				{/* HORA DE RECIBO DE LLAMADA */}
 				<div className="col-span-1"> 
-					<label htmlFor="hora_incidente" className="block text-sm pl-1 pb-3 font-medium text-gray-700" > 
+					<label htmlFor="hora_evento" className="block text-sm pl-1 pb-3 font-medium text-gray-700" > 
 						{" "} Hora incidente:{" "}
 					</label>
-					<TextField id="hora_incidente" label="00:00" variant="outlined" fullWidth required
+					<TextField id="hora_evento" label="00:00" variant="outlined" fullWidth required
 					onChange={(e) => setFormulario(formulario => ({ ...formulario, "hora_evento": e.target.value }))}/>
 				</div>
 
