@@ -36,7 +36,7 @@ const Home = () => {
 
 	useEffect(() => {
 	  // Realiza la solicitud a la API
-	  fetch("http://localhost:3001/api/data")
+	  fetch("http://localhost:3000/reporte/get")
 		.then((response) => response.json())
 		.then((data) => setData(data))
 		.catch((error) => console.error("Error al obtener datos:", error));
