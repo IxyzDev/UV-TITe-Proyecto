@@ -11,7 +11,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
     static associate(models: any) {
       Usuario.hasOne(models.Reportes, {
-        foreignKey: "reporte_ID",
+        foreignKey: "nombre_usuario",
         foreignKeyConstraint: true,
       });
     }

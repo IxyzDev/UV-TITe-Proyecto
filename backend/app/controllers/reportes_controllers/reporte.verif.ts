@@ -21,7 +21,9 @@ export const isComunicacion = async (comunicacionFromRequest: any): Promise<stri
 
 export const isUser = async (UsuarioFromRequest: any): Promise<string> => {
   try {
-    await Usuarios.findByPk(UsuarioFromRequest);
+    if (!(await Usuarios.findByPk(UsuarioFromRequest))) {
+      throw new Error("El usuario no existe o no esta autorizado");
+    }
   } catch (error: any) {
     throw new Error("El usuario no existe o no esta autorizado");
   }

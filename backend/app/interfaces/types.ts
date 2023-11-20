@@ -15,7 +15,7 @@ export interface ReportesInterface {
 
 export type VerifReportesInterface = Omit<
   ReportesInterface,
-  "reporte_ID" | "ubicacion_ID" | "comunicacion_ID"
+  "reporte_ID" | "ubicacion_ID" | "comunicacion_ID" | "nombre_usuario"
 >;
 
 export interface UbicacionInterface {
