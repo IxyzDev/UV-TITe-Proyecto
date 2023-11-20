@@ -116,7 +116,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 				)}
 
 				{/* DIRECCION DEL INCIDENTE */}			
-				<PlacesAutocomplete post={post} setPost={setPost} formulario={formulario} setFormulario={setFormulario} />
+				<PlacesAutocomplete formulario={formulario} setFormulario={setFormulario} />
 
 				{/* MOTIVO-DETALLE DE LA LLAMADA */}
 				<div className="col-span-2"> 
