@@ -1,24 +1,22 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
-
-import data from "../utils/data.json"; // Datos para desplegables.
 import Swal from "sweetalert2"; // Alertas 
 import withReactContent from "sweetalert2-react-content";
 import AutocompleteMUI from "@mui/material/Autocomplete"; 
 import { TextField, Radio, RadioGroup, FormControlLabel} from "@mui/material";
 // API Google
-import AutocompleteComponent from "../components/AutocompleteComponent";
+import PlacesAutocomplete from "../components/Places";
+
 import { useRouter } from "next/navigation";
 
-const motivo = data.motivo;
-const movil = data.movil;
-const patrullero = data.patrullero;
+
+import data from "../utils/data.json"; // Datos para desplegables.
+const motivo_detalle = data.motivo;
+const num_movil = data.movil;
+const nombre_patrullero = data.patrullero;
 const medio_comunicacion = data.medio_comunicacion;
-/* const sector = data.sector;
-const subsector = data.subsector;
-const uv = data.uv; */
+const grupo_delictual = data.grupo_delictual;
 
 const Alert = withReactContent(Swal);
 const AlertClick = () => {
@@ -28,84 +26,37 @@ const AlertClick = () => {
   });
 };
 
-// CODIGO PARA OBTENER TIEMPO Y FECHA ACTUAL
-const date = new Date();
-//const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-const mesesNum = ["1","2","3","4","5","6","7","8","9","10","11","12",];
-const fecha = date.getFullYear() + "-" + mesesNum[date.getMonth()] + "-" + date.getDate();
-const hora = date.getHours() +":" +date.getMinutes() + ":" + "00";
-
-const EntryForm = () => {
+const EntryForm = ({ formulario, setFormulario }) => {
     const router = useRouter();
-	
-	// Fomato de datos enviados
-	const [formData, setFormData] = useState({
-		fecha: fecha,
-		hora: hora,
-		detalle: "",
-		observaciones: "",
-		motivo: "",
-		grupo_delictual: "",
-		contribuyente: "tercero",
-		derivado: "", // ¿a qué hace referencia?
-		
-		direccion: "",
-		coordenadas: "",
-
-		medio_comunicacion: "",
-		nombre_contribuyente: "",
-		telefono: "",
-
-		// Ver bien esto
-		/* nombre_funcionario: "",
-		apellido_funcionario: "",
-		tipo_funcionario: "", */
-
-		caso: "", // para que sirve esto
-		movil: "",
-		patrullero: "", // hasta ahora indica el nombre del patrullero
-	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// Aquí se enviarían los datos a la base de datos
-		console.log(formData);
-	};
-
-	// INPUTS
-	const handleChange = (e) => {
-		const { id, value } = e.target;
-		setFormData((prev) => ({ ...prev, [id]: value }));
+		console.log("handleSubmit");
 	};
 
 	// RADIOGROUP
-	useEffect(() => {
-		// Verificar el valor inicial y mostrar u ocultar campos adicionales
-		if (formData.contribuyente === "tercero") {
-		  setShowAdditionalFields(true);
-		} else {
-		  setShowAdditionalFields(false);
-		}
-	}, []);
+	const [contribuyente, setContribuyente] = useState("tercero");
 	const [showAdditionalFields, setShowAdditionalFields] = useState(false);
 	const handleChangeContribuyente = (e) => {
-		const { name, value } = e.target;
+		const { value } = e.target;
 
-		if (name === "contribuyente") {
-			if (value === "tercero") {
+		if (value === "tercero") {
 			setShowAdditionalFields(true);
-			} else {
+		} else {
 			setShowAdditionalFields(false);
-			}
 		}
-		setFormData((prev) => ({ ...prev, [name]: value }));
-	};
 
-	// DROPDOWN EVENT / SELECTOR DE OPCIONES
-	const handleChangeDropDown = (e, value) => {
-        e.preventDefault();
-        setFormData(prev => ({ ...prev, [value.id]: value.label }));
-    }
+		setContribuyente(value);
+	};
+	useEffect(() => {
+		// Verificar el valor inicial y mostrar u ocultar campos adicionales
+		if (contribuyente === "tercero") {
+			setShowAdditionalFields(true);
+		} else {
+			setShowAdditionalFields(false);
+		}
+	}, [contribuyente]);
 
 	return (
 		<div>
@@ -122,37 +73,40 @@ const EntryForm = () => {
 						</h2>
 					</div>
 						<div className="col-span-1">
-						<RadioGroup aria-labelledby="contribuyente" name="contribuyente" id="contribuyente" onChange={handleChangeContribuyente} value={formData.contribuyente}>
+						<RadioGroup aria-labelledby="contribuyente" name="contribuyente" id="contribuyente" value={contribuyente} onChange={handleChangeContribuyente}>
 							<FormControlLabel value="tercero" control={<Radio />} label="Tercero" />
 							<FormControlLabel value="patrullero" control={<Radio />} label="Patrullero" />
 						</RadioGroup>
 					</div>
 				</div>
 
-				{showAdditionalFields && formData.contribuyente === "tercero" && (<>
+				{showAdditionalFields && contribuyente === "tercero" && (<>
 					{/* TELEFONO */}
 					<div className="col-span-1"> 
-						<label htmlFor="telefono" className="block text-sm pb-3 font-medium text-gray-700" > 
+						<label htmlFor="telefono" className="block text-sm pl-1 pb-3 font-medium text-gray-700" > 
 							{" "} Telefono:{" "} 
-						</label> 
-						<TextField id="telefono" label="Telefono" variant="outlined" fullWidth required onChange={handleChange} value={formData.telefono}/>
+						</label>
+						<TextField id="telefono" label="912345678" variant="outlined" fullWidth required
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "telefono": e.target.value }))}/>
 					</div>
 
-					{/* NOMBRE */}
+					{/* NOMBRE - NO REQUERIDO */}
 					<div className="col-span-1"> 
-						<label htmlFor="nombre_contribuyente" className="block text-sm pb-3 font-medium text-gray-700" > 
-							{" "} Nombre:{" "} 
-						</label> {/* id="nombre_contribuyente" */} 
-						<TextField id="nombre_contribuyente" label="Nombre" variant="outlined" fullWidth onChange={handleChange} value={formData.nombre_contribuyente} />
+						<label htmlFor="nombre_contribuyente" className="block text-sm pl-1 pb-3 font-medium text-gray-700" > 
+							{" "} Nombre contribuyente:{" "} 
+						</label>
+						<TextField id="nombre_contribuyente" label="Nombre" variant="outlined" fullWidth 
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "nombre_contribuyente": e.target.value }))} />
 					</div>
 					{/* MEDIO */}
 					<div className="col-span-1">
-						<label htmlFor="medio_comunicacion" className="block text-sm pb-3 font-medium text-gray-700" > 
+						<label htmlFor="medio_comunicacion" className="block text-sm pl-1 pb-3 font-medium text-gray-700" > 
 							{" "} Medio de comunicacion:{" "} 
 						</label> 
-						<AutocompleteMUI disablePortal fullWidth id="medio_comunicacion" options={medio_comunicacion} onChange={handleChangeDropDown} 
+						<AutocompleteMUI disablePortal fullWidth id="medio_comunicacion" options={medio_comunicacion}
+							onChange={(e) => setFormulario(formulario => ({ ...formulario, "medio_comunicacion": e.target.innerText }))}
 							renderInput={(params) => (
-								<TextField required onChange={handleChange} {...params}
+								<TextField required {...params}
 									label="Medio"
 								/>
 							)}
@@ -162,83 +116,83 @@ const EntryForm = () => {
 				)}
 
 				{/* DIRECCION DEL INCIDENTE */}			
-				<div className="col-span-3">
-					<label htmlFor="direccion" className="block text-sm pb-3 font-medium text-gray-700" >
-						{" "} Dirección:{" "}
-					</label>
-					<AutocompleteComponent handleChange={handleChange} data={formData.direccion}/>
-				</div>
+				<PlacesAutocomplete formulario={formulario} setFormulario={setFormulario} />
 
-				{/* MOTIVO DE LA LLAMADA */}
-				{/* PEDIR LISTADO DE LOS QUE DEBEN IR */}
-				<div className="col-span-1"> 
-					<label htmlFor="motivo" className="block text-sm pb-3 font-medium text-gray-700" >
+				{/* MOTIVO-DETALLE DE LA LLAMADA */}
+				<div className="col-span-2"> 
+					<label htmlFor="motivo_detalle" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Motivo:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="motivo" options={motivo} onChange={handleChangeDropDown} 
+					<AutocompleteMUI disablePortal fullWidth id="motivo_detalle" options={motivo_detalle}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "motivo_detalle": e.target.innerText }))}
 						renderInput={(params) => (
-							<TextField required onChange={handleChange} {...params}
-								label="Motivo" />
+							<TextField required {...params}
+								label="Motivo de la llamada" />
 						)}
 					/>
 				</div>
 
-				{/* DETALLE ESPECIFICO DE LO SUCESIDO EN EL EVENTO */}
+				{/* GRUPO DELICTUAL - NO REQUERIDO */}
 				<div className="col-span-1">
-					<label htmlFor="detalle" className="block text-sm pb-3 font-medium text-gray-700" >
-						{" "} Detalle:{" "}
-					</label>
-					<TextField id="detalle" label="Detalle" variant="outlined" fullWidth required onChange={handleChange} value={formData.detalle} />
-				</div>
-
-				{/* GRUPO DELICTUAL */}
-				<div className="col-span-1"> 
-					<label htmlFor="grupo_delictual" className="block text-sm pb-3 font-medium text-gray-700" >
+					<label htmlFor="grupo_delictual" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Grupo Delictual:{" "}
 					</label>
-					<TextField id="grupo_delictual" label="Grupo delictual" variant="outlined" fullWidth required onChange={handleChange} value={formData.grupo_delictual} />
-				</div>
-
-				{/* CASO */}
-				<div className="col-span-1">
-					<label htmlFor="caso" className="block text-sm pb-3 font-medium text-gray-700" >
-						{" "} Caso:{" "}
-					</label> 
-					<TextField id="caso" label="Caso" variant="outlined" fullWidth required value={formData.caso} onChange={handleChange} />
+					<AutocompleteMUI disablePortal fullWidth id="grupo_delictual" options={grupo_delictual}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "grupo_delictual": e.target.innerText }))} 
+						renderInput={(params) => (
+							<TextField {...params} 
+								label="Grupo delictual" />
+						)}
+					/>
 				</div>
 
 				{/* VEHICULO ENVIADO - DELITO DERIVADO */}
 				<div className="col-span-1">
-					<label htmlFor="movil" className="block text-sm pb-3 font-medium text-gray-700" >
-						{" "} Movil:{" "}
+					<label htmlFor="num_movil" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
+						{" "} Movil enviado:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="movil" options={movil} onChange={handleChangeDropDown}
+					<AutocompleteMUI disablePortal fullWidth id="num_movil" options={num_movil}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "num_movil": e.target.innerText }))}
 						renderInput={(params) => (
 							<TextField required {...params} 
-								label="Movil" />
+								label="Num de movil" />
 						)}
 					/>
 				</div>
 
 				{/* NOMBRE PATRULLETO ENVIADO */}
 				<div className="col-span-1">
-					<label htmlFor="patrullero" className="block text-sm pb-3 font-medium text-gray-700" >
+					<label htmlFor="nombre_patrullero" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Patrullero:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="patrullero" options={patrullero} onChange={handleChangeDropDown}
+					<AutocompleteMUI disablePortal fullWidth id="nombre_patrullero" options={nombre_patrullero}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "nombre_patrullero": e.target.innerText }))}
 						renderInput={(params) => (
-							<TextField required value={formData.patrullero} {...params} 
+							<TextField required {...params} 
 							label="Patrullero" />
 						)}
 					/>
 				</div>
 
+				{/* HORA DE RECIBO DE LLAMADA */}
+				<div className="col-span-1"> 
+					<label htmlFor="hora_evento" className="block text-sm pl-1 pb-3 font-medium text-gray-700" > 
+						{" "} Hora incidente:{" "}
+					</label>
+					<TextField id="hora_evento" label="00:00" variant="outlined" fullWidth required
+					onChange={(e) => setFormulario(formulario => ({ ...formulario, "hora_evento": e.target.value }))}/>
+				</div>
+
 				{/* OBSERVACIONES SOBRE EL INCIDENTE */}
 				<div className="col-span-3">
-					<label htmlFor="observaciones" className="block text-sm pb-3 font-medium text-gray-700">
-						{" "} Observaciones:{" "}
+					<label htmlFor="observaciones" className="block text-sm pl-1 pb-3 font-medium text-gray-700">
+						{" "}Observaciones:{" "}
 					</label>
-					<TextField id="observaciones" label="Observaciones" variant="outlined" fullWidth multiline rows={4} value={formData.observaciones} onChange={handleChange} />
+					<TextField id="observaciones" label="Ingrese las observaciones del incidente." variant="outlined" fullWidth multiline rows={4}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "observaciones": e.target.value }))}/>
+					<div class="m-2">
+						<p class="text-opacity-50">Todos los campos con * son requeridos.</p>
+					</div>
 				</div>
 
 				<div className="col-span-3 flex justify-center mt-6">

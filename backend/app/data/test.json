@@ -1,0 +1,16 @@
+{
+	"direccion": "General Cruz 222, Valparaíso, Chile",
+	"coordenadas": "-33.0459352,-71.61347119999999",
+	"nombre_usuario": "user_name",
+	"nombre_patrullero": "Junito Perez",
+	"fecha_envio": "2023-11-19",
+	"hora_envio": "21:33",
+	"hora_evento": "15:12",
+	"motivo_detalle": "Riña y algo más",
+	"observaciones": "Se observa que blabla",
+	"grupo_delictual": "Grupo delictual 1",
+	"num_movil": "54", 
+	"medio_comunicacion": "Llamada",
+	"nombre_contribuyente": "Pepito Rojas",
+	"telefono": "912345678"
+}
