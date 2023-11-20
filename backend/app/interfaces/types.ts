@@ -3,14 +3,20 @@ export interface ReportesInterface {
   ubicacion_ID: string; // Varios reportes pueden estar en una ubicacion
   comunicacion_ID: string; // Una comunicacion puede tener un reporte
   nombre_usuario: string; // Un usuario puede tener muchos reportes
-  fecha_y_hora_envio: string;
+  fecha_envio: string;
+  hora_envio: string;
   hora_evento: string;
+  nombre_patrullero: string; // Requerido
   motivo_detalle: string;
   observaciones: string; // Opcional
   grupo_delictual: string; // Opcional
-  derivado: string;
   num_movil: number;
 }
+
+export type VerifReportesInterface = Omit<
+  ReportesInterface,
+  "reporte_ID" | "ubicacion_ID" | "comunicacion_ID"
+>;
 
 export interface UbicacionInterface {
   ubicacion_ID: string;
@@ -21,15 +27,20 @@ export interface UbicacionInterface {
 
 export type UbicacionInterfaceWSub = Omit<UbicacionInterface, "subsector_ID">;
 
+export type VerifUbicacionInterface = Omit<UbicacionInterface, "ubicacion_ID" | "subsector_ID">;
+
 export interface ComunicacionInterface {
   comunicacion_ID: string;
   medio_comunicacion: string; // Requerido
-  nombre_contribuyente: string;
+  nombre_contribuyente: string; // Opcional
   telefono: string; // Requerido
 }
 
+export type VerifComunicacionInterface = Omit<ComunicacionInterface, "comunicacion_ID">;
+
 export interface UsuarioInterface {
   nombre_usuario: string;
+  nombre_personal: string; // Requerido
   contrasena: string;
   admin: boolean; // ¿Es administrador?
 }

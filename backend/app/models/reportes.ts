@@ -8,7 +8,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
     ubicacion_ID!: string;
     comunicacion_ID!: string;
     nombre_usuario!: string;
-    fecha_y_hora_envio!: string;
+    nombre_patrullero!: string;
+    fecha_envio!: string;
+    hora_envio!: string;
     hora_evento!: string;
     motivo_detalle!: string;
     observaciones!: string;
@@ -59,7 +61,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      fecha_y_hora_envio: {
+      nombre_patrullero: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      fecha_envio: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      hora_envio: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -76,10 +86,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
         type: DataTypes.STRING,
       },
       grupo_delictual: {
-        allowNull: true,
-        type: DataTypes.STRING,
-      },
-      derivado: {
         allowNull: true,
         type: DataTypes.STRING,
       },

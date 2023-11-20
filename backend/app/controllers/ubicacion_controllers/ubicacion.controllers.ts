@@ -2,19 +2,31 @@ import { v4 as uuidv4 } from "uuid";
 
 import db from "../../models";
 
-import { UbicacionInterfaceWSub } from "../../interfaces/types";
+import { UbicacionInterfaceWSub, VerifUbicacionInterface } from "../../interfaces/types";
 
 import * as verif from "./ubicacion.verif";
 
 const Ubicacion = db.Ubicacion;
 
-// Controlador para crear una nueva ubicación
-export const postUbicacion = async (object: any): Promise<UbicacionInterfaceWSub> => {
-  const newUbicacionEntry: UbicacionInterfaceWSub = {
-    ubicacion_ID: uuidv4(),
+export const verifUbicacion = async (object: any): Promise<VerifUbicacionInterface> => {
+  const newVerifUbicacionData: VerifUbicacionInterface = {
     direccion: verif.parseDireccion(object.direccion),
     coordenadas: verif.parseCoordenadas(object.coordenadas),
   };
+  return newVerifUbicacionData;
+};
+
+// Controlador para crear una nueva ubicación
+export const postUbicacion = async (object: any): Promise<UbicacionInterfaceWSub> => {
+  const acceptedUbicacion = await verifUbicacion(object);
+
+  const newUbicacionEntry: UbicacionInterfaceWSub = {
+    ubicacion_ID: uuidv4(),
+    ...acceptedUbicacion,
+  };
+
+  await Ubicacion.create(newUbicacionEntry);
+
   return newUbicacionEntry;
 };
 

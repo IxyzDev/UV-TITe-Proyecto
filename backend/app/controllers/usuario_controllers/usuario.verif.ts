@@ -1,7 +1,7 @@
 // Verificar integridad del nombre de usuario
 export const parseNombre = (nombreFromRequest: any): string => {
   if (!isString(nombreFromRequest)) {
-    throw new Error("El nombre debe ser un string");
+    throw new Error("El nombre de usuario debe ser un string");
   }
 
   // Verificar que no tenga espacios
@@ -21,6 +21,13 @@ export const parseNombre = (nombreFromRequest: any): string => {
   }
 
   return nombreFromRequest;
+};
+
+export const parseNombrePersonal = (nombrePersonalFromRequest: any): string => {
+  if (!isString(nombrePersonalFromRequest)) {
+    throw new Error("El nombre del personal debe ser un string");
+  }
+  return nombrePersonalFromRequest;
 };
 
 export const parseContrasena = (contrasenaFromRequest: any): string => {

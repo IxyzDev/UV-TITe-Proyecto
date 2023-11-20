@@ -2,32 +2,39 @@ import { v4 as uuidv4 } from "uuid";
 
 import db from "../../models";
 
-import { ReportesInterface } from "../../interfaces/types";
+import { ReportesInterface, VerifReportesInterface } from "../../interfaces/types";
 
 import * as verif from "./reporte.verif";
 
+import * as ubicacionControllers from "../ubicacion_controllers/ubicacion.controllers";
+
 const Reportes = db.Reportes;
 
-const verifReporte = async (object: any): Promise<ReportesInterface> => {
-  const newReporteEntry: ReportesInterface = {
-    reporte_ID: uuidv4(),
-    ubicacion_ID: await verif.isUbicacion(object.ubicacion_ID),
-    comunicacion_ID: await verif.isComunicacion(object.comunicacion_ID),
+export const verifReporte = async (object: any): Promise<VerifReportesInterface> => {
+  const newVerifReporte: VerifReportesInterface = {
     nombre_usuario: await verif.isUser(object.nombre_usuario),
-    fecha_y_hora_envio: await verif.parseFecha(object.fecha_y_hora),
+    nombre_patrullero: await verif.parseNombrePatrullero(object.nombre_patrullero),
+    fecha_envio: await verif.parseFecha(object.fecha_envio),
+    hora_envio: await verif.parseHora(object.hora_envio),
     hora_evento: await verif.parseHora(object.hora_evento),
     motivo_detalle: await verif.parseMotivo(object.motivo),
     observaciones: await verif.parseObservaciones(object.observaciones),
     grupo_delictual: await verif.parseGrupoDelictual(object.grupo_delictual),
-    derivado: await verif.parseDerivado(object.derivado),
     num_movil: await verif.parseNumMovil(object.num_movil),
   };
-  return newReporteEntry;
+  return newVerifReporte;
 };
 
 // Controlador para crear un nuevo reporte
 export const postReporte = async (object: any): Promise<ReportesInterface> => {
+  const acceptedNewReporteEntry = verifReporte(object); // Verifica los datos de entrada
+
+  const resultado_ubicacion = await ubicacionControllers.postUbicacion(object); // Crea la ubicacion
+
+  const resultado_;
+
   const newReporteEntry: ReportesInterface = await verifReporte(object);
+
   const reporte = await Reportes.create(newReporteEntry);
   return reporte;
 };
@@ -69,4 +76,11 @@ export const deleteReporte = async (object: any): Promise<void> => {
   } catch (error: any) {
     throw new Error("reporte no encontrado");
   }
+};
+
+// Ingresar un reporte, con ubicacion, comunicacion y usuario existentes
+export const postBigReporte = async (object: any): Promise<ReportesInterface> => {
+  const newReporteEntry: ReportesInterface = await verifReporte(object);
+  const reporte = await Reportes.create(newReporteEntry);
+  return reporte;
 };

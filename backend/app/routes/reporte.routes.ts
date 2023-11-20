@@ -17,6 +17,7 @@ router.get("/get", async (_req: Request, res: Response) => {
 // Crear un Reporte
 router.post("/post", async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     const newReporteEntry = await reporteControllers.postReporte({
       ...req.body,
     });
