@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-import data from "../utils/data.json"; // Datos para desplegables.
 import Swal from "sweetalert2"; // Alertas 
 import withReactContent from "sweetalert2-react-content";
 import AutocompleteMUI from "@mui/material/Autocomplete"; 
@@ -12,14 +10,13 @@ import PlacesAutocomplete from "../components/Places";
 
 import { useRouter } from "next/navigation";
 
+
+import data from "../utils/data.json"; // Datos para desplegables.
 const motivo = data.motivo;
 const movil = data.movil;
 const patrullero = data.patrullero;
 const medio_comunicacion = data.medio_comunicacion;
 const grupo_delictual = data.grupo_delictual;
-/* const sector = data.sector;
-const subsector = data.subsector;
-const uv = data.uv; */
 
 const Alert = withReactContent(Swal);
 const AlertClick = () => {
@@ -29,32 +26,18 @@ const AlertClick = () => {
   });
 };
 
-// CODIGO PARA OBTENER TIEMPO Y FECHA ACTUAL
-const date = new Date();
-//const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-const mesesNum = ["1","2","3","4","5","6","7","8","9","10","11","12",];
-const fecha = date.getFullYear() + "-" + mesesNum[date.getMonth()] + "-" + date.getDate();
-const hora = date.getHours() +":" +date.getMinutes() + ":" + "00";
-
 const EntryForm = ({ formulario, setFormulario }) => {
     const router = useRouter();
-
-	// Fomato de datos enviados
-	const [formData, setFormData] = useState({
-		fecha: fecha,
-		hora: hora,
-	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// Aquí se enviarían los datos a la base de datos
-		console.log(formData);
+		console.log("handleSubmit");
 	};
 
 	// RADIOGROUP
 	const [contribuyente, setContribuyente] = useState("tercero");
 	const [showAdditionalFields, setShowAdditionalFields] = useState(false);
-
 	const handleChangeContribuyente = (e) => {
 		const { value } = e.target;
 
@@ -66,7 +49,6 @@ const EntryForm = ({ formulario, setFormulario }) => {
 
 		setContribuyente(value);
 	};
-
 	useEffect(() => {
 		// Verificar el valor inicial y mostrar u ocultar campos adicionales
 		if (contribuyente === "tercero") {
@@ -186,7 +168,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 					<AutocompleteMUI disablePortal fullWidth id="patrullero" options={patrullero}
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "nombre_patrullero": e.target.innerText }))}
 						renderInput={(params) => (
-							<TextField required value={formData.patrullero} {...params} 
+							<TextField required {...params} 
 							label="Patrullero" />
 						)}
 					/>
