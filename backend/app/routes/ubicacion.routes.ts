@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import * as ubicacionControllers from "../controllers/ubicacion_controllers/ubicacion.controllers";
-import db from "../models";
 
 const router = express.Router();
 
@@ -17,13 +16,8 @@ router.get("/get", async (_req: Request, res: Response) => {
 // Crear un Ubicacion
 router.post("/post", async (req: Request, res: Response) => {
   try {
-    const newUbicacionEntry = await ubicacionControllers.postUbicacion({
-      ...req.body,
-    });
-
-    const record = await db.Ubicacion.create(newUbicacionEntry);
-
-    return res.json({ record, msg: "Creacion exitosa de un ubicacion" });
+    await ubicacionControllers.postUbicacion({ ...req.body });
+    return res.json({ msg: "Creacion exitosa de un ubicacion" });
   } catch (error: any) {
     console.log(error);
     return res.status(500).json({ msg: "Error al crear un ubicacion: " + error.message });

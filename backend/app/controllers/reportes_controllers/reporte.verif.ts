@@ -1,4 +1,5 @@
 import db from "../../models";
+const Usuarios = db.Usuarios;
 
 export const isUbicacion = async (ubicacionFromRequest: any): Promise<string> => {
   try {
@@ -20,9 +21,11 @@ export const isComunicacion = async (comunicacionFromRequest: any): Promise<stri
 
 export const isUser = async (UsuarioFromRequest: any): Promise<string> => {
   try {
-    await db.Usuarios.findByPk(UsuarioFromRequest);
+    if (!(await Usuarios.findByPk(UsuarioFromRequest))) {
+      throw new Error("El usuario no existe o no esta autorizado");
+    }
   } catch (error: any) {
-    throw new Error("Usuario no encontrado");
+    throw new Error("El usuario no existe o no esta autorizado");
   }
   return UsuarioFromRequest;
 };
@@ -81,6 +84,13 @@ export const parseNumMovil = async (numMovilFromRequest: any): Promise<number> =
     throw new Error("El numero de movil debe ser un number");
   }
   return numMovilFromRequest;
+};
+
+export const parseNombrePatrullero = async (nombrePatrulleroFromRequest: any): Promise<string> => {
+  if (!isString(nombrePatrulleroFromRequest)) {
+    throw new Error("El nombre del patrullero debe ser un string");
+  }
+  return nombrePatrulleroFromRequest;
 };
 
 export const isString = (string: string): boolean => {

@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import * as comunicacionControllers from "../controllers/comunicaciones_controllers/comunicacion.controllers";
-import db from "../models";
 
 const router = express.Router();
 
@@ -17,11 +16,9 @@ router.get("/get", async (_req: Request, res: Response) => {
 // Crear un Comunicacion
 router.post("/post", async (req: Request, res: Response) => {
   try {
-    const newComunicacionEntry = await comunicacionControllers.postComunicacion({ ...req.body });
+    await comunicacionControllers.postComunicacion({ ...req.body });
 
-    const record = await db.Comunicacion.create(newComunicacionEntry);
-
-    return res.json({ record, msg: "Creacion exitosa de un movil" });
+    return res.json({ msg: "Creacion exitosa de un movil" });
   } catch (error: any) {
     console.log(error);
     return res.status(500).json({ msg: "Error al crear un movil: " + error.message });

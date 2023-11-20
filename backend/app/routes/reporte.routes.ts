@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import * as reporteControllers from "../controllers/reportes_controllers/reporte.controllers";
-import db from "../models";
 
 const router = express.Router();
 
@@ -17,15 +16,10 @@ router.get("/get", async (_req: Request, res: Response) => {
 // Crear un Reporte
 router.post("/post", async (req: Request, res: Response) => {
   try {
-    const newReporteEntry = await reporteControllers.postReporte({
+    await reporteControllers.postReporte({
       ...req.body,
     });
-
-    console.log(newReporteEntry);
-
-    const record = await db.Reportes.create(newReporteEntry);
-
-    return res.json({ record, msg: "Creacion exitosa de un reporte" });
+    return res.json({ msg: "Creacion exitosa de un reporte" });
   } catch (error: any) {
     console.log(error);
     return res.status(500).json({ msg: "Error al crear un reporte: " + error.message });
