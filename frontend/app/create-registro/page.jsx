@@ -3,7 +3,7 @@
 import { React } from "react";
 import { useState } from "react";
 
-import EntryFormCopy from "../../components/EntryFormCopy";
+import EntryForm from "../../components/EntryForm";
 
 // CODIGO PARA OBTENER TIEMPO Y FECHA ACTUAL
 const date = new Date();
@@ -33,7 +33,7 @@ const CrearRegistro = () => {
 	console.log(formulario);
   
 	return (
-	  <EntryFormCopy formulario={formulario} setFormulario={setFormulario} />
+	  <EntryForm formulario={formulario} setFormulario={setFormulario} />
 	);
   };
   
