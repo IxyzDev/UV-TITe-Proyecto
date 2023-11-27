@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 
 import data from "../utils/data.json"; // Datos para desplegables.
 import Swal from "sweetalert2"; // Alertas 
@@ -9,13 +8,15 @@ import withReactContent from "sweetalert2-react-content";
 import AutocompleteMUI from "@mui/material/Autocomplete";
 import { TextField, Radio, RadioGroup, FormControlLabel } from "@mui/material";
 // API Google
-import AutocompleteComponent from "../components/AutocompleteComponent";
+import PlacesAutocomplete from "../components/Places";
+
 import { useRouter } from "next/navigation";
 
 const motivo = data.motivo;
 const movil = data.movil;
 const patrullero = data.patrullero;
 const medio_comunicacion = data.medio_comunicacion;
+const grupo_delictual = data.grupo_delictual;
 /* const sector = data.sector;
 const subsector = data.subsector;
 const uv = data.uv; */
@@ -35,133 +36,91 @@ const mesesNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
 const fecha = date.getFullYear() + "-" + mesesNum[date.getMonth()] + "-" + date.getDate();
 const hora = date.getHours() + ":" + date.getMinutes() + ":" + "00";
 
-const EntryForm = () => {
+const EntryForm = ({ formulario, setFormulario }) => {
 	const router = useRouter();
-
 
 	// Fomato de datos enviados
 	const [formData, setFormData] = useState({
 		fecha: fecha,
 		hora: hora,
-		detalle: "",
-		observaciones: "",
-		motivo: "",
-		grupo_delictual: "",
-		contribuyente: "tercero",
-		derivado: "", // ¿a qué hace referencia?
-
-		direccion: "",
-		coordenadas: "",
-
-		medio_comunicacion: "",
-		nombre_contribuyente: "",
-		telefono: "",
-
-		// Ver bien esto
-		/* nombre_funcionario: "",
-		apellido_funcionario: "",
-		tipo_funcionario: "", */
-
-		caso: "", // para que sirve esto
-		movil: "",
-		patrullero: "", // hasta ahora indica el nombre del patrullero
 	});
 	const [errors, setErrors] = useState({});
 
-	const validatePhone = (phone) => {
-		return /^\d+$/.test(phone);
+	
+
+	const validateForm = (formValues) => {
+		const newErrors = {};
+		for (const field in formValues) {
+			if (Object.prototype.hasOwnProperty.call(formValues, field)) {
+				const value = formValues[field].trim();
+				if (!value) {
+					newErrors[field] = 'Este campo es obligatorio.';
+				  }
+			}
+		}
+		return newErrors;
 	};
-	const onSelectAddress = (lat, lng) => {
-		setCoordinates({ lat, lng });
-		setFormData(prev => ({
-			...prev,
-			coordenadas: `${lat}, ${lng}`,
-		}))
-	};
+	const handlePhoneChange = (e) => {
+		const { value } = e.target;
+		// Permite cambios solo si el valor es vacío (para permitir borrar) o es numérico
+		if (value === '' || /^[0-9]+$/.test(value)) {
+		  setFormulario((prevFormulario) => ({
+			...prevFormulario,
+			"telefono": value
+		  }));
+		}
+	  };
+	  
+	
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		let localErrors = {};
+		// Aquí se enviarían los datos a la base de datos
+		console.log(formData);
 
-		// Validación de medio de comunicación
-		if (!formData.medio_comunicacion) {
-			localErrors.medio_comunicacion = 'El medio de comunicación es obligatorio.';
-		}
-		if (!formData.direccion) {
-			localErrors.direccion = 'La dirección es obligatoria.';
-		}
-		if (!formData.motivo) {
-			localErrors.motivo = 'El motivo es obligatorio.';
-		}
-		if (!formData.detalle) {
-			localErrors.detalle = 'El detalle es obligatorio.';
-		}
-		if (!formData.caso) {
-			localErrors.caso = 'El caso es obligatorio.';
-		}
-		if (!formData.movil) {
-			localErrors.movil = 'El movil es obligatorio.';
-		}
-		if (!formData.patrullero) {
-			localErrors.patrullero = 'El patrullero es obligatorio.';
-		}
-
-		if (Object.keys(localErrors).length > 0) {
-			setErrors(localErrors);
-		} else {
-			console.log(formData);
+		const formErrors = validateForm(formulario);
+		if (Object.keys(formErrors).length === 0) {
+			console.log('Formulario enviado:', formulario);
+			// Aquí enviarías el formulario a tu backend
+			setErrors({});
 			AlertClick();
-		}
-
-	};
-
-	// INPUTS
-	const handleChange = (e) => {
-		const { id, value } = e.target;
-		if (id === 'telefono') {
-			if (value === '' || validatePhone(value)) {
-				setFormData((prev) => ({ ...prev, [id]: value }));
-			}
 		} else {
-			setFormData((prev) => ({ ...prev, [id]: value }));
+			setErrors(formErrors);
 		}
 	};
+
 
 	// RADIOGROUP
-	useEffect(() => {
-		// Verificar el valor inicial y mostrar u ocultar campos adicionales
-		if (formData.contribuyente === "tercero") {
+	const [contribuyente, setContribuyente] = useState("tercero");
+	const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+
+	const handleChangeContribuyente = (e) => {
+		const { value } = e.target;
+
+		if (value === "tercero") {
 			setShowAdditionalFields(true);
 		} else {
 			setShowAdditionalFields(false);
 		}
-	}, []);
-	const [showAdditionalFields, setShowAdditionalFields] = useState(false);
-	const handleChangeContribuyente = (e) => {
-		const { name, value } = e.target;
 
-		if (name === "contribuyente") {
-			if (value === "tercero") {
-				setShowAdditionalFields(true);
-			} else {
-				setShowAdditionalFields(false);
-			}
-		}
-		setFormData((prev) => ({ ...prev, [name]: value }));
+		setContribuyente(value);
 	};
 
-	// DROPDOWN EVENT / SELECTOR DE OPCIONES
-	const handleChangeDropDown = (e, value) => {
-		e.preventDefault();
-		setFormData(prev => ({ ...prev, [value.id]: value.label }));
-	}
+	useEffect(() => {
+		// Verificar el valor inicial y mostrar u ocultar campos adicionales
+		if (contribuyente === "tercero") {
+			setShowAdditionalFields(true);
+		} else {
+			setShowAdditionalFields(false);
+		}
+	}, [contribuyente]);
 
 	return (
 		<div>
 			<form noValidate autoComplete="off" onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg max-w-5x1 mx-auto mt-20 grid grid-cols-3 gap-4">
 				<div className="col-span-3 flex justify-between items-center mt-6">
 					<div className="col-span-1">
-						<button onClick={() => router.push("/")} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
+						<button onClick={() => router.push("/menu")} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
 							Atrás
 						</button>
 					</div>
@@ -171,52 +130,43 @@ const EntryForm = () => {
 						</h2>
 					</div>
 					<div className="col-span-1">
-						<RadioGroup aria-labelledby="contribuyente" name="contribuyente" id="contribuyente" onChange={handleChangeContribuyente} value={formData.contribuyente}>
+						<RadioGroup aria-labelledby="contribuyente" name="contribuyente" id="contribuyente" value={contribuyente} onChange={handleChangeContribuyente}>
 							<FormControlLabel value="tercero" control={<Radio />} label="Tercero" />
 							<FormControlLabel value="patrullero" control={<Radio />} label="Patrullero" />
 						</RadioGroup>
 					</div>
 				</div>
 
-				{showAdditionalFields && formData.contribuyente === "tercero" && (<>
+				{showAdditionalFields && contribuyente === "tercero" && (<>
 					{/* TELEFONO */}
 					<div className="col-span-1">
-						<label htmlFor="telefono" className="block text-sm pb-3 font-medium text-gray-700" >
+						<label htmlFor="telefono" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 							{" "} Telefono:{" "}
 						</label>
-						<TextField id="telefono" label="Telefono" variant="outlined" fullWidth required onChange={handleChange} value={formData.telefono} error={!!errors.telefono} helperText={errors.telefono} />
+						<TextField id="telefono" type="tel" label="9 12345678" variant="outlined" fullWidth required error={!!errors.telefono} helperText={errors.telefono}
+							onChange={handlePhoneChange} value={formulario.telefono} />
 					</div>
 
-					{/* NOMBRE */}
+					{/* NOMBRE - NO REQUERIDO */}
 					<div className="col-span-1">
-						<label htmlFor="nombre_contribuyente" className="block text-sm pb-3 font-medium text-gray-700" >
-							{" "} Nombre:{" "}
-						</label> {/* id="nombre_contribuyente" */}
-						<TextField id="nombre_contribuyente" label="Nombre" variant="outlined" fullWidth onChange={handleChange} value={formData.nombre_contribuyente} />
+						<label htmlFor="nombre_contribuyente" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
+							{" "} Nombre contribuyente:{" "}
+						</label>
+						<TextField id="nombre_contribuyente" label="Nombre" variant="outlined" fullWidth
+							onChange={(e) => setFormulario(formulario => ({ ...formulario, "nombre_contribuyente": e.target.value }))} />
 					</div>
 					{/* MEDIO */}
 					<div className="col-span-1">
-						<label htmlFor="medio_comunicacion" className="block text-sm pb-3 font-medium text-gray-700" >
+						<label htmlFor="medio_comunicacion" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 							{" "} Medio de comunicacion:{" "}
 						</label>
-						<AutocompleteMUI
-							disablePortal
-							fullWidth
-							id="medio_comunicacion"
-							options={medio_comunicacion}
-							onChange={(event, value) => {
-								setFormData(prev => ({
-									...prev,
-									medio_comunicacion: value ? value.label : ''
-								}));
-							}}
+						<AutocompleteMUI disablePortal fullWidth id="medio_comunicacion" options={medio_comunicacion}
+							onChange={(e) => setFormulario(formulario => ({ ...formulario, "medio_comunicacion": e.target.innerText }))}
 							renderInput={(params) => (
-								<TextField
-									{...params}
-									required
+								<TextField required {...params}
 									label="Medio"
-									error={!!errors.medio_comunicacion}
-									helperText={errors.medio_comunicacion || ' '}
+									error={!!errors.medio_comunicacion} // Aquí se muestra el error si existe
+									helperText={errors.medio_comunicacion || ''} // Mensaje de error
 								/>
 							)}
 						/>
@@ -225,148 +175,90 @@ const EntryForm = () => {
 				)}
 
 				{/* DIRECCION DEL INCIDENTE */}
-				<div className="col-span-3">
-					<label htmlFor="direccion" className="block text-sm pb-3 font-medium text-gray-700">
-						{" "}Dirección:{" "}
-					</label>
-					<AutocompleteComponent
-						handleChange={handleChange}
-						data={formData.direccion}
-						error={!!errors.direccion}
-						helperText={errors.direccion}
-					/>
-					{errors.direccion && (
-						<p className="text-red-500 text-xs italic">{errors.direccion}</p>
-					)}
-				</div>
+				<PlacesAutocomplete formulario={formulario} setFormulario={setFormulario} error={!!errors.direccion} helperText={errors.medio_comunicacion || ''}  />
 
-				{/* Coordenadas */}
-				<div className="col-span-3">
-					<label htmlFor="coordenadas" className="block text-sm pb-3 font-medium text-gray-700">
-						{" "}Coordenadas:{" "}
-					</label>
-
-
-				</div>
-				{/* PEDIR LISTADO DE LOS QUE DEBEN IR */}
-				<div className="col-span-1">
-					<label htmlFor="motivo" className="block text-sm pb-3 font-medium text-gray-700" >
+				{/* MOTIVO-DETALLE DE LA LLAMADA */}
+				<div className="col-span-2">
+					<label htmlFor="motivo_detalle" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Motivo:{" "}
 					</label>
-					<AutocompleteMUI
-						disablePortal
-						fullWidth
-						id="motivo"
-						options={motivo}
-						onChange={(event, value) => {
-							setFormData(prev => ({
-								...prev,
-								motivo: value ? value.label : ''
-							}));
-						}}
+					<AutocompleteMUI disablePortal fullWidth id="motivo_detalle" options={motivo}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "motivo_detalle": e.target.innerText }))}
 						renderInput={(params) => (
-							<TextField
-								{...params}
-								required
-								label="Motivo"
-								error={!!errors.motivo}
-								helperText={errors.motivo || ' '}
-							/>
+							<TextField required {...params}
+								label="Motivo de la llamada" 
+								error={!!errors.motivo_detalle} 
+								helperText={errors.motivo_detalle || ''}/>
 						)}
 					/>
 				</div>
 
-				{/* DETALLE ESPECIFICO DE LO SUCESIDO EN EL EVENTO */}
+				{/* GRUPO DELICTUAL - NO REQUERIDO */}
 				<div className="col-span-1">
-					<label htmlFor="detalle" className="block text-sm pb-3 font-medium text-gray-700" >
-						{" "} Detalle:{" "}
-					</label>
-					<TextField id="detalle" label="Detalle" variant="outlined" fullWidth required onChange={handleChange} value={formData.detalle} error={!!errors.detalle} helperText={errors.detalle} />
-				</div>
-
-				{/* GRUPO DELICTUAL */}
-				<div className="col-span-1">
-					<label htmlFor="grupo_delictual" className="block text-sm pb-3 font-medium text-gray-700" >
+					<label htmlFor="grupo_delictual" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Grupo Delictual:{" "}
 					</label>
-					<TextField id="grupo_delictual" label="Grupo delictual" variant="outlined" fullWidth required onChange={handleChange} value={formData.grupo_delictual} />
-				</div>
-
-				{/* CASO */}
-				<div className="col-span-1">
-					<label htmlFor="caso" className="block text-sm pb-3 font-medium text-gray-700" >
-						{" "} Caso:{" "}
-					</label>
-					<TextField id="caso" label="Caso" variant="outlined" fullWidth required value={formData.caso} onChange={handleChange} error={!!errors.caso} helperText={errors.caso} />
+					<AutocompleteMUI disablePortal fullWidth id="grupo_delictual" options={grupo_delictual}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "grupo_delictual": e.target.innerText }))}
+						renderInput={(params) => (
+							<TextField {...params}
+								label="Grupo delictual" 
+								/>
+						)}
+					/>
 				</div>
 
 				{/* VEHICULO ENVIADO - DELITO DERIVADO */}
 				<div className="col-span-1">
-					<label htmlFor="movil" className="block text-sm pb-3 font-medium text-gray-700" >
-						{" "} Movil:{" "}
+					<label htmlFor="num_movil" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
+						{" "} Movil enviado:{" "}
 					</label>
-					<AutocompleteMUI
-						disablePortal
-						fullWidth
-						id="movil"
-						options={movil}
-						onChange={(event, value) => {
-							setFormData(prev => ({
-								...prev,
-								movil: value ? value.label : ''
-							}));
-						}}
+					<AutocompleteMUI disablePortal fullWidth id="num_movil" options={movil}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "num_movil": e.target.innerText }))}
 						renderInput={(params) => (
-							<TextField
-								{...params}
-								required
-								label="Movil"
-								error={!!errors.movil}
-								helperText={errors.movil || ' '}
-							/>
+							<TextField required {...params}
+								label="Num de movil" 
+								error={!!errors.num_movil} helperText={errors.num_movil || ''}/>
 						)}
 					/>
 				</div>
 
 				{/* NOMBRE PATRULLETO ENVIADO */}
 				<div className="col-span-1">
-					<label htmlFor="patrullero" className="block text-sm pb-3 font-medium text-gray-700" >
+					<label htmlFor="patrullero" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Patrullero:{" "}
 					</label>
-					<AutocompleteMUI
-						disablePortal
-						fullWidth
-						id="patrullero"
-						options={patrullero}
-						onChange={(event, value) => {
-							setFormData(prev => ({
-								...prev,
-								patrullero: value ? value.label : ''
-							}));
-						}}
+					<AutocompleteMUI disablePortal fullWidth id="patrullero" options={patrullero}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "nombre_patrullero": e.target.innerText }))}
 						renderInput={(params) => (
-							<TextField
-								{...params}
-								required
+							<TextField required value={formData.patrullero} {...params}
 								label="Patrullero"
-								error={!!errors.patrullero}
-								helperText={errors.patrullero || ' '}
-							/>
+								error={!!errors.nombre_patrullero} 
+								helperText={errors.nombre_patrullero || ''}/>
 						)}
 					/>
 				</div>
 
+				{/* HORA DE RECIBO DE LLAMADA */}
+				<div className="col-span-1">
+					<label htmlFor="hora_incidente" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
+						{" "} Hora incidente:{" "}
+					</label>
+					<TextField id="hora_incidente" type="time"  variant="outlined" fullWidth required error={!!errors.hora_evento} helperText={errors.hora_evento}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "hora_evento": e.target.value }))} />
+				</div>
+
 				{/* OBSERVACIONES SOBRE EL INCIDENTE */}
 				<div className="col-span-3">
-					<label htmlFor="observaciones" className="block text-sm pb-3 font-medium text-gray-700">
-						{" "} Observaciones:{" "}
+					<label htmlFor="observaciones" className="block text-sm pl-1 pb-3 font-medium text-gray-700">
+						{" "}Observaciones:{" "}
 					</label>
-					<TextField id="observaciones" label="Observaciones" variant="outlined" fullWidth multiline rows={4} value={formData.observaciones} onChange={handleChange} />
+					<TextField id="observaciones" label="Ingrese las observaciones del incidente." variant="outlined" fullWidth multiline rows={4}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "observaciones": e.target.value }))} />
 				</div>
 
 				<div className="col-span-3 flex justify-center mt-6">
 					<button className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="submit"
-
 					>
 						Guardar Registro
 					</button>

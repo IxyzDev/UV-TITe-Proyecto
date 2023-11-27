@@ -24,7 +24,7 @@ const LoginPage = () => {
     
       if (response.ok) {
         // Si la autenticación es correcta, redirige al usuario
-        router.push('/'); 
+        router.push('/menu'); 
       } else {
         // Si las credenciales son incorrectas, muestra un mensaje de error
         setErrorMessage('Usuario o contraseña incorrecta.');

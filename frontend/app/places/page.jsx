@@ -1,9 +1,9 @@
 import React from "react";
-import LoginPage from "../../components/Form";
+import Places from "../../components/Places";
 
 const crearRegistro = () => {
 	return (
-		<LoginPage />
+		<Places />
 	);
 };
 
