@@ -16,8 +16,7 @@ const sequelize = new Sequelize({
   username,
   password,
   host,
-  database: "test",
-  dialect: "mysql",
+  dialect: "mysql"
 });
 
 //console.log(sequelize);
@@ -44,17 +43,6 @@ modelFiles.forEach((file: any) => {
   }
 });
 
-// modelFiles.forEach((file: any) => {
-//   //console.log(`Importando modelo desde el archivo: ${file}`);
-//   const modelModule = require(path.join(__dirname, file));
-//   const model = modelModule.default
-//     ? modelModule.default(sequelize, DataTypes)
-//     : modelModule(sequelize, DataTypes);
-//   //console.log(`Modelo importado: ${model.name}`);
-//   db[model.name] = model;
-// });
-
-//console.log("Modelos importados:", Object.keys(db));
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
