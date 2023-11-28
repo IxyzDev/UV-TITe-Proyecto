@@ -6,18 +6,18 @@ import AutocompleteMUI from "@mui/material/Autocomplete";
 
 const apiKey = "AIzaSyBiEhWbQVjxhbz-zS2PqssIpf_rqIpcmBw"; // Reemplazar API KEY
 
-export default function Places( { formulario, setFormulario } ) {
+export default function Places({ formulario, setFormulario,error, helperText }) {
 	const { isLoaded } = useLoadScript({
 		googleMapsApiKey: apiKey,
 		libraries: ["places"],
 	});
 
-	if (!isLoaded) 
+	if (!isLoaded)
 		return <div>Cargando...</div>;
-		return <PlacesAutocomplete formulario={formulario} setFormulario={setFormulario} />;
+	return <PlacesAutocomplete formulario={formulario} setFormulario={setFormulario} error={error} helperText={helperText}  />
 }
 
-function PlacesAutocomplete( { formulario, setFormulario } ) {
+function PlacesAutocomplete({ formulario, setFormulario, error, helperText }) {
 	const { labelAddress, setValue, suggestions: { data }, clearSuggestions, } = usePlacesAutocomplete();
 
 	const handleSelect = async (address) => {
@@ -33,11 +33,12 @@ function PlacesAutocomplete( { formulario, setFormulario } ) {
 		}
 	};
 	
+
 	const addressOptions = data.map(({ place_id, description }) => ({
 		label: description,
 		id: place_id,
 	}));
-	
+
 	const handleChange = (event, selected) => {
 		handleSelect(selected); // Llama a handleSelect con el nuevo valor
 	};
@@ -46,15 +47,17 @@ function PlacesAutocomplete( { formulario, setFormulario } ) {
 		<>
 			<div className="col-span-3">
 				<label htmlFor="direccion" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
-				{" "} Dirección:{" "}
+					{" "} Dirección:{" "}
 				</label>
 				<AutocompleteMUI disablePortal fullWidth id="direccion"
 					value={labelAddress}
 					onChange={handleChange}
 					options={addressOptions}
-					renderInput={(params) => 
-						<TextField required {...params} 
-							label="Dirección de eventualidad" 
+					renderInput={(params) =>
+						<TextField required {...params}
+							error={error} // Utiliza el prop error para mostrar un estado de error
+							helperText={helperText} // Utiliza el prop helperText para mostrar el mensaje de error
+							label="Dirección de eventualidad"
 							onChange={(e) => { setValue(e.target.value); }}
 						/>
 					}

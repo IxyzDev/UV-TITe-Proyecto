@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Swal from "sweetalert2"; // Alertas 
 import withReactContent from "sweetalert2-react-content";
-import AutocompleteMUI from "@mui/material/Autocomplete"; 
-import { TextField, Radio, RadioGroup, FormControlLabel} from "@mui/material";
+import AutocompleteMUI from "@mui/material/Autocomplete";
+import { TextField, Radio, RadioGroup, FormControlLabel } from "@mui/material";
 // API Google
 import PlacesAutocomplete from "../components/Places";
 
@@ -20,10 +20,10 @@ const grupo_delictual = data.grupo_delictual;
 
 const Alert = withReactContent(Swal);
 const AlertClick = () => {
-  Alert.fire({
-	title: '<p className="text-green-700 font-semibold text-2xl mb-4">Registro Guardado Exitosamente</p>',
-	icon: "success",
-  });
+	Alert.fire({
+		title: '<p className="text-green-700 font-semibold text-2xl mb-4">Registro Guardado Exitosamente</p>',
+		icon: "success",
+	});
 };
 
 const EntryForm = ({ formulario, setFormulario }) => {
@@ -72,6 +72,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 	// RADIOGROUP
 	const [contribuyente, setContribuyente] = useState("tercero");
 	const [showAdditionalFields, setShowAdditionalFields] = useState(false);
+
 	const handleChangeContribuyente = (e) => {
 		const { value } = e.target;
 
@@ -97,7 +98,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 			<form noValidate autoComplete="off" onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg max-w-5x1 mx-auto mt-20 grid grid-cols-3 gap-4">
 				<div className="col-span-3 flex justify-between items-center mt-6">
 					<div className="col-span-1">
-						<button onClick={() => router.push("/")} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
+						<button onClick={() => router.push("/menu")} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
 							Atrás
 						</button>
 					</div>

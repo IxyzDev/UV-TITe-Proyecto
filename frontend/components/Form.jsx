@@ -1,30 +1,78 @@
-/* @jsxRuntime classic */
 "use client";
-import { useState } from 'react';
-import Input from './Input';
+import { useState} from 'react';
+import { useRouter } from 'next/navigation';
 
-const Login = () => {
-    const [formData, setFormData] = useState({ name: '', email: '' });
+const LoginPage = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const router = useRouter();   
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage('');    
+    // Intenta enviar las credenciales al backend para la validación
+    try {
+      const response = await fetch('/api/login', { // Reemplaza esto con la ruta correcta de tu API
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+    
+      if (response.ok) {
+        // Si la autenticación es correcta, redirige al usuario
+        router.push('/menu'); 
+      } else {
+        // Si las credenciales son incorrectas, muestra un mensaje de error
+        setErrorMessage('Usuario o contraseña incorrecta.');
+      }
+    } catch (error) {
+      // En caso de un error en la red o del servidor, muestra un mensaje de error genérico
+      setErrorMessage('Ha ocurrido un error al intentar conectar con el servidor.');
     }
+  };
+  
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    }
+  return (
+    // Contenedor principal 
+    <div className="flex items-center justify-center h-screen bg-white-100">
+      <div className="bg-orange-500 p-10 rounded-lg shadow-lg">
+      {errorMessage && <div className="text-red-600 text-center mb-4">{errorMessage}</div>}
+        <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+          <div>
+            <label htmlFor="username" className="text-white block mb-2">Nombre de usuario:</label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full p-2 rounded-md"
+            />
+          </div>
 
-    return (
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg max-w-lg mx-auto mt-20">
-            <Input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" label="Full Name" />
-            <Input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="johndoe@example.com" label="Email Address" />
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                Submit
-            </button>
+          <div>
+            <label htmlFor="password" className="text-white block mb-2">Contraseña:</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 rounded-md"
+            />
+          </div>
+
+          <button
+            className="mt-4 bg-white text-orange-500 font-bold rounded-full p-2 border border-transparent hover:border-white transition transform hover:scale-110 focus:outline-none focus:border-white"
+          >
+            Iniciar Sesión
+          </button>
         </form>
-    );
+      </div>
+    </div>
+  );
 }
 
-export default Login;
+export default LoginPage;
