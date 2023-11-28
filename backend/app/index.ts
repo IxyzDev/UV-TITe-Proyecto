@@ -9,15 +9,6 @@ import ubicacionRouter from "./routes/ubicacion.routes";
 import reporteRouter from "./routes/reporte.routes";
 import usuarioRouter from "./routes/usuario.routes";
 
-//import funcionarioRouter from "./routes/crud/funcionario.routes";
-//import movilRouter from "./routes/crud/movil.routes";
-
-//import patrullero from "./routes/crud/patrullero.routes";
-//import operador from "./routes/crud/operador.routes";
-//import asignacionPM from "./routes/crud/asig.pat.mov.routes";
-
-//import asignacionPR from "./routes/crud/asig.pat.rep.routes";
-
 const app = express();
 const PORT = 3000;
 
@@ -42,10 +33,4 @@ app.use("/ubicacion", ubicacionRouter);
 app.use("/reporte", reporteRouter);
 app.use("/usuario", usuarioRouter);
 
-// app.use("/asignacionpr", asignacionPR);
-// app.use("/asignacionpm", asignacionPM);
-// app.use("/patrullero", patrullero);
-// app.use("/operador", operador);
-// app.use("/funcionario", funcionarioRouter);
-// app.use("/movil", movilRouter);
 export default app;
