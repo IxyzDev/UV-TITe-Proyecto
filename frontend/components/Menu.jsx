@@ -9,21 +9,23 @@ const Menu = () => {
 	const router = useRouter();
 
 	return (
-		<div className="bg-gray-200 min-h-screen flex flex-col items-center">
-			<div className="flex flex-col items-center justify-center flex-grow">
-				<Stack direction={{ xs: "column", sm: "row" }} spacing={{ xs: 1, sm: 2, md: 8 }}>
-					<div className="bg-orange-500 w-4/5 md:w-96 md:h-64 hover:bg-orange-600 text-white text-2xl font-bold py-4 px-8 rounded-3xl focus:outline-none focus:shadow-outline mb-6 md:mb-0 mx-6 md:mx-0"
-						onClick={() => router.push("/create-registro")}>
-						<h1>Crear Nuevo Registro</h1>
-					</div>
-					<div className="bg-orange-500 w-4/5 md:w-96 md:h-64 hover:bg-orange-600 text-white text-2xl font-bold py-4 px-8 rounded-3xl focus:outline-none focus:shadow-outline mb-6 md:mb-0 mx-6 md:mx-0"
-						onClick={() => router.push("/view-registros")}>
-						<h1>Ver Listado de Registros</h1>
-					</div>
-				</Stack>
-			</div>
+		<div className="bg-gray-200 min-h-screen flex flex-col items-center justify-center">
+		   <div className="flex flex-col md:flex-row md:gap-8 space-y-4 md:space-y-0">
+			<button
+			  onClick={() => router.push("/create-registro")}
+			  className="bg-orange-500 text-white text-2xl font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-orange-600 hover:-translate-y-1 hover:scale-110"
+			>
+			  Crear Nuevo Registro
+			</button>
+			<button
+			  onClick={() => router.push("/view-registros")}
+			  className="bg-orange-500 text-white text-2xl font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-orange-600 hover:-translate-y-1 hover:scale-110"
+			>
+			  Ver Listado de Registros
+			</button>
+		  </div>
 		</div>
-	);
-};
-
-export default Menu;
+	  );
+	};
+	
+	export default Menu;
