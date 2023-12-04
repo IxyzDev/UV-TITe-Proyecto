@@ -1,21 +1,6 @@
 version: '3'
 
 services:
-  app_tite:
-    build: . # cambiar por imagen de docker hub
-    expose:
-      - "80"
-    environment:
-      VIRTUAL_HOST: localhost
-      PRODUCTION_DB_USERNAME: root
-      PRODUCTION_DB_PASSWORD: c79j85b5_
-      PRODUCTION_DB_HOST: db_tite
-    depends_on:
-      - db_tite
-    networks:
-      - proxy
-      - redprivada
-
   db_tite:
     image: mysql:8.0.34
     environment:

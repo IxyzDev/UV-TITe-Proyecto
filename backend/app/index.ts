@@ -10,7 +10,7 @@ import reporteRouter from "./routes/reporte.routes";
 import usuarioRouter from "./routes/usuario.routes";
 
 const app = express();
-const PORT = 3000;
+const PORT = 80;
 
 app.use(cors());
 app.use(express.json()); // middleware que transforma el req.body a JSON
