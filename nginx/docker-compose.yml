@@ -1,0 +1,21 @@
+version: "3"
+
+# Definir servicios
+services:
+  # servicio de proxy entre contenedores
+  nginx-proxy:
+    # comando para configurar Nginx
+    command: "sh -c 'echo \"server_tokens off; proxy_connect_timeout 300; proxy_send_timeout 300; proxy_read_timeout 90m; send_timeout 300;client_max_body_size 2048M;\" > /etc/nginx/conf.d/my_proxy.conf; forego start -r'"
+    restart: always               # reiniciar siempre
+    image: jwilder/nginx-proxy    # imagen desde docker HUB
+    container_name: nginx-proxy   # nombre del contenedor
+    ports:                        # Asignacion del puerto 80 al proxy
+     - "80:80"
+    volumes:                      # Entrega información de de Docker 
+     - /var/run/docker.sock:/tmp/docker.sock:ro
+
+# Definir redes
+networks:
+  default:
+    external:
+      name: network-proxy
