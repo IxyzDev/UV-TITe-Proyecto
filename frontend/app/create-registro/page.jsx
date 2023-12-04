@@ -1,7 +1,7 @@
 "use client";
 
 import { React } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import EntryForm from "../../components/EntryForm";
 
@@ -13,6 +13,16 @@ const fecha = date.getFullYear() + "-" + mesesNum[date.getMonth()] + "-" + date.
 const hora = date.getHours() + ":" +date.getMinutes();
 
 const CrearRegistro = () => {
+
+	/* const [data, setData] = useState([]); // Datos BD
+	useEffect(() => {
+	// Realiza la solicitud a la API
+	fetch("http://localhost:3001/reporte/get")
+		.then((response) => response.json())
+		.then((data) => setData(data))
+		.catch((error) => console.error("Error al obtener datos:", error));
+	}, []); */
+
 	const [formulario, setFormulario] = useState({
 		direccion: "",
 		coordenadas: "",
