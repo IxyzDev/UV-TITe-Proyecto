@@ -13,6 +13,16 @@ router.get("/get", async (_req: Request, res: Response) => {
   }
 });
 
+// Mostrar todos los Comunicacions
+router.get("/get/:id", async (req: Request, res: Response) => {
+  try {
+    const Comunicacions = await comunicacionControllers.getComunicacionById(req.params.id);
+    return res.json(Comunicacions);
+  } catch (error: any) {
+    return res.status(500).json({ msg: "Error al mostrar los Comunicacions: " + error.message });
+  }
+});
+
 // Crear un Comunicacion
 router.post("/post", async (req: Request, res: Response) => {
   try {

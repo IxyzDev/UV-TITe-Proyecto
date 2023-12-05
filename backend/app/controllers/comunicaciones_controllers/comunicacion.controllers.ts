@@ -38,9 +38,7 @@ export const getComunicacion = async (): Promise<ComunicacionInterface[]> => {
 // Controlador para obtener una comunicación por ID
 // Controlador para obtener un móvil por ID
 export const getComunicacionById = async (object: any): Promise<ComunicacionInterface> => {
-  const comunicaciones = await Comunicacion.findOne({
-    where: { comunicacion_ID: object.comunicacion_ID },
-  });
+  const comunicaciones = await Comunicacion.findByPk(object);
 
   if (!comunicaciones) {
     throw new Error("Comunicación no encontrada");
