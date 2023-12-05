@@ -42,7 +42,7 @@ const CrearRegistro = () => {
 		motivo_detalle: "",
 		observaciones: "", // Opcional
 		grupo_delictual: "", // Opcional
-		num_movil: "",
+		num_movil: 0,
 		nombre_patrullero: "",
 		medio_comunicacion: "",
 		nombre_contribuyente: "", // Opcional

@@ -34,17 +34,36 @@ const mockData = [
 
 const Home = () => {
   const [data, setData] = useState([]);
-  console.log("datos obtenidos del back: ", data);
+  const [ubicaciones, setUbi] = useState([]);
 
   useEffect(() => {
     // Realiza la solicitud a la API
-    fetch("http://localhost:80/usuario/get")
+    fetch("http://localhost:80/reporte/get")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error al obtener datos:", error));
   }, []);
 
-  return <DataView data={mockData} />;
+  useEffect(() => {
+    // Realiza la solicitud a la API
+    fetch("http://localhost:80/ubicacion/get")
+      .then((response) => response.json())
+      .then((ubicacion) => setUbi(ubicacion))
+      .catch((error) => console.error("Error al obtener datos:", error));
+  }, []);
+
+  const ubicacionIDs = data.map(entry => entry.ubicacion_ID);
+  const ubifiltrada = ubicaciones.filter(entry => entry.ubicacion_ID === ubicacionIDs[0]);
+
+
+  const ubic = ubifiltrada.map(entry => entry.direccion);
+  //const filteredData = data.filter(entry => entry.ubicacion_ID);
+  console.log("algo", ubic[0]);
+
+  console.log("datos obtenidos del back: ", data);
+  console.log("UBI: ", ubicaciones);
+
+  return <DataView data={data} ubi={ubic[0]}/>;
 
   // return (
   // 	<DataView data={mockData} />

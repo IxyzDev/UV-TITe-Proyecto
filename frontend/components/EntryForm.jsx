@@ -30,14 +30,43 @@ const EntryForm = ({ formulario, setFormulario, handleSubmit }) => {
     const router = useRouter();
 
 	const [errors, setErrors] = useState({});
-	const validateForm = (formValues) => {
+	/* const validateForm = (formValues) => {
 		const newErrors = {};
 		for (const field in formValues) {
 			if (Object.prototype.hasOwnProperty.call(formValues, field)) {
+				console.log("ALGO ",formValues[field].trim());
 				const value = formValues[field].trim();
-				if (!value) {
+				const trimmedValue = typeof value === 'string' ? value.trim() : value;
+
+				if (!trimmedValue) {
+				  newErrors[field] = 'Este campo es obligatorio.';
+				}
+				/* if (!value) {
 					newErrors[field] = 'Este campo es obligatorio.';
 				  }
+			}
+		}
+		return newErrors;
+	}; */
+
+	const validateForm = (formValues, contribuyente) => {
+		const newErrors = {};
+		for (const field in formValues) {
+			// Excluir campos que no son obligatorios en general
+			if (field === "observaciones" || field === "nombre_contribuyente") continue;
+	
+			// Si el contribuyente es 'patrullero', omitir ciertos campos
+			if (contribuyente === "patrullero" && (field === "telefono" || field === "nombre_contribuyente" || field === "medio_comunicacion")) {
+				continue;
+			}
+	
+			if (Object.prototype.hasOwnProperty.call(formValues, field)) {
+				const value = formValues[field];
+				const trimmedValue = typeof value === 'string' ? value.trim() : value;
+	
+				if (!trimmedValue) {
+					newErrors[field] = 'Este campo es obligatorio.';
+				}
 			}
 		}
 		return newErrors;
@@ -195,7 +224,7 @@ const EntryForm = ({ formulario, setFormulario, handleSubmit }) => {
 						{" "} Movil enviado:{" "}
 					</label>
 					<AutocompleteMUI disablePortal fullWidth id="num_movil" options={num_movil}
-						onChange={(e) => setFormulario(formulario => ({ ...formulario, "num_movil": e.target.innerText }))}
+						onChange={(e) => setFormulario(formulario => ({ ...formulario, "num_movil": parseInt(e.target.innerText,10) }))}
 						renderInput={(params) => (
 							<TextField required {...params}
 								label="Num de movil" 
