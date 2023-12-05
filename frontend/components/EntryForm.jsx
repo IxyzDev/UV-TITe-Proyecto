@@ -51,6 +51,10 @@ const EntryForm = ({ formulario, setFormulario }) => {
 	const validateForm = (formValues) => {
 		const newErrors = {};
 		for (const field in formValues) {
+			if (field === "nombre_contribuyente" || field === "observaciones") continue;
+			if (contribuyente === "patrullero" && (field === "telefono" || field === "nombre_contribuyente" || field === "medio_comunicacion")) {
+				continue;
+			}	
 			if (Object.prototype.hasOwnProperty.call(formValues, field)) {
 				const value = formValues[field].trim();
 				if (!value) {
@@ -78,7 +82,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 		// Aquí se enviarían los datos a la base de datos
 		console.log(formData);
 
-		const formErrors = validateForm(formulario);
+		const formErrors = validateForm(formulario, contribuyente);
 		if (Object.keys(formErrors).length === 0) {
 			console.log('Formulario enviado:', formulario);
 			// Aquí enviarías el formulario a tu backend
