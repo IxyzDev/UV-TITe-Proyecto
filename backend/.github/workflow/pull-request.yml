@@ -1,0 +1,17 @@
+name: Workflow en Pull Request
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código fuente
+        uses: actions/checkout@v2
+
+      - name: Ejecutar pruebas en el pull request
+        run: echo "Ejecutando pruebas en el pull request..."
