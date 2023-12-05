@@ -8,26 +8,26 @@ const mockData = [
   {
     direccion: "Plaza Belén",
     fecha: "4/10/2023 12:00",
-    nombre_operador: "Nombre Operador",
-    nombre_patrullero: "Nombre Nombre Patrullero",
+    nombre_operador: "GALVEZ SEPULVEDA CLAUDIO MAURICIO",
+    nombre_patrullero: "ROMERO NEIRA MARIO",
     telefono: "912345678",
     nombre_contribuyente: "Nombre Contribuyente",
-    motivo_detalle: "Riña",
+    motivo_detalle: "AGRESIÓN",
     observaciones: "Observaciones generales", // Opcional
     grupo_delictual: "", // No se necesita
-    num_movil: "53",
+    num_movil: "SP 02",
   },
   {
-    direccion: "General Cruz 222",
+    direccion: "General Cruz 222, Valparaíso, Chile.",
     fecha: "4/10/2023 14:10",
-    nombre_operador: "Juan Pérez",
+    nombre_operador: "GALVEZ SEPULVEDA CLAUDIO MAURICIO",
     nombre_contribuyente: "Nombre Contribuyente",
     telefono: "912345678",
-    nombre_patrullero: "Nombre Operador",
-    motivo_detalle: "Vehiculo mal estacionado",
+    nombre_patrullero: "GARCIA RAMOS MAURICIO",
+    motivo_detalle: "ALARMA ACTIVADA",
     observaciones: "Observaciones generales", // Opcional
     grupo_delictual: "", // No se necesita
-    num_movil: "Derivado",
+    num_movil: "SP 01",
   },
   // ...otros registros
 ];
@@ -43,7 +43,7 @@ const Home = () => {
       .catch((error) => console.error("Error al obtener datos:", error));
   }, []);
 
-  return <DataView data={data} />;
+  return <DataView data={mockData} />;
 
   // return (
   // 	<DataView data={mockData} />
