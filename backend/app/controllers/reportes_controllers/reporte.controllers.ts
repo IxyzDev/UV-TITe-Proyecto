@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import db from "../../models";
 
-import { ReportesInterface } from "../../interfaces/types";
+import { ReportesInterface, ReportUbi } from "../../interfaces/types";
 
 import * as verif from "./reporte.verif";
 
@@ -12,6 +12,38 @@ import * as comunicacionControllers from "../comunicaciones_controllers/comunica
 const Reportes = db.Reportes;
 const Ubicacion = db.Ubicacion;
 const Comunicacion = db.Comunicacion;
+
+export const getReportesUbi = async (): Promise<ReportUbi[]> => {
+  const resultado = await Reportes.findAll({
+    include: [
+      {
+        model: Ubicacion,
+        required: false, // Esto asegura que es un LEFT JOIN
+      },
+      {
+        model: Comunicacion,
+        required: false, // Esto asegura que es un LEFT JOIN
+      },
+    ],
+  });
+
+  const mapearAReportUbi = (data: any): ReportUbi => {
+    return {
+      direccion: data.Ubicacion?.direccion || "",
+      nombre_usuario: data.nombre_usuario,
+      nombre_patrullero: data.nombre_patrullero,
+      fecha_envio: data.fecha_envio,
+      hora_evento: data.hora_evento,
+      motivo_detalle: data.motivo_detalle,
+      grupo_delictual: data.grupo_delictual,
+      num_movil: data.num_movil,
+      nombre_contribuyente: data.Comunicacion?.nombre_contribuyente || "",
+      telefono: data.Comunicacion?.telefono || "",
+    };
+  };
+
+  return resultado.map(mapearAReportUbi);
+};
 
 export const verifReporte = async (object: any): Promise<ReportesInterface> => {
   const newVerifReporte: ReportesInterface = {

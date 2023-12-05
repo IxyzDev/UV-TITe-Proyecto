@@ -22,6 +22,15 @@ router.get("/get/:id", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/getcompleto", async (_req: Request, res: Response) => {
+  try {
+    const Reportes = await reporteControllers.getReportesUbi();
+    return res.json(Reportes);
+  } catch (error: any) {
+    return res.status(500).json({ msg: "Error al mostrar los Reportes: " + error.message });
+  }
+});
+
 // Crear un Reporte
 router.post("/post", async (req: Request, res: Response) => {
   try {
