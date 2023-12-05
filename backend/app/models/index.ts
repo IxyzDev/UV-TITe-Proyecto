@@ -2,22 +2,22 @@ import * as fs from "fs";
 import * as path from "path";
 import { Sequelize, DataTypes } from "sequelize";
 
-// import * as dotenv from "dotenv";
-// dotenv.config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const basename = path.basename(__filename);
 const db: any = {};
 
-const username = process.env.PRODUCTION_DB_USERNAME;
-const password = process.env.PRODUCTION_DB_PASSWORD;
-const host = process.env.PRODUCTION_DB_HOST;
-console.log(host, username, password)
+const username = process.env.PRODUCTION_DB_USERNAME || "defaultUsername";
+const password = process.env.PRODUCTION_DB_PASSWORD || "defaultPassword";
+const host = process.env.PRODUCTION_DB_HOST || "localhost";
 
 const sequelize = new Sequelize({
+  database: "test",
   username,
   password,
   host,
-  dialect: "mysql"
+  dialect: "mysql",
 });
 
 //console.log(sequelize);
@@ -25,22 +25,9 @@ const sequelize = new Sequelize({
 //console.log("Todos los archivos en el directorio:", fs.readdirSync(__dirname));
 
 const modelFiles = fs.readdirSync(__dirname).filter((file: string) => {
-  return (
-    file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".ts"
-  );
+  return file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".ts";
 });
 //console.log("Archivos de modelo filtrados:", modelFiles);
-
-const delay = 5000; // Retraso en milisegundos (5000 ms = 5 segundos)
-setTimeout(() => {
-  sequelize.authenticate()
-    .then(() => {
-      console.log('Conexión exitosa.');
-    })
-    .catch(err => {
-      console.error('Error al conectarse a la base de datos:', err);
-    });
-}, delay);
 
 modelFiles.forEach((file: any) => {
   if (!file.startsWith("_")) {
@@ -54,7 +41,6 @@ modelFiles.forEach((file: any) => {
     db[model.name] = model;
   }
 });
-
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
