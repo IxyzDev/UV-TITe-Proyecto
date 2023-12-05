@@ -14,19 +14,28 @@ const hora = date.getHours() + ":" +date.getMinutes();
 
 const CrearRegistro = () => {
 
-	/* const [data, setData] = useState([]); // Datos BD
-	useEffect(() => {
-	// Realiza la solicitud a la API
-	fetch("http://localhost:3001/reporte/get")
-		.then((response) => response.json())
-		.then((data) => setData(data))
-		.catch((error) => console.error("Error al obtener datos:", error));
-	}, []); */
+	/* const handleSubmit = () => {
+		e.preventDefault();
+		console.log("handleSubmit Padre");
+	} */
+
+	const handleSubmit = async (e) => {
+		//e.preventDefault();
+		console.log("handleSubmit Padre");
+		fetch("http://localhost:80/reporte/post", {
+			method: 'POST',
+			headers: { "content-type": "application/json" },
+			body: JSON.stringify(formulario),
+		})
+			.then(response => response.json())
+			.then(data => { console.log('Respuesta del servidor:', data); })
+			.catch(error => { console.error('Error al realizar la solicitud:', error); });
+	};
 
 	const [formulario, setFormulario] = useState({
 		direccion: "",
 		coordenadas: "",
-		nombre_usuario: "", // Nombre del Radio Operador
+		nombre_usuario: "Prueba", // Nombre del Radio Operador
 		fecha_envio: fecha,
 		hora_envio: hora,
 		hora_evento: "",
@@ -43,7 +52,7 @@ const CrearRegistro = () => {
 	console.log(formulario);
   
 	return (
-	  <EntryForm formulario={formulario} setFormulario={setFormulario} />
+	  <EntryForm formulario={formulario} setFormulario={setFormulario} handleSubmit={handleSubmit}/>
 	);
   };
   

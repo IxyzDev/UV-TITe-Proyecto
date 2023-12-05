@@ -7,7 +7,7 @@ const DataView = ({ data }) => {
   const router = useRouter();
   return (
 	<>
-    <h1>{console.log(data)}</h1>
+    {/* <h1>{console.log(data)}</h1> */}
 
     <div className="bg-white p-8 shadow-lg w-5/6 mx-auto mt-20 overflow-auto">
 		<div className="col-span-2 flex justify-between mt-6">

@@ -34,10 +34,11 @@ const mockData = [
 
 const Home = () => {
   const [data, setData] = useState([]);
+  console.log("datos obtenidos del back: ", data);
 
   useEffect(() => {
     // Realiza la solicitud a la API
-    fetch("http://localhost:3001/usuario/get")
+    fetch("http://localhost:80/usuario/get")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error al obtener datos:", error));

@@ -26,7 +26,7 @@ const AlertClick = () => {
 	});
 };
 
-const EntryForm = ({ formulario, setFormulario }) => {
+const EntryForm = ({ formulario, setFormulario, handleSubmit }) => {
     const router = useRouter();
 
 	const [errors, setErrors] = useState({});
@@ -54,13 +54,16 @@ const EntryForm = ({ formulario, setFormulario }) => {
 		}
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmitForm = (e) => {
 		e.preventDefault();
+		console.log("handleSubmitForm");
 		// Aquí se enviarían los datos a la base de datos
 
 		const formErrors = validateForm(formulario);
+		console.log("formErrors", formErrors);
 		if (Object.keys(formErrors).length === 0) {
 			console.log('Formulario enviado:', formulario);
+			handleSubmit();
 			// Aquí enviarías el formulario a tu backend
 			setErrors({});
 			AlertClick();
@@ -95,7 +98,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 
 	return (
 		<div>
-			<form noValidate autoComplete="off" onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg max-w-5x1 mx-auto mt-20 grid grid-cols-3 gap-4">
+			<form noValidate autoComplete="off" onSubmit={handleSubmitForm} className="bg-white p-8 rounded shadow-lg max-w-5x1 mx-auto mt-20 grid grid-cols-3 gap-4">
 				<div className="col-span-3 flex justify-between items-center mt-6">
 					<div className="col-span-1">
 						<button onClick={() => router.push("/menu")} className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="button">
