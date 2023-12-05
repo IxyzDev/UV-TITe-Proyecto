@@ -20,7 +20,6 @@ export type VerifReportesInterface = Omit<
 
 export interface UbicacionInterface {
   ubicacion_ID: string;
-  subsector_ID: string;
   direccion: string; // Requerido
   coordenadas: string;
 }
@@ -45,55 +44,15 @@ export interface UsuarioInterface {
   admin: boolean; // ¿Es administrador?
 }
 
-/*
-############################################
-################ DEPRECATED ################
-############################################
-*/
-export interface FuncionariosInterface {
-  funcionario_ID: string;
-  nombre_funcionario: string;
-  apellido_funcionario: string;
-  tipo_funcionario: string;
-}
-
-export interface OperadoresInterface {
-  operador_ID: string;
-  funcionario_ID: string;
-}
-
-export interface PatrullerosInterface {
-  patrullero_ID: string;
-  funcionario_ID: string;
-}
-
-export type OperadoresOnetoOnePatrullerosInterface = Omit<OperadoresInterface, "funcionario_ID">;
-
-export interface AsignacionPatrulleroMovilInterface {
-  asignacion_movil_ID: string;
-  patrullero_ID: string;
-  movil_ID: string;
-}
-
-export interface MovilInterface {
-  movil_ID: string;
-  matricula: string;
-}
-
-export interface AsignacionPatrulleroReporteInterface {
-  asignacion_reporte_ID: string;
-  patrullero_ID: string;
-  reporte_ID: string;
-}
-
-export interface SectorInterface {
-  sector_ID: string;
-  nombre_sector: string;
-  unidad_vecinal: string;
-}
-
-export interface SubSectorInterface {
-  subsector_ID: string;
-  nombre_subsector: string;
-  sector_ID: string;
+export interface ReportUbi {
+  direccion: string;
+  nombre_usuario: string; // Corregido de "nombre_usario" a "nombre_usuario"
+  nombre_patrullero: string; // Corregido de "nombre_parullero" a "nombre_patrullero"
+  fecha_envio: string; // Corregido de "fecha_envo" a "fecha_envio"
+  hora_evento: string; // Corregido de "hora_eveno" a "hora_evento"
+  motivo_detalle: string; // Corregido de "motivo_dealle" a "motivo_detalle"
+  grupo_delictual: string; // Corregido de "grupo_delctual" a "grupo_delictual"
+  num_movil: number;
+  nombre_contribuyente: string; // Corregido de "nombre_cotribuyente" a "nombre_contribuyente"
+  telefono: string;
 }
