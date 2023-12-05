@@ -36,9 +36,8 @@ export const getUbicaciones = async (): Promise<UbicacionInterfaceWSub[]> => {
 
 // Controlador para obtener una ubicación por ID
 export const getUbicacionById = async (object: any): Promise<void> => {
-  const ubicacion = await Ubicacion.findByPk({
-    where: { ubicacion_ID: object.ubicacion_ID },
-  });
+  console.log(object);
+  const ubicacion = await Ubicacion.findByPk(object);
   if (!ubicacion) {
     throw new Error("Ubicación no encontrada");
   }
