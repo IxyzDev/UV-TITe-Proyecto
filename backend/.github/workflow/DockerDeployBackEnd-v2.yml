@@ -22,7 +22,7 @@ jobs:
 
       #Construccion de la imagen contenedor con nombre
       - name: Build Docker image
-        run: docker build -t benjaminzaratech/uv-tite-proyecto.informatica.uv.cl:latest ./app
+        run: docker build -t benjaminzaratech/uv-tite-proyecto.informatica.uv.cl:latest ./backend/app
 
       #Login a docker
       - name: Login to Docker Hub
