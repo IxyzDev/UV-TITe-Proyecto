@@ -11,7 +11,7 @@ const saltRounds = 10;
 
 const verifUsuario = async (object: any): Promise<UsuarioInterface> => {
   const newUsuarioEntry: UsuarioInterface = {
-    nombre_usuario: verif.parseNombre(object.nombre),
+    nombre_usuario: verif.parseNombre(object.nombre_usuario),
     nombre_personal: verif.parseNombrePersonal(object.nombre_personal),
     contrasena: verif.parseContrasena(object.contrasena),
     admin: verif.parseAdmin(object.admin),
