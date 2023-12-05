@@ -1,0 +1,17 @@
+name: Workflow en Push
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código fuente
+        uses: actions/checkout@v2
+
+      - name: Ejecutar pruebas
+        run: echo "Ejecutando pruebas en el push a cualquier rama..."
