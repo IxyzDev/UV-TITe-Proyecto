@@ -39,3 +39,4 @@ yarn-error.log*
 
 # Ignorar archivos de base de datos local
 **/*.sqlite
+/env

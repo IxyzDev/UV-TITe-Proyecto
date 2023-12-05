@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
-import data from "../utils/data.json"; // Datos para desplegables.
 import Swal from "sweetalert2"; // Alertas 
 import withReactContent from "sweetalert2-react-content";
 import AutocompleteMUI from "@mui/material/Autocomplete";
@@ -12,14 +10,13 @@ import PlacesAutocomplete from "../components/Places";
 
 import { useRouter } from "next/navigation";
 
-const motivo = data.motivo;
-const movil = data.movil;
-const patrullero = data.patrullero;
+
+import data from "../utils/data.json"; // Datos para desplegables.
+const motivo_detalle = data.motivo;
+const num_movil = data.movil;
+const nombre_patrullero = data.patrullero;
 const medio_comunicacion = data.medio_comunicacion;
 const grupo_delictual = data.grupo_delictual;
-/* const sector = data.sector;
-const subsector = data.subsector;
-const uv = data.uv; */
 
 const Alert = withReactContent(Swal);
 const AlertClick = () => {
@@ -29,25 +26,10 @@ const AlertClick = () => {
 	});
 };
 
-// CODIGO PARA OBTENER TIEMPO Y FECHA ACTUAL
-const date = new Date();
-//const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-const mesesNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",];
-const fecha = date.getFullYear() + "-" + mesesNum[date.getMonth()] + "-" + date.getDate();
-const hora = date.getHours() + ":" + date.getMinutes() + ":" + "00";
-
 const EntryForm = ({ formulario, setFormulario }) => {
-	const router = useRouter();
+    const router = useRouter();
 
-	// Fomato de datos enviados
-	const [formData, setFormData] = useState({
-		fecha: fecha,
-		hora: hora,
-	});
 	const [errors, setErrors] = useState({});
-
-	
-
 	const validateForm = (formValues) => {
 		const newErrors = {};
 		for (const field in formValues) {
@@ -64,6 +46,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 		}
 		return newErrors;
 	};
+
 	const handlePhoneChange = (e) => {
 		const { value } = e.target;
 		// Permite cambios solo si el valor es vacío (para permitir borrar) o es numérico
@@ -73,14 +56,11 @@ const EntryForm = ({ formulario, setFormulario }) => {
 			"telefono": value
 		  }));
 		}
-	  };
-	  
-	
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// Aquí se enviarían los datos a la base de datos
-		console.log(formData);
 
 		const formErrors = validateForm(formulario, contribuyente);
 		if (Object.keys(formErrors).length === 0) {
@@ -92,7 +72,6 @@ const EntryForm = ({ formulario, setFormulario }) => {
 			setErrors(formErrors);
 		}
 	};
-
 
 	// RADIOGROUP
 	const [contribuyente, setContribuyente] = useState("tercero");
@@ -109,7 +88,6 @@ const EntryForm = ({ formulario, setFormulario }) => {
 
 		setContribuyente(value);
 	};
-
 	useEffect(() => {
 		// Verificar el valor inicial y mostrar u ocultar campos adicionales
 		if (contribuyente === "tercero") {
@@ -186,7 +164,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 					<label htmlFor="motivo_detalle" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Motivo:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="motivo_detalle" options={motivo}
+					<AutocompleteMUI disablePortal fullWidth id="motivo_detalle" options={motivo_detalle}
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "motivo_detalle": e.target.innerText }))}
 						renderInput={(params) => (
 							<TextField required {...params}
@@ -217,7 +195,7 @@ const EntryForm = ({ formulario, setFormulario }) => {
 					<label htmlFor="num_movil" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Movil enviado:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="num_movil" options={movil}
+					<AutocompleteMUI disablePortal fullWidth id="num_movil" options={num_movil}
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "num_movil": e.target.innerText }))}
 						renderInput={(params) => (
 							<TextField required {...params}
@@ -229,13 +207,13 @@ const EntryForm = ({ formulario, setFormulario }) => {
 
 				{/* NOMBRE PATRULLETO ENVIADO */}
 				<div className="col-span-1">
-					<label htmlFor="patrullero" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
+					<label htmlFor="nombre_patrullero" className="block text-sm pl-1 pb-3 font-medium text-gray-700" >
 						{" "} Patrullero:{" "}
 					</label>
-					<AutocompleteMUI disablePortal fullWidth id="patrullero" options={patrullero}
+					<AutocompleteMUI disablePortal fullWidth id="nombre_patrullero" options={nombre_patrullero}
 						onChange={(e) => setFormulario(formulario => ({ ...formulario, "nombre_patrullero": e.target.innerText }))}
 						renderInput={(params) => (
-							<TextField required value={formData.patrullero} {...params}
+							<TextField required {...params}
 								label="Patrullero"
 								error={!!errors.nombre_patrullero} 
 								helperText={errors.nombre_patrullero || ''}/>

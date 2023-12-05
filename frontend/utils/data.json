@@ -1,100 +1,128 @@
 {
-    "motivo": [
-        {
-            "label": "Ri\u00f1a",
-            "id": "motivo"
-        },
-        {
-            "label": "Vehiculo mal estacionado",
-            "id": "motivo"
-        },
-        {
-            "label": "Agresi\u00f3n",
-            "id": "motivo"
-        }
-    ],
-    "movil": [
-        {
-            "label": "Derivado",
-            "id": "movil"
-        },
-        {
-            "label": "53",
-            "id": "movil"
-        },
-        {
-            "label": "83",
-            "id": "movil"
-        }
-    ],
-    "patrullero": [
-        {
-            "label": "Arenas",
-            "id": "patrullero"
-        },
-        {
-            "label": "Ya\u00f1ez",
-            "id": "patrullero"
-        },
-        {
-            "label": "Hevia",
-            "id": "patrullero"
-        }
-    ],
-    "medio_comunicacion": [
-        {
-            "label": "Llamada",
-            "id": "medio_comunicacion"
-        },
-        {
-            "label": "Mensaje",
-            "id": "medio_comunicacion"
-        },
-        {
-            "label": "WhatsUp",
-            "id": "medio_comunicacion"
-        }
-    ],
-    "sector": [
-        {
-            "label": "Sector 1",
-            "id": "sector"
-        },
-        {
-            "label": "Sector 2",
-            "id": "sector"
-        },
-        {
-            "label": "Sector 3",
-            "id": "sector"
-        }
-    ],
-    "subsector": [
-        {
-            "label": "Subsector 1",
-            "id": "subsector"
-        },
-        {
-            "label": "Subsector 2",
-            "id": "subsector"
-        },
-        {
-            "label": "Subsector 3",
-            "id": "subsector"
-        }
-    ],
-    "uv": [
-        {
-            "label": "Unidad vecinal 1",
-            "id": "uv"
-        },
-        {
-            "label": "Unidad vecinal 2",
-            "id": "uv"
-        },
-        {
-            "label": "Unidad vecinal 3",
-            "id": "uv"
-        }
-    ]
+  "motivo": [
+    {
+      "id": 1,
+      "label": "ACTIVIDADES DEPORTIVAS"
+    },
+    {
+      "id": 2,
+      "label": "AGRESIÓN"
+    },
+    {
+      "id": 3,
+      "label": "ALARMA ACTIVADA"
+    }
+  ],
+  "movil": [
+    {
+      "id": 1,
+      "label": "Derivado"
+    },
+    {
+      "id": 2,
+      "label": "SP 01"
+    },
+    {
+      "id": 3,
+      "label": "SP 02"
+    }
+  ],
+  "patrullero": [
+    {
+      "id": 1,
+      "label": "GARCIA RAMOS MAURICIO"
+    },
+    {
+      "id": 2,
+      "label": "ROMERO NEIRA MARIO"
+    },
+    {
+      "id": 3,
+      "label": "YANEZ NEIRA MIGUEL ANGEL"
+    }
+  ],
+  "radio_operador": [
+    {
+      "id": 1,
+      "label": "GALVEZ SEPULVEDA CLAUDIO MAURICIO"
+    },
+    {
+      "id": 2,
+      "label": "LUQUE MOLINA JORGE ERNESTO"
+    },
+    {
+      "id": 3,
+      "label": "TOLEDO MOREL ROSALBA NORMA"
+    }
+  ],
+  "medio_comunicacion": [
+    {
+      "id": 1,
+      "label": "Llamada"
+    },
+    {
+      "id": 2,
+      "label": "Radio"
+    },
+    {
+      "id": 3,
+      "label": "Whatsapp"
+    }
+  ],
+  "grupo_delictual": [
+    {
+      "id": 1,
+      "label": "ABUSOS SEXUALES Y OTROS DELITOS SEXUALES"
+    },
+    {
+      "id": 2,
+      "label": "DMCS CONTRA PERSONAS"
+    },
+    {
+      "id": 3,
+      "label": "DMCS CONTRA PROPIEDAD"
+    }
+  ],
+  "sector": [
+    {
+      "id": 1,
+      "label": "S1"
+    },
+    {
+      "id": 2,
+      "label": "S2"
+    },
+    {
+      "id": 3,
+      "label": "S3"
+    }
+  ],
+  "subsector": [
+    {
+      "id": 1,
+      "label": "SS1"
+    },
+    {
+      "id": 2,
+      "label": "SS2"
+    },
+    {
+      "id": 3,
+      "label": "SS3"
+    }
+  ],
+  "uv": [
+    {
+      "id": 1,
+      "label": "UV1"
+    },
+    {
+      "id": 2,
+      "label": "UV2"
+    },
+    {
+      "id": 3,
+      "label": "UV3"
+    }
+  ]
 }

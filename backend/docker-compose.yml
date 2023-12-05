@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  app_tite:
+    build: benjaminzaratech/uv-tite-proyecto.informatica.uv.cl:latest
+    expose:
+      - "80"
+    environment:
+      VIRTUAL_HOST: localhost
+      PRODUCTION_DB_USERNAME: root
+      PRODUCTION_DB_PASSWORD: c79j85b5_
+      PRODUCTION_DB_HOST: db_tite
+    depends_on:
+      - db_tite
+    networks:
+      - proxy
+      - redprivada
+
+  db_tite:
+    image: mysql:8.0.34
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=c79j85b5_
+    ports:
+      - "3307:3306"
+    volumes:
+      - volumentite:/var/lib/mysql
+    networks:
+      - redprivada
+
+volumes:
+  volumentite:
+
+networks:
+  proxy:
+    external:
+      name: network-proxy
+  redprivada:

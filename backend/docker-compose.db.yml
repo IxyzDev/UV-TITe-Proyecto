@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db_tite:
+    image: mysql:8.0.34
+    environment:
+      - MYSQL_DATABASE=test
+      - MYSQL_ROOT_PASSWORD=c79j85b5_
+    ports:
+      - "3307:3306"
+    volumes:
+      - volumentite:/var/lib/mysql
+    networks:
+      - redprivada
+
+volumes:
+  volumentite:
+
+networks:
+  proxy:
+    external:
+      name: network-proxy
+  redprivada:
