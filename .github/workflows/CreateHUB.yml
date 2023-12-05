@@ -1,0 +1,33 @@
+#flujo de trabajo para crear docker del backend
+name: Docker Build and Push (backend)
+
+#Declaracion del disparador
+on:
+  push:
+    branches:
+      - main
+
+#Declaracion de trabajos
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      #Eleccion del codigo
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      #Preparacion del entorno    
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      #Construccion de la imagen contenedor con nombre
+      - name: Build Docker image
+        run: docker build -t benjaminzaratech/uv-tite-proyecto.informatica.uv.cl:latest ./backend/app
+
+      #Login a docker
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      
+      #Push del docker
+      - name: Push the Docker image
+        run: docker push benjaminzaratech/uv-tite-proyecto.informatica.uv.cl:latest
