@@ -13,10 +13,11 @@ const password = process.env.PRODUCTION_DB_PASSWORD || "defaultPassword";
 const host = process.env.PRODUCTION_DB_HOST || "localhost";
 
 const sequelize = new Sequelize({
+  database: "test",
   username,
   password,
   host,
-  dialect: "mysql"
+  dialect: "mysql",
 });
 
 //console.log(sequelize);
@@ -24,9 +25,7 @@ const sequelize = new Sequelize({
 //console.log("Todos los archivos en el directorio:", fs.readdirSync(__dirname));
 
 const modelFiles = fs.readdirSync(__dirname).filter((file: string) => {
-  return (
-    file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".ts"
-  );
+  return file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".ts";
 });
 //console.log("Archivos de modelo filtrados:", modelFiles);
 
@@ -42,7 +41,6 @@ modelFiles.forEach((file: any) => {
     db[model.name] = model;
   }
 });
-
 
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
