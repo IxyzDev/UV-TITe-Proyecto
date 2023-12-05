@@ -38,7 +38,7 @@ const DataView = ({ data, ubi }) => {
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.fecha_envio}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_contribuyente}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.telefono}</td>
-					<td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_operador}</td>
+					<td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_usuario}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_patrullero}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.num_movil}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.motivo_detalle}</td>

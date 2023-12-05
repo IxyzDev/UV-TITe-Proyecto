@@ -30,24 +30,6 @@ const EntryForm = ({ formulario, setFormulario, handleSubmit }) => {
     const router = useRouter();
 
 	const [errors, setErrors] = useState({});
-	/* const validateForm = (formValues) => {
-		const newErrors = {};
-		for (const field in formValues) {
-			if (Object.prototype.hasOwnProperty.call(formValues, field)) {
-				console.log("ALGO ",formValues[field].trim());
-				const value = formValues[field].trim();
-				const trimmedValue = typeof value === 'string' ? value.trim() : value;
-
-				if (!trimmedValue) {
-				  newErrors[field] = 'Este campo es obligatorio.';
-				}
-				/* if (!value) {
-					newErrors[field] = 'Este campo es obligatorio.';
-				  }
-			}
-		}
-		return newErrors;
-	}; */
 
 	const validateForm = (formValues, contribuyente) => {
 		const newErrors = {};

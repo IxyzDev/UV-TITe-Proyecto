@@ -34,7 +34,7 @@ const mockData = [
 
 const Home = () => {
   const [data, setData] = useState([]);
-  const [ubicaciones, setUbi] = useState([]);
+  const [p, setP] = useState([]);
 
   useEffect(() => {
     // Realiza la solicitud a la API
@@ -44,30 +44,19 @@ const Home = () => {
       .catch((error) => console.error("Error al obtener datos:", error));
   }, []);
 
+  const ubicacionIDs = data.map(entry => entry.ubicacion_ID);
+  const ubicacionID = ubicacionIDs[0];
+
   useEffect(() => {
     // Realiza la solicitud a la API
-    fetch("http://localhost:80/ubicacion/get")
+    fetch(`http://localhost:80/ubicacion/get/${ubicacionID}`)
       .then((response) => response.json())
-      .then((ubicacion) => setUbi(ubicacion))
+      .then((ubicacion) => setP(ubicacion))
       .catch((error) => console.error("Error al obtener datos:", error));
-  }, []);
+  }, [ubicacionID]);
 
-  const ubicacionIDs = data.map(entry => entry.ubicacion_ID);
-  const ubifiltrada = ubicaciones.filter(entry => entry.ubicacion_ID === ubicacionIDs[0]);
+  return <DataView data={data} ubi={p.direccion}/>;
 
-
-  const ubic = ubifiltrada.map(entry => entry.direccion);
-  //const filteredData = data.filter(entry => entry.ubicacion_ID);
-  console.log("algo", ubic[0]);
-
-  console.log("datos obtenidos del back: ", data);
-  console.log("UBI: ", ubicaciones);
-
-  return <DataView data={data} ubi={ubic[0]}/>;
-
-  // return (
-  // 	<DataView data={mockData} />
-  // );
 };
 
 export default Home;
