@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app_tite:
-    build: . # cambiar por imagen de docker hub
+    build: benjaminzaratech/uv-tite-proyecto.informatica.uv.cl:latest
     expose:
       - "80"
     environment:
