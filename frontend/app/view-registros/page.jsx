@@ -34,40 +34,15 @@ const mockData = [
 
 const Home = () => {
 	const [data, setData] = useState([]);
-	const [p, setP] = useState([]);
-
-
-	const [prueba, setPrueba] = useState([]);
 	useEffect(() => {
 		// Realiza la solicitud a la API
 		fetch("http://localhost:80/reporte/getcompleto")
 		.then((response) => response.json())
-		.then((complete) => setPrueba(complete))
-		.catch((error) => console.error("Error al obtener datos:", error));
-	}, []);
-	console.log("PRUEBA", prueba);
-
-
-	useEffect(() => {
-		// Realiza la solicitud a la API
-		fetch("http://localhost:80/reporte/get")
-		.then((response) => response.json())
-		.then((data) => setData(data))
+		.then((complete) => setData(complete))
 		.catch((error) => console.error("Error al obtener datos:", error));
 	}, []);
 
-	const ubicacionIDs = data.map(entry => entry.ubicacion_ID);
-	const ubicacionID = ubicacionIDs[0];
-
-	useEffect(() => {
-		// Realiza la solicitud a la API
-		fetch(`http://localhost:80/ubicacion/get/${ubicacionID}`)
-		.then((response) => response.json())
-		.then((ubicacion) => setP(ubicacion))
-		.catch((error) => console.error("Error al obtener datos:", error));
-	}, [ubicacionID]);
-
-	return <DataView data={data} ubi={p.direccion}/>;
+	return <DataView data={data}/>;
 };
 
 export default Home;

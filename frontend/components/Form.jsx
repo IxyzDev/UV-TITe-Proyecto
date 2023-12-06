@@ -2,37 +2,26 @@
 import { useState} from 'react';
 import { useRouter } from 'next/navigation';
 
-const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const LoginPage = ({setRespuesta}) => {
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();   
+
+  const [usuario, setUsuario] = useState({
+		nombre_usuario: "",
+		contrasena: ""
+	});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setErrorMessage('');    
-    // Intenta enviar las credenciales al backend para la validación
-    try {
-      const response = await fetch('/api/login', { // Reemplaza esto con la ruta correcta de tu API
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
 
-    
-      if (response.ok) {
-        // Si la autenticación es correcta, redirige al usuario
-        router.push('/menu'); 
-      } else {
-        // Si las credenciales son incorrectas, muestra un mensaje de error
-        setErrorMessage('Usuario o contraseña incorrecta.');
-      }
-    } catch (error) {
-      // En caso de un error en la red o del servidor, muestra un mensaje de error genérico
-      setErrorMessage('Ha ocurrido un error al intentar conectar con el servidor.');
-    }
+    fetch("http://localhost:80/usuario/login", {
+			method: 'POST',
+			headers: { "content-type": "application/json" },
+			body: JSON.stringify(usuario),
+		})
+			.then(response => response.json())
+			.then(data => { setRespuesta(data); console.log('Respuesta del servidor:', data); })
+			.catch(error => { console.error('Error al realizar la solicitud:', error); });
   };
   
 
@@ -47,8 +36,8 @@ const LoginPage = () => {
             <input
               id="username"
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              // setUsuario(usuario => ({ ...usuario, "nombre_usuario": e.target.innerText }))
+              onChange={(e) => setUsuario(usuario => ({ ...usuario, "nombre_usuario": e.target.value }))}
               className="w-full p-2 rounded-md"
             />
           </div>
@@ -58,8 +47,7 @@ const LoginPage = () => {
             <input
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) =>  setUsuario(usuario => ({ ...usuario, "contrasena": e.target.value }))}
               className="w-full p-2 rounded-md"
             />
           </div>

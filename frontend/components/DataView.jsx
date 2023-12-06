@@ -2,7 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
-const DataView = ({ data, ubi }) => {
+const DataView = ({ data }) => {
   const pathName = usePathname();
   const router = useRouter();
   return (
@@ -34,7 +34,7 @@ const DataView = ({ data, ubi }) => {
 			<tbody>
 				{data.map((entry, index) => (
 					<tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-						<td className="px-6 py-4 whitespace-no-wrap">{ubi}</td>
+						<td className="px-6 py-4 whitespace-no-wrap">{entry.direccion}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.fecha_envio}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.nombre_contribuyente}</td>
 						<td className="px-6 py-4 whitespace-no-wrap">{entry.telefono}</td>
